@@ -57,6 +57,22 @@ const PREFECTURES = [
   "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
 ];
 
+// ISO 3166-2:JP codes to prefecture names
+const ISO_TO_PREFECTURE: Record<string, string> = {
+  "JP-01": "北海道", "JP-02": "青森県", "JP-03": "岩手県", "JP-04": "宮城県",
+  "JP-05": "秋田県", "JP-06": "山形県", "JP-07": "福島県", "JP-08": "茨城県",
+  "JP-09": "栃木県", "JP-10": "群馬県", "JP-11": "埼玉県", "JP-12": "千葉県",
+  "JP-13": "東京都", "JP-14": "神奈川県", "JP-15": "新潟県", "JP-16": "富山県",
+  "JP-17": "石川県", "JP-18": "福井県", "JP-19": "山梨県", "JP-20": "長野県",
+  "JP-21": "岐阜県", "JP-22": "静岡県", "JP-23": "愛知県", "JP-24": "三重県",
+  "JP-25": "滋賀県", "JP-26": "京都府", "JP-27": "大阪府", "JP-28": "兵庫県",
+  "JP-29": "奈良県", "JP-30": "和歌山県", "JP-31": "鳥取県", "JP-32": "島根県",
+  "JP-33": "岡山県", "JP-34": "広島県", "JP-35": "山口県", "JP-36": "徳島県",
+  "JP-37": "香川県", "JP-38": "愛媛県", "JP-39": "高知県", "JP-40": "福岡県",
+  "JP-41": "佐賀県", "JP-42": "長崎県", "JP-43": "熊本県", "JP-44": "大分県",
+  "JP-45": "宮崎県", "JP-46": "鹿児島県", "JP-47": "沖縄県"
+};
+
 // Reverse geocode coordinates to prefecture using OpenStreetMap Nominatim
 async function getPrefectureFromLocation(lat: number, lon: number): Promise<string | null> {
   try {
@@ -79,25 +95,32 @@ async function getPrefectureFromLocation(lat: number, lon: number): Promise<stri
     const data = await response.json();
     console.log("[Location] Nominatim response:", data?.address);
     
-    // Try multiple possible fields for prefecture
+    // Method 1: Use ISO 3166-2 code (most reliable)
+    const isoCode = data?.address?.["ISO3166-2-lvl4"];
+    if (isoCode && ISO_TO_PREFECTURE[isoCode]) {
+      console.log(`[Location] Found ISO code: ${isoCode} -> ${ISO_TO_PREFECTURE[isoCode]}`);
+      return ISO_TO_PREFECTURE[isoCode];
+    }
+    
+    // Method 2: Try multiple possible fields for prefecture name
     const state = data?.address?.province || 
                   data?.address?.state || 
-                  data?.address?.region ||
-                  data?.address?.city ||
-                  data?.address?.county;
+                  data?.address?.region;
     
     if (state) {
-      console.log(`[Location] Found state: ${state}`);
+      console.log(`[Location] Found state field: ${state}`);
       // Match to our prefecture list (handle both with and without suffix)
       const matched = PREFECTURES.find(p => {
         const baseName = p.replace(/[都道府県]$/, "");
         return state.includes(baseName) || state === p;
       });
-      console.log(`[Location] Matched prefecture: ${matched}`);
-      return matched || null;
+      if (matched) {
+        console.log(`[Location] Matched prefecture: ${matched}`);
+        return matched;
+      }
     }
     
-    console.log("[Location] No state found in response");
+    console.log("[Location] Could not determine prefecture");
     return null;
   } catch (err) {
     console.error("[Location] Error:", err);
