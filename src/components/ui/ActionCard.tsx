@@ -9,6 +9,7 @@ interface ActionCardProps {
   icon: LucideIcon;
   onClick: () => void;
   color?: "primary" | "secondary" | "accent";
+  badge?: string;
 }
 
 export function ActionCard({
@@ -17,6 +18,7 @@ export function ActionCard({
   icon: Icon,
   onClick,
   color = "primary",
+  badge,
 }: ActionCardProps) {
   const colorClasses = {
     primary: "bg-primary-light text-primary-dark",
@@ -39,7 +41,14 @@ export function ActionCard({
         <Icon className="w-6 h-6" />
       </div>
       <div className="flex-1">
-        <h3 className="font-semibold text-text-primary">{title}</h3>
+        <div className="flex items-center gap-2">
+          <h3 className="font-semibold text-text-primary">{title}</h3>
+          {badge && (
+            <span className="px-2 py-0.5 bg-secondary text-white text-xs font-medium rounded-full">
+              {badge}
+            </span>
+          )}
+        </div>
         <p className="text-sm text-text-secondary">{subtitle}</p>
       </div>
       <ChevronRight className="w-5 h-5 text-text-muted" />

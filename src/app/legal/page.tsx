@@ -48,7 +48,7 @@ export default function LegalPage() {
                       運営責任者
                     </th>
                     <td className="p-4 text-text-secondary">
-                      加藤 拓也
+                      加藤 琢也
                     </td>
                   </tr>
                   <tr className="border-b border-primary-light">

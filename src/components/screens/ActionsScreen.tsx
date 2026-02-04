@@ -11,7 +11,9 @@ import {
   QrCode,
   FileText,
   ExternalLink,
+  Smartphone,
 } from "lucide-react";
+import { useState } from "react";
 
 interface ActionsScreenProps {
   result: Result;
@@ -28,6 +30,8 @@ export function ActionsScreen({
   onQR,
   onPDF,
 }: ActionsScreenProps) {
+  const [showAppModal, setShowAppModal] = useState(false);
+
   const openMap = () => {
     const query = result.route === "pharmacy" ? "薬局 緊急避妊" : "産婦人科";
     window.open(
@@ -88,10 +92,11 @@ export function ActionsScreen({
           >
             <ActionCard
               title="QRコードを表示"
-              subtitle="問診内容を共有できます"
+              subtitle="アプリ限定機能"
               icon={QrCode}
-              onClick={onQR}
+              onClick={() => setShowAppModal(true)}
               color="accent"
+              badge="App"
             />
           </motion.div>
 
@@ -160,6 +165,44 @@ export function ActionsScreen({
           判定結果へ戻る
         </Button>
       </motion.div>
+
+      {/* App Only Modal */}
+      {showAppModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          onClick={() => setShowAppModal(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto bg-primary-light rounded-2xl flex items-center justify-center mb-4">
+                <Smartphone className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold text-text-primary mb-2">
+                アプリ限定機能
+              </h3>
+              <p className="text-sm text-text-secondary mb-6 leading-relaxed">
+                QRコード生成機能はiOSアプリでご利用いただけます。
+                薬局での提示にはPDF出力をご利用ください。
+              </p>
+              <div className="space-y-3">
+                <Button onClick={() => { setShowAppModal(false); onPDF(); }}>
+                  PDFを表示する
+                </Button>
+                <Button variant="secondary" onClick={() => setShowAppModal(false)}>
+                  閉じる
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }
