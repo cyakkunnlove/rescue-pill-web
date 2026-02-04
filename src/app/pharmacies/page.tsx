@@ -358,36 +358,34 @@ export default function PharmaciesPage() {
           transition={{ delay: 0.1 }}
           className="bg-white rounded-2xl p-4 mb-6 shadow-card"
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between gap-3">
             {/* Status text */}
-            <div className="flex-1 overflow-hidden">
-              {locationLoading ? (
-                <p className="text-sm text-primary flex items-center gap-2">
-                  <LocateFixed className="w-4 h-4 flex-shrink-0 animate-pulse" />
-                  <span className="truncate">位置取得中...</span>
-                </p>
-              ) : locationError ? (
-                <p className="text-sm text-text-secondary flex items-center gap-2">
-                  <LocateFixed className="w-4 h-4 flex-shrink-0" />
-                  <span className="truncate">位置を取得できません</span>
-                </p>
-              ) : locationDetected ? (
-                <p className="text-sm text-green-600 flex items-center gap-2">
-                  <LocateFixed className="w-4 h-4 flex-shrink-0" />
-                  <span className="truncate">{userCity || selectedPrefecture}の薬局を表示中</span>
-                </p>
-              ) : (
-                <p className="text-sm text-text-secondary flex items-center gap-2">
-                  <LocateFixed className="w-4 h-4 flex-shrink-0" />
-                  <span className="truncate">位置情報で近くを検索</span>
-                </p>
-              )}
-            </div>
-            {/* Button - compact */}
+            {locationLoading ? (
+              <p className="text-sm text-primary flex items-center gap-2">
+                <LocateFixed className="w-4 h-4 animate-pulse" />
+                <span>位置取得中...</span>
+              </p>
+            ) : locationError ? (
+              <p className="text-sm text-text-secondary flex items-center gap-2">
+                <LocateFixed className="w-4 h-4" />
+                <span>位置を取得できません</span>
+              </p>
+            ) : locationDetected ? (
+              <p className="text-sm text-green-600 flex items-center gap-2">
+                <LocateFixed className="w-4 h-4" />
+                <span>{userCity || selectedPrefecture}の薬局を表示中</span>
+              </p>
+            ) : (
+              <p className="text-sm text-text-secondary flex items-center gap-2">
+                <LocateFixed className="w-4 h-4" />
+                <span>位置情報で近くを検索</span>
+              </p>
+            )}
+            {/* Button */}
             <button
               onClick={detectLocation}
               disabled={locationLoading}
-              className="flex-shrink-0 px-4 py-2 text-sm bg-primary text-white rounded-xl
+              className="px-4 py-2 text-sm bg-primary text-white rounded-xl whitespace-nowrap
                        hover:bg-primary-dark transition-colors disabled:opacity-50
                        flex items-center gap-1"
             >
