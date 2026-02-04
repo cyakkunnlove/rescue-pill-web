@@ -22,21 +22,25 @@ import { AdBanner } from "@/components/AdBanner";
 interface PharmacyMin {
   n: string;  // name
   p: string;  // prefecture
-  c: string;  // city
   a: string;  // address
   t: string;  // phone (tel)
   h: string;  // hours
   e: number;  // emergency/after hours
+  f: number;  // female pharmacist available
+  m: number;  // male pharmacist available
+  w: string;  // website
 }
 
 interface Pharmacy {
   name: string;
   prefecture: string;
-  city: string;
   address: string;
   phone: string;
   hours: string;
   afterHours: boolean;
+  femalePharmacist: boolean;
+  malePharmacist: boolean;
+  website: string;
 }
 
 const PREFECTURES = [
@@ -56,20 +60,23 @@ export default function PharmaciesPage() {
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
   const [showAfterHoursOnly, setShowAfterHoursOnly] = useState(false);
+  const [showFemalePharmacistOnly, setShowFemalePharmacistOnly] = useState(false);
 
   useEffect(() => {
-    fetch("/data/pharmacies.min.json")
+    fetch("/data/otc_pharmacies.json")
       .then((res) => res.json())
       .then((data: PharmacyMin[]) => {
         // Transform minimal format to full format
         const transformed = data.map((p) => ({
           name: p.n,
           prefecture: p.p,
-          city: p.c,
           address: p.a,
           phone: p.t,
           hours: p.h,
           afterHours: p.e === 1,
+          femalePharmacist: p.f === 1,
+          malePharmacist: p.m === 1,
+          website: p.w,
         }));
         setPharmacies(transformed);
         setLoading(false);
@@ -92,8 +99,7 @@ export default function PharmaciesPage() {
       result = result.filter(
         (p) =>
           p.name.toLowerCase().includes(query) ||
-          p.address.toLowerCase().includes(query) ||
-          p.city.toLowerCase().includes(query)
+          p.address.toLowerCase().includes(query)
       );
     }
 
@@ -101,8 +107,12 @@ export default function PharmaciesPage() {
       result = result.filter((p) => p.afterHours);
     }
 
+    if (showFemalePharmacistOnly) {
+      result = result.filter((p) => p.femalePharmacist);
+    }
+
     return result.slice(0, 100); // Limit to 100 results for performance
-  }, [pharmacies, selectedPrefecture, searchQuery, showAfterHoursOnly]);
+  }, [pharmacies, selectedPrefecture, searchQuery, showAfterHoursOnly, showFemalePharmacistOnly]);
 
   const openInMaps = (pharmacy: Pharmacy) => {
     const query = encodeURIComponent(pharmacy.address);
@@ -139,8 +149,11 @@ export default function PharmaciesPage() {
         >
           <p className="text-sm text-text-secondary">
             <strong className="text-primary">厚生労働省公式リスト</strong>に基づく、
-            緊急避妊薬の調剤が可能な薬局一覧です。
+            <strong>処方箋なしで緊急避妊薬を購入できる</strong>薬局一覧です。
             （{pharmacies.length.toLocaleString()}件）
+          </p>
+          <p className="text-xs text-text-muted mt-2">
+            ※ 試験的販売参加薬局のみ掲載
           </p>
         </motion.div>
 
@@ -181,19 +194,33 @@ export default function PharmaciesPage() {
             />
           </div>
 
-          {/* After Hours Filter */}
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={showAfterHoursOnly}
-              onChange={(e) => setShowAfterHoursOnly(e.target.checked)}
-              className="w-5 h-5 rounded border-2 border-primary-light text-primary 
-                       focus:ring-primary focus:ring-offset-0"
-            />
-            <span className="text-sm text-text-secondary">
-              時間外対応ありのみ表示
-            </span>
-          </label>
+          {/* Filters */}
+          <div className="flex flex-wrap gap-4">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={showAfterHoursOnly}
+                onChange={(e) => setShowAfterHoursOnly(e.target.checked)}
+                className="w-5 h-5 rounded border-2 border-primary-light text-primary 
+                         focus:ring-primary focus:ring-offset-0"
+              />
+              <span className="text-sm text-text-secondary">
+                時間外対応あり
+              </span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={showFemalePharmacistOnly}
+                onChange={(e) => setShowFemalePharmacistOnly(e.target.checked)}
+                className="w-5 h-5 rounded border-2 border-primary-light text-primary 
+                         focus:ring-primary focus:ring-offset-0"
+              />
+              <span className="text-sm text-text-secondary">
+                女性薬剤師対応
+              </span>
+            </label>
+          </div>
         </div>
 
         {/* Results */}
@@ -224,12 +251,19 @@ export default function PharmaciesPage() {
                 >
                   <Card>
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-bold text-text-primary">{pharmacy.name}</h3>
-                      {pharmacy.afterHours && (
-                        <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
-                          時間外対応
-                        </span>
-                      )}
+                      <h3 className="font-bold text-text-primary flex-1 pr-2">{pharmacy.name}</h3>
+                      <div className="flex flex-wrap gap-1 justify-end">
+                        {pharmacy.femalePharmacist && (
+                          <span className="px-2 py-0.5 bg-pink-100 text-pink-700 text-xs rounded-full whitespace-nowrap">
+                            女性薬剤師
+                          </span>
+                        )}
+                        {pharmacy.afterHours && (
+                          <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full whitespace-nowrap">
+                            時間外
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     <div className="space-y-2 text-sm text-text-secondary">
@@ -297,12 +331,12 @@ export default function PharmaciesPage() {
         {/* Source Info */}
         <div className="mt-8 text-center">
           <a
-            href="https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00004.html"
+            href="https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00005.html"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-xs text-text-muted hover:text-primary transition-colors"
           >
-            データ出典: 厚生労働省
+            データ出典: 厚生労働省（緊急避妊薬の試験的販売）
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>
