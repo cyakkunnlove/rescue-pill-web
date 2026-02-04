@@ -428,22 +428,22 @@ export default function PharmaciesPage() {
             {locationLoading ? (
               <p className="text-sm text-primary flex items-center gap-2">
                 <LocateFixed className="w-4 h-4 animate-pulse" />
-                <span>位置取得中...</span>
+                <span>{t("pharmacies.detectingLocation")}</span>
               </p>
             ) : locationError ? (
               <p className="text-sm text-text-secondary flex items-center gap-2">
                 <LocateFixed className="w-4 h-4" />
-                <span>位置を取得できません</span>
+                <span>{t("pharmacies.locationFailed")}</span>
               </p>
             ) : locationDetected ? (
               <p className="text-sm text-green-600 flex items-center gap-2">
                 <LocateFixed className="w-4 h-4" />
-                <span>{userCity || selectedPrefecture}の薬局を表示中</span>
+                <span>{userCity || selectedPrefecture}{t("pharmacies.locationDetected")}</span>
               </p>
             ) : (
               <p className="text-sm text-text-secondary flex items-center gap-2">
                 <LocateFixed className="w-4 h-4" />
-                <span>位置情報で近くを検索</span>
+                <span>{t("pharmacies.autoDetect")}</span>
               </p>
             )}
             {/* Button */}
@@ -459,7 +459,7 @@ export default function PharmaciesPage() {
               ) : (
                 <>
                   <Navigation className="w-4 h-4" />
-                  <span>現在地</span>
+                  <span>{t("pharmacies.currentLocation")}</span>
                 </>
               )}
             </button>
@@ -514,7 +514,7 @@ export default function PharmaciesPage() {
                          focus:ring-primary focus:ring-offset-0"
               />
               <span className="text-sm text-text-secondary">
-                営業中のみ
+                {t("pharmacies.openNowOnly")}
               </span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
@@ -546,8 +546,8 @@ export default function PharmaciesPage() {
           <>
             <p className="text-sm text-text-muted mb-4">
               {filteredPharmacies.length === 100
-                ? `100件以上の結果${userCoords ? "（近い順に100件表示）" : "（上位100件を表示）"}`
-                : `${filteredPharmacies.length}件の結果${userCoords ? "（近い順）" : ""}`}
+                ? `${t("pharmacies.moreThan100")}${userCoords ? `（${t("pharmacies.showing100ByDistance")}）` : `（${t("pharmacies.showing100")}）`}`
+                : `${filteredPharmacies.length}${t("pharmacies.resultsCount")}${userCoords ? `（${t("pharmacies.sortedByDistance")}）` : ""}`}
             </p>
 
             <div className="space-y-3">
