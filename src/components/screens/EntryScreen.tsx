@@ -14,7 +14,7 @@ interface EntryScreenProps {
 const benefits = [
   { icon: Shield, text: "匿名で安心してご利用いただけます" },
   { icon: Clock, text: "数分で次の行動がわかります" },
-  { icon: FileText, text: "QRコード・PDF出力に対応" },
+  { icon: FileText, text: "PDF出力に対応" },
   { icon: Star, text: "薬局・医療機関検索機能付き" },
 ];
 

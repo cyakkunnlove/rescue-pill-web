@@ -3,7 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 
 // AdSense Publisher ID
-const ADSENSE_PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "";
+const ADSENSE_PUBLISHER_ID = "ca-pub-6450475655166600";
 
 export const metadata: Metadata = {
   title: "Rescue Pill - 緊急避妊支援アプリ",
@@ -50,14 +50,12 @@ export default function RootLayout({
     <html lang="ja">
       <head>
         {/* Google AdSense */}
-        {ADSENSE_PUBLISHER_ID && (
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
-            crossOrigin="anonymous"
-            strategy="afterInteractive"
-          />
-        )}
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         
         {/* Google Analytics (optional) */}
         {process.env.NEXT_PUBLIC_GA_ID && (

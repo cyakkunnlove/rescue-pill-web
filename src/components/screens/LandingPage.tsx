@@ -44,9 +44,9 @@ const features = [
     description: "厚労省公式リストに基づいた、最寄りの対応薬局を検索できます。",
   },
   {
-    icon: QrCode,
-    title: "QR・PDF対応",
-    description: "薬局での提示に便利なQRコードやPDFを生成。スムーズな対応をサポート。",
+    icon: FileText,
+    title: "PDF出力対応",
+    description: "薬局での提示に便利なPDFを生成。スムーズな対応をサポート。",
   },
 ];
 
@@ -64,7 +64,7 @@ const steps = [
   {
     number: "03",
     title: "薬局・医療機関へ",
-    description: "QRコードを提示して、スムーズに相談・入手できます。",
+    description: "PDFを提示して、スムーズに相談・入手できます。",
   },
 ];
 

@@ -16,7 +16,7 @@ const pharmacyItems = [
   "保険証（あれば）",
   "現金またはカード（約8,000〜15,000円）",
   "メモや質問リスト（任意）",
-  "このアプリの結果画面/QR/PDF",
+  "このアプリの結果画面/PDF",
 ];
 
 const medicalItems = [
@@ -25,7 +25,7 @@ const medicalItems = [
   "紹介状（あれば）",
   "お薬手帳（あれば）",
   "メモや質問リスト（任意）",
-  "このアプリの結果画面/QR/PDF",
+  "このアプリの結果画面/PDF",
 ];
 
 export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
