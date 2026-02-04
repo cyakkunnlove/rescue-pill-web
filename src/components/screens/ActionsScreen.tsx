@@ -1,0 +1,165 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/Button";
+import { ActionCard } from "@/components/ui/ActionCard";
+import { AdBanner } from "@/components/AdBanner";
+import { Result } from "@/types";
+import {
+  MapPin,
+  ClipboardCheck,
+  QrCode,
+  FileText,
+  ExternalLink,
+} from "lucide-react";
+
+interface ActionsScreenProps {
+  result: Result;
+  onBack: () => void;
+  onChecklist: () => void;
+  onQR: () => void;
+  onPDF: () => void;
+}
+
+export function ActionsScreen({
+  result,
+  onBack,
+  onChecklist,
+  onQR,
+  onPDF,
+}: ActionsScreenProps) {
+  const openMap = () => {
+    const query = result.route === "pharmacy" ? "薬局 緊急避妊" : "産婦人科";
+    window.open(
+      `https://www.google.com/maps/search/${encodeURIComponent(query)}`,
+      "_blank"
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col px-4 py-6">
+      <div className="flex-1">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-8"
+        >
+          <h1 className="text-2xl font-bold text-text-primary">次の行動</h1>
+          <p className="text-sm text-text-secondary mt-1">
+            必要な準備を確認しましょう
+          </p>
+        </motion.div>
+
+        {/* Actions */}
+        <div className="space-y-3">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <ActionCard
+              title="近くの施設を探す"
+              subtitle="地図で薬局・医療機関を検索"
+              icon={MapPin}
+              onClick={openMap}
+              color="primary"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <ActionCard
+              title="持ち物を確認"
+              subtitle="チェックリストを表示"
+              icon={ClipboardCheck}
+              onClick={onChecklist}
+              color="secondary"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <ActionCard
+              title="QRコードを表示"
+              subtitle="問診内容を共有できます"
+              icon={QrCode}
+              onClick={onQR}
+              color="accent"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <ActionCard
+              title="PDFを表示"
+              subtitle="問診内容を印刷・保存"
+              icon={FileText}
+              onClick={onPDF}
+              color="primary"
+            />
+          </motion.div>
+        </div>
+
+        {/* Helpful Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-8"
+        >
+          <h3 className="text-sm font-semibold text-text-secondary mb-3">
+            参考リンク
+          </h3>
+          <div className="bg-white rounded-2xl p-4 shadow-card space-y-3">
+            <a
+              href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000186912.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between text-sm text-text-primary hover:text-primary transition-colors"
+            >
+              <span>厚生労働省 緊急避妊について</span>
+              <ExternalLink className="w-4 h-4 text-text-muted" />
+            </a>
+            <div className="border-t border-primary-light" />
+            <a
+              href="https://www.jaog.or.jp/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between text-sm text-text-primary hover:text-primary transition-colors"
+            >
+              <span>日本産婦人科医会</span>
+              <ExternalLink className="w-4 h-4 text-text-muted" />
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Ad */}
+        <div className="mt-6">
+          <AdBanner />
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+        className="mt-6"
+      >
+        <Button variant="secondary" onClick={onBack}>
+          判定結果へ戻る
+        </Button>
+      </motion.div>
+    </div>
+  );
+}
