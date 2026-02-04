@@ -51,7 +51,7 @@ export function QRScreen({ result, meta, answers, onBack }: QRScreenProps) {
           (c) => c !== "わからない" && c !== "特にない"
         ),
         pregnancyPositive: answers.pregnancyTest === "yes",
-        interactionRisk: answers.interactionRisk === true,
+        interactionRisk: answers.interactionRisk !== null && answers.interactionRisk !== "特に飲んでいない",
       },
       hoursSince: result.elapsedHours,
     }),

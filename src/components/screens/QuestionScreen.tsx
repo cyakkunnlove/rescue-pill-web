@@ -16,8 +16,10 @@ import {
   CONDITION_CATEGORIES,
   MEDICATION_CATEGORIES,
   SUPPLEMENT_TAGS,
+  SUPPLEMENT_OPTIONS,
 } from "@/types";
 import { Info, ChevronDown, ChevronUp, Search, Plus } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 interface QuestionScreenProps {
   onBack: () => void;
@@ -48,128 +50,134 @@ interface Question {
   hint?: string;
 }
 
-const questions: Question[] = [
-  {
-    id: "lastSexDate",
-    title: "最後の性行為はいつですか？",
-    type: "datetime",
-  },
-  {
-    id: "contraceptionIssues",
-    title: "避妊の状況は？（複数選択可）",
-    type: "multi",
-    options: CONTRACEPTION_OPTIONS,
-  },
-  {
-    id: "nonConsensual",
-    title: "同意が確認できない状況が含まれますか？",
-    type: "tri",
-    unknownLabel: "回答しない",
-  },
-  {
-    id: "pregnancyTest",
-    title: "妊娠検査で陽性でしたか？",
-    type: "tri",
-    unknownLabel: "未検査",
-  },
-  {
-    id: "contraindications",
-    title: "持病・禁忌に該当する項目はありますか？",
-    type: "multi",
-    options: CONTRAINDICATION_OPTIONS,
-    hint: "複数選択可",
-  },
-  {
-    id: "interactionRisk",
-    title: "相互作用の可能性がある薬・サプリを服用中ですか？",
-    type: "bool",
-    hint: "セイヨウオトギリソウ（St. John's wort）は気分サポート系サプリやハーブティー等に含まれることがあります。",
-  },
-  {
-    id: "breastfeeding",
-    title: "現在、授乳中ですか？",
-    type: "tri",
-    unknownLabel: "わからない",
-  },
-  {
-    id: "lastPeriodDate",
-    title: "最終月経開始日（任意）",
-    type: "date",
-    optional: true,
-  },
-  {
-    id: "cycleLengthDays",
-    title: "月経周期の長さ（日数・任意）",
-    type: "number",
-    optional: true,
-    unit: "日",
-    min: 20,
-    max: 40,
-    defaultValue: 28,
-  },
-  {
-    id: "birthDate",
-    title: "生年月日（任意）",
-    type: "date",
-    optional: true,
-  },
-  {
-    id: "heightCm",
-    title: "身長（任意）",
-    type: "number",
-    optional: true,
-    unit: "cm",
-    min: 120,
-    max: 200,
-    defaultValue: 155,
-  },
-  {
-    id: "weight",
-    title: "体重（任意）",
-    type: "number",
-    optional: true,
-    unit: "kg",
-    min: 30,
-    max: 150,
-    defaultValue: 50,
-  },
-  {
-    id: "locationText",
-    title: "現在地（任意）",
-    type: "text",
-    optional: true,
-    hint: "入力しなくてもOK。薬局検索で使用します。",
-  },
-  {
-    id: "conditionTags",
-    title: "持病・既往症（任意）",
-    type: "tags",
-    optional: true,
-  },
-  {
-    id: "medicationTags",
-    title: "服用中の薬（任意）",
-    type: "tags",
-    optional: true,
-  },
-  {
-    id: "consultPreference",
-    title: "相談先の希望（任意）",
-    type: "single",
-    options: CONSULT_OPTIONS,
-    optional: true,
-  },
-];
+// Questions will be defined inside component to use translations
 
 export function QuestionScreen({
   onBack,
   onComplete,
   initialAnswers,
 }: QuestionScreenProps) {
+  const { t } = useTranslation();
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>(initialAnswers);
   const [showError, setShowError] = useState(false);
   const [direction, setDirection] = useState(1);
+
+  const questions: Question[] = [
+    {
+      id: "lastSexDate",
+      title: t("questions.q1"),
+      type: "datetime",
+      hint: t("questions.q1Hint"),
+    },
+    {
+      id: "contraceptionIssues",
+      title: t("questions.q2"),
+      type: "multi",
+      options: CONTRACEPTION_OPTIONS,
+    },
+    {
+      id: "nonConsensual",
+      title: t("questions.q3"),
+      type: "tri",
+      unknownLabel: t("questions.noAnswer"),
+      hint: t("questions.q3Hint"),
+    },
+    {
+      id: "pregnancyTest",
+      title: t("questions.q4"),
+      type: "tri",
+      unknownLabel: t("questions.q4Unknown"),
+    },
+    {
+      id: "contraindications",
+      title: t("questions.q5"),
+      type: "multi",
+      options: CONTRAINDICATION_OPTIONS,
+      hint: t("questions.q5Hint"),
+    },
+    {
+      id: "interactionRisk",
+      title: t("questions.q6"),
+      type: "single",
+      options: SUPPLEMENT_OPTIONS,
+      hint: t("questions.q6Hint"),
+    },
+    {
+      id: "breastfeeding",
+      title: t("questions.q7"),
+      type: "tri",
+      unknownLabel: t("questions.q7Unknown"),
+    },
+    {
+      id: "lastPeriodDate",
+      title: t("questions.q8"),
+      type: "date",
+      optional: true,
+    },
+    {
+      id: "cycleLengthDays",
+      title: t("questions.q9"),
+      type: "number",
+      optional: true,
+      unit: t("questions.q9Unit"),
+      min: 20,
+      max: 40,
+      defaultValue: 28,
+    },
+    {
+      id: "birthDate",
+      title: t("questions.q10"),
+      type: "date",
+      optional: true,
+    },
+    {
+      id: "heightCm",
+      title: t("questions.q11"),
+      type: "number",
+      optional: true,
+      unit: t("questions.q11Unit"),
+      min: 120,
+      max: 200,
+      defaultValue: 155,
+    },
+    {
+      id: "weight",
+      title: t("questions.q12"),
+      type: "number",
+      optional: true,
+      unit: t("questions.q12Unit"),
+      min: 30,
+      max: 150,
+      defaultValue: 50,
+    },
+    {
+      id: "locationText",
+      title: t("questions.q13"),
+      type: "text",
+      optional: true,
+      hint: t("questions.q13Hint"),
+    },
+    {
+      id: "conditionTags",
+      title: t("questions.q14"),
+      type: "tags",
+      optional: true,
+    },
+    {
+      id: "medicationTags",
+      title: t("questions.q15"),
+      type: "tags",
+      optional: true,
+    },
+    {
+      id: "consultPreference",
+      title: t("questions.q16"),
+      type: "single",
+      options: CONSULT_OPTIONS,
+      optional: true,
+    },
+  ];
 
   const currentQuestion = questions[index];
   const progress = ((index + 1) / questions.length) * 100;
@@ -247,7 +255,7 @@ export function QuestionScreen({
       <ProgressBar
         current={index + 1}
         total={questions.length}
-        title={`質問 ${index + 1}/${questions.length}`}
+        title={`${t("questions.question")} ${index + 1}/${questions.length}`}
       />
 
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -300,7 +308,7 @@ export function QuestionScreen({
             animate={{ opacity: 1 }}
             className="text-danger text-sm text-center mt-4"
           >
-            選択または入力してください
+            {t("questions.selectRequired")}
           </motion.p>
         )}
 
@@ -311,10 +319,10 @@ export function QuestionScreen({
           className="mt-6 grid grid-cols-2 gap-3"
         >
           <Button variant="secondary" onClick={goBack}>
-            戻る
+            {t("common.back")}
           </Button>
           <Button onClick={goNext}>
-            {index === questions.length - 1 ? "結果を見る" : "次へ"}
+            {index === questions.length - 1 ? t("common.viewResults") : t("common.next")}
           </Button>
         </motion.div>
       </div>
@@ -434,9 +442,9 @@ function QuestionContent({
       return (
         <SingleSelect
           options={question.options || []}
-          selected={answers.consultPreference}
+          selected={answers[question.id] as string | null}
           onChange={(value) => {
-            updateAnswer("consultPreference", value);
+            updateAnswer(question.id, value);
             setTimeout(goNext, 200);
           }}
         />

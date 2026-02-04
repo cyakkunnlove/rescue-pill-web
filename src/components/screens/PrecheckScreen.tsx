@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { ChoiceButton } from "@/components/ui/ChoiceButton";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { AlertCircle } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 interface PrecheckScreenProps {
   onBack: () => void;
@@ -13,19 +14,19 @@ interface PrecheckScreenProps {
 }
 
 export function PrecheckScreen({ onBack, onProceed }: PrecheckScreenProps) {
+  const { t } = useTranslation();
   const [selection, setSelection] = useState<boolean | null>(null);
   const [showError, setShowError] = useState(false);
 
   const handleSelect = (value: boolean) => {
     setSelection(value);
     setShowError(false);
-    // 自動で次に進む
     setTimeout(() => onProceed(value), 300);
   };
 
   return (
     <div className="min-h-screen bg-background flex flex-col px-4 py-6">
-      <ProgressBar current={1} total={1} title="事前確認" />
+      <ProgressBar current={1} total={1} title={t("precheck.title")} />
 
       <div className="flex-1 flex flex-col">
         {/* Question */}
@@ -38,22 +39,23 @@ export function PrecheckScreen({ onBack, onProceed }: PrecheckScreenProps) {
             <AlertCircle className="w-6 h-6 text-danger flex-shrink-0 mt-0.5" />
             <div>
               <h2 className="text-lg font-bold text-text-primary mb-1">
-                緊急症状の確認
+                {t("precheck.title")}
               </h2>
               <p className="text-sm text-text-secondary">
-                以下のような症状がある場合は、すぐに医療機関を受診してください。
+                {t("precheck.warning")}
               </p>
             </div>
           </div>
 
           <h3 className="text-xl font-bold text-text-primary text-center mb-2">
-            強い腹痛・大量出血などの
-            <br />
-            症状はありますか？
+            {t("precheck.subtitle")}
           </h3>
-          <p className="text-sm text-text-secondary text-center">
-            激しい痛み、大量の出血、意識がもうろうとするなど
-          </p>
+          <div className="text-sm text-text-secondary text-center space-y-1">
+            <p>• {t("precheck.symptom1")}</p>
+            <p>• {t("precheck.symptom2")}</p>
+            <p>• {t("precheck.symptom3")}</p>
+            <p>• {t("precheck.symptom4")}</p>
+          </div>
         </motion.div>
 
         {/* Choices */}
@@ -64,12 +66,12 @@ export function PrecheckScreen({ onBack, onProceed }: PrecheckScreenProps) {
           className="space-y-3 flex-1"
         >
           <ChoiceButton
-            label="はい（症状がある）"
+            label={t("precheck.hasSymptoms")}
             selected={selection === true}
             onClick={() => handleSelect(true)}
           />
           <ChoiceButton
-            label="いいえ（症状はない）"
+            label={t("precheck.noSymptoms")}
             selected={selection === false}
             onClick={() => handleSelect(false)}
           />
@@ -81,7 +83,7 @@ export function PrecheckScreen({ onBack, onProceed }: PrecheckScreenProps) {
             animate={{ opacity: 1 }}
             className="text-danger text-sm text-center mt-4"
           >
-            選択してください
+            {t("questions.selectRequired")}
           </motion.p>
         )}
 
@@ -93,7 +95,7 @@ export function PrecheckScreen({ onBack, onProceed }: PrecheckScreenProps) {
           className="mt-8 space-y-3"
         >
           <Button variant="secondary" onClick={onBack}>
-            戻る
+            {t("common.back")}
           </Button>
         </motion.div>
       </div>

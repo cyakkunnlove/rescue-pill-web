@@ -7,7 +7,7 @@ export interface Answers {
   nonConsensual: TriChoice | null;
   pregnancyTest: TriChoice | null;
   contraindications: string[];
-  interactionRisk: boolean | null;
+  interactionRisk: string | null;
   breastfeeding: TriChoice | null;
   lastPeriodDate: Date | null;
   birthDate: Date | null;
@@ -214,9 +214,15 @@ export const CONTRAINDICATION_OPTIONS = [
   "血栓症の既往",
   "重度の肝障害",
   "ポルフィリン症",
-  "その他の禁忌",
+  "その他の病気",
   "わからない",
   "特にない",
+];
+
+export const SUPPLEMENT_OPTIONS = [
+  "セイヨウオトギリソウ（セントジョーンズワート）",
+  "その他のサプリメント",
+  "特に飲んでいない",
 ];
 
 export const CONTRACEPTION_OPTIONS = [

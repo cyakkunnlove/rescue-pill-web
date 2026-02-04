@@ -37,11 +37,8 @@ export function ActionsScreen({
       // Use our pharmacy search page
       window.location.href = "/pharmacies";
     } else {
-      // For medical facilities, use Google Maps
-      window.open(
-        `https://www.google.com/maps/search/${encodeURIComponent("産婦人科")}`,
-        "_blank"
-      );
+      // Use our hospital search page
+      window.location.href = "/hospitals";
     }
   };
 
@@ -68,8 +65,8 @@ export function ActionsScreen({
             transition={{ delay: 0.1 }}
           >
             <ActionCard
-              title="近くの施設を探す"
-              subtitle="地図で薬局・医療機関を検索"
+              title={result.route === "pharmacy" ? "近くの薬局を探す" : "近くの医療機関を探す"}
+              subtitle={result.route === "pharmacy" ? "OTC対応薬局を検索" : "産婦人科・婦人科を検索"}
               icon={MapPin}
               onClick={openMap}
               color="primary"

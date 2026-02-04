@@ -5,20 +5,22 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { AdBanner } from "@/components/AdBanner";
 import { Heart, Shield, Clock, FileText, Star } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 interface EntryScreenProps {
   onProceed: () => void;
   hasConsent: boolean;
 }
 
-const benefits = [
-  { icon: Shield, text: "匿名で安心してご利用いただけます" },
-  { icon: Clock, text: "数分で次の行動がわかります" },
-  { icon: FileText, text: "PDF出力に対応" },
-  { icon: Star, text: "薬局・医療機関検索機能付き" },
-];
-
 export function EntryScreen({ onProceed, hasConsent }: EntryScreenProps) {
+  const { t } = useTranslation();
+
+  const benefits = [
+    { icon: Shield, textKey: "entry.point1" },
+    { icon: Clock, textKey: "entry.point2" },
+    { icon: FileText, textKey: "entry.point3" },
+  ];
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
@@ -39,9 +41,9 @@ export function EntryScreen({ onProceed, hasConsent }: EntryScreenProps) {
               <Heart className="w-12 h-12 text-white" fill="white" />
             </div>
           </motion.div>
-          <h1 className="text-4xl font-bold text-primary mb-2">Rescue Pill</h1>
+          <h1 className="text-4xl font-bold text-primary mb-2">{t("common.appName")}</h1>
           <p className="text-lg text-text-secondary font-medium">
-            緊急避妊支援アプリ
+            {t("common.tagline")}
           </p>
         </motion.div>
 
@@ -52,9 +54,7 @@ export function EntryScreen({ onProceed, hasConsent }: EntryScreenProps) {
           transition={{ delay: 0.2 }}
           className="text-center text-text-secondary mb-8 max-w-sm"
         >
-          質問に答えて、次の行動を確認しましょう。
-          <br />
-          あなたのプライバシーを守りながらサポートします。
+          {t("entry.description")}
         </motion.p>
 
         {/* Benefits Card */}
@@ -67,7 +67,7 @@ export function EntryScreen({ onProceed, hasConsent }: EntryScreenProps) {
           <Card>
             <h2 className="text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
               <span className="text-lg">✨</span>
-              このアプリでできること
+              {t("entry.subtitle")}
             </h2>
             <div className="space-y-3">
               {benefits.map((benefit, index) => (
@@ -82,12 +82,25 @@ export function EntryScreen({ onProceed, hasConsent }: EntryScreenProps) {
                     <benefit.icon className="w-4 h-4 text-primary" />
                   </div>
                   <span className="text-sm text-text-secondary">
-                    {benefit.text}
+                    {t(benefit.textKey)}
                   </span>
                 </motion.div>
               ))}
             </div>
           </Card>
+        </motion.div>
+
+        {/* Important Note */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="w-full max-w-sm mb-8"
+        >
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+            <p className="text-sm text-amber-800 font-medium mb-1">{t("entry.important")}</p>
+            <p className="text-xs text-amber-700">{t("entry.importantNote")}</p>
+          </div>
         </motion.div>
 
         {/* CTA Button */}
@@ -98,13 +111,13 @@ export function EntryScreen({ onProceed, hasConsent }: EntryScreenProps) {
           className="w-full max-w-sm space-y-3"
         >
           <Button onClick={onProceed}>
-            {hasConsent ? "セルフチェックを開始" : "同意して進む"}
+            {t("entry.startCheck")}
           </Button>
-          <p className="text-xs text-text-muted text-center px-4">
-            本アプリの結果は参考情報であり、
-            <br />
-            医療行為の代替ではありません。
-          </p>
+          {hasConsent && (
+            <p className="text-xs text-text-muted text-center">
+              ✓ {t("entry.consentGiven")}
+            </p>
+          )}
         </motion.div>
       </div>
 

@@ -19,80 +19,43 @@ import {
   Lock,
   Smartphone,
   HelpCircle,
+  HandHeart,
+  Mail,
+  BadgeCheck,
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useTranslation } from "@/lib/i18n";
 
 interface LandingPageProps {
   onStart: () => void;
 }
 
-const features = [
-  {
-    icon: Shield,
-    title: "完全匿名",
-    description: "個人情報の登録不要。端末内で完結するのであなたのプライバシーを守ります。",
-  },
-  {
-    icon: Clock,
-    title: "わずか数分",
-    description: "簡単な質問に答えるだけで、次に取るべき行動がすぐにわかります。",
-  },
-  {
-    icon: MapPin,
-    title: "薬局検索",
-    description: "厚労省公式リストに基づいた、最寄りの対応薬局を検索できます。",
-  },
-  {
-    icon: FileText,
-    title: "PDF出力対応",
-    description: "薬局での提示に便利なPDFを生成。スムーズな対応をサポート。",
-  },
-];
-
-const steps = [
-  {
-    number: "01",
-    title: "質問に回答",
-    description: "画面の指示に従って、簡単な質問に答えていきます。",
-  },
-  {
-    number: "02",
-    title: "判定結果を確認",
-    description: "あなたの状況に応じた次のステップが表示されます。",
-  },
-  {
-    number: "03",
-    title: "薬局・医療機関へ",
-    description: "PDFを提示して、スムーズに相談・入手できます。",
-  },
-];
-
-const faqs = [
-  {
-    q: "このアプリは誰が使えますか？",
-    a: "緊急避妊薬の入手を検討しているすべての方がご利用いただけます。年齢制限はありませんが、未成年の方は保護者や医療機関への相談もご検討ください。",
-  },
-  {
-    q: "個人情報は安全ですか？",
-    a: "はい。会員登録は不要で、入力された情報はあなたの端末内のみで処理されます。サーバーへのデータ送信は行いません。",
-  },
-  {
-    q: "緊急避妊薬はどこで入手できますか？",
-    a: "2024年より、一部の薬局で処方箋なしで購入可能になりました。本アプリで対応薬局を検索できます。状況によっては医療機関の受診が必要な場合もあります。",
-  },
-  {
-    q: "費用はかかりますか？",
-    a: "本アプリは無料でご利用いただけます。緊急避妊薬の費用は薬局・医療機関によって異なります（目安：7,000〜15,000円程度）。",
-  },
-  {
-    q: "このアプリの判定結果は医療行為ですか？",
-    a: "いいえ。本アプリの判定結果は参考情報であり、医療行為の代替ではありません。最終的な判断は必ず医療従事者にご相談ください。",
-  },
-];
-
 export function LandingPage({ onStart }: LandingPageProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { t } = useTranslation();
+
+  const features = [
+    { icon: Shield, titleKey: "landing.anonymous", descKey: "landing.anonymousDesc" },
+    { icon: Clock, titleKey: "landing.quick", descKey: "landing.quickDesc" },
+    { icon: MapPin, titleKey: "landing.pharmacy", descKey: "landing.pharmacyDesc" },
+    { icon: FileText, titleKey: "landing.pdf", descKey: "landing.pdfDesc" },
+  ];
+
+  const steps = [
+    { number: "01", titleKey: "landing.step1Title", descKey: "landing.step1Desc" },
+    { number: "02", titleKey: "landing.step2Title", descKey: "landing.step2Desc" },
+    { number: "03", titleKey: "landing.step3Title", descKey: "landing.step3Desc" },
+  ];
+
+  const faqs = [
+    { qKey: "landing.faq1Q", aKey: "landing.faq1A" },
+    { qKey: "landing.faq2Q", aKey: "landing.faq2A" },
+    { qKey: "landing.faq3Q", aKey: "landing.faq3A" },
+    { qKey: "landing.faq4Q", aKey: "landing.faq4A" },
+    { qKey: "landing.faq5Q", aKey: "landing.faq5A" },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -104,7 +67,12 @@ export function LandingPage({ onStart }: LandingPageProps) {
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary rounded-full opacity-20 blur-3xl" />
         </div>
 
-        <div className="relative px-4 pt-12 pb-16">
+        <div className="relative px-4 pt-4 pb-16">
+          {/* Language Switcher */}
+          <div className="flex justify-end mb-4">
+            <LanguageSwitcher compact />
+          </div>
+
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -120,8 +88,8 @@ export function LandingPage({ onStart }: LandingPageProps) {
                 <Heart className="w-10 h-10 text-white" fill="white" />
               </div>
             </motion.div>
-            <h1 className="text-4xl font-bold text-primary mb-2">Rescue Pill</h1>
-            <p className="text-text-secondary font-medium">緊急避妊支援サービス</p>
+            <h1 className="text-4xl font-bold text-primary mb-2">{t("common.appName")}</h1>
+            <p className="text-text-secondary font-medium">{t("common.tagline")}</p>
           </motion.div>
 
           {/* Hero Text */}
@@ -132,13 +100,12 @@ export function LandingPage({ onStart }: LandingPageProps) {
             className="text-center max-w-md mx-auto mb-8"
           >
             <h2 className="text-2xl font-bold text-text-primary mb-4 leading-relaxed">
-              もしもの時も、
+              {t("landing.heroTitle")}
               <br />
-              <span className="text-primary">あわてず、次の一歩へ。</span>
+              <span className="text-primary">{t("landing.heroTitleHighlight")}</span>
             </h2>
             <p className="text-text-secondary leading-relaxed">
-              緊急避妊薬の入手をサポートするセルフチェックアプリ。
-              匿名で、数分で、あなたの次の行動がわかります。
+              {t("landing.heroDescription")}
             </p>
           </motion.div>
 
@@ -150,12 +117,27 @@ export function LandingPage({ onStart }: LandingPageProps) {
             className="max-w-sm mx-auto space-y-4"
           >
             <Button onClick={onStart} className="w-full group">
-              <span>セルフチェックを始める</span>
+              <span>{t("landing.startButton")}</span>
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
             <p className="text-xs text-text-muted text-center">
-              登録不要・完全無料・約3分で完了
+              {t("landing.startNote")}
             </p>
+          </motion.div>
+
+          {/* Supervised Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-8 flex justify-center"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-soft border border-primary-light">
+              <BadgeCheck className="w-5 h-5 text-primary" />
+              <span className="text-sm font-medium text-text-primary">
+                {t("common.supervised")}
+              </span>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -179,7 +161,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
               FEATURES
             </span>
             <h2 className="text-2xl font-bold text-text-primary">
-              Rescue Pillの特徴
+              {t("landing.features")}
             </h2>
           </div>
 
@@ -197,10 +179,10 @@ export function LandingPage({ onStart }: LandingPageProps) {
                     <feature.icon className="w-5 h-5 text-primary" />
                   </div>
                   <h3 className="font-bold text-text-primary mb-1">
-                    {feature.title}
+                    {t(feature.titleKey)}
                   </h3>
                   <p className="text-xs text-text-secondary leading-relaxed">
-                    {feature.description}
+                    {t(feature.descKey)}
                   </p>
                 </Card>
               </motion.div>
@@ -222,7 +204,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
               <CheckCircle className="w-4 h-4" />
               HOW IT WORKS
             </span>
-            <h2 className="text-2xl font-bold text-text-primary">使い方</h2>
+            <h2 className="text-2xl font-bold text-text-primary">{t("landing.howItWorks")}</h2>
           </div>
 
           <div className="space-y-4">
@@ -239,8 +221,8 @@ export function LandingPage({ onStart }: LandingPageProps) {
                   <span className="text-white font-bold text-sm">{step.number}</span>
                 </div>
                 <div className="flex-1 pt-1">
-                  <h3 className="font-bold text-text-primary mb-1">{step.title}</h3>
-                  <p className="text-sm text-text-secondary">{step.description}</p>
+                  <h3 className="font-bold text-text-primary mb-1">{t(step.titleKey)}</h3>
+                  <p className="text-sm text-text-secondary">{t(step.descKey)}</p>
                 </div>
               </motion.div>
             ))}
@@ -260,20 +242,19 @@ export function LandingPage({ onStart }: LandingPageProps) {
             <Lock className="w-8 h-8 text-primary" />
           </div>
           <h2 className="text-xl font-bold text-text-primary mb-3">
-            あなたのプライバシーを守ります
+            {t("landing.privacyTitle")}
           </h2>
           <p className="text-sm text-text-secondary leading-relaxed mb-6">
-            会員登録は一切不要。入力された情報はあなたの端末内のみで処理され、
-            外部サーバーには送信されません。安心してご利用ください。
+            {t("landing.privacyDesc")}
           </p>
           <div className="flex justify-center gap-4">
             <div className="flex items-center gap-2 text-sm text-text-secondary">
               <Smartphone className="w-4 h-4 text-primary" />
-              端末内完結
+              {t("landing.deviceOnly")}
             </div>
             <div className="flex items-center gap-2 text-sm text-text-secondary">
               <Shield className="w-4 h-4 text-primary" />
-              データ送信なし
+              {t("landing.noDataSend")}
             </div>
           </div>
         </motion.div>
@@ -298,7 +279,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
               FAQ
             </span>
             <h2 className="text-2xl font-bold text-text-primary">
-              よくある質問
+              {t("landing.faq")}
             </h2>
           </div>
 
@@ -317,7 +298,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
                     className="w-full text-left flex items-start justify-between gap-3"
                   >
                     <span className="font-medium text-text-primary text-sm">
-                      {faq.q}
+                      {t(faq.qKey)}
                     </span>
                     <ChevronDown
                       className={`w-5 h-5 text-text-muted flex-shrink-0 transition-transform ${
@@ -332,13 +313,47 @@ export function LandingPage({ onStart }: LandingPageProps) {
                       className="mt-3 pt-3 border-t border-primary-light"
                     >
                       <p className="text-sm text-text-secondary leading-relaxed">
-                        {faq.a}
+                        {t(faq.aKey)}
                       </p>
                     </motion.div>
                   )}
                 </Card>
               </motion.div>
             ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Partner Section */}
+      <section className="px-4 py-12 bg-white">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="max-w-lg mx-auto text-center"
+        >
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center mb-4">
+            <HandHeart className="w-8 h-8 text-amber-600" />
+          </div>
+          <h2 className="text-xl font-bold text-text-primary mb-3">
+            {t("landing.partnerTitle")}
+          </h2>
+          <p className="text-sm text-text-secondary leading-relaxed mb-6">
+            {t("landing.partnerDesc")}
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-3">
+            <Link href="/partners">
+              <Button variant="outline" className="w-full sm:w-auto">
+                <HandHeart className="w-4 h-4 mr-2" />
+                {t("landing.partnerButton")}
+              </Button>
+            </Link>
+            <Link href="/contact">
+              <Button variant="outline" className="w-full sm:w-auto">
+                <Mail className="w-4 h-4 mr-2" />
+                {t("landing.contactButton")}
+              </Button>
+            </Link>
           </div>
         </motion.div>
       </section>
@@ -352,17 +367,17 @@ export function LandingPage({ onStart }: LandingPageProps) {
           className="max-w-lg mx-auto text-center"
         >
           <h2 className="text-2xl font-bold text-white mb-4">
-            今すぐセルフチェック
+            {t("landing.finalCta")}
           </h2>
           <p className="text-white/80 mb-6">
-            あなたの状況に合わせた次の行動がわかります
+            {t("landing.finalCtaDesc")}
           </p>
           <Button
             variant="secondary"
             onClick={onStart}
             className="bg-white text-primary hover:bg-white/90"
           >
-            無料で始める
+            {t("landing.startFree")}
           </Button>
         </motion.div>
       </section>
@@ -375,34 +390,51 @@ export function LandingPage({ onStart }: LandingPageProps) {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Heart className="w-4 h-4 text-white" fill="white" />
             </div>
-            <span className="text-white font-bold">Rescue Pill</span>
+            <span className="text-white font-bold">{t("common.appName")}</span>
+          </div>
+
+          {/* Links */}
+          <div className="flex flex-wrap justify-center gap-4 mb-4 text-sm">
+            <Link href="/partners" className="text-white/70 hover:text-white transition-colors">
+              {t("footer.partners")}
+            </Link>
+            <Link href="/contact" className="text-white/70 hover:text-white transition-colors">
+              {t("footer.contact")}
+            </Link>
           </div>
 
           {/* Legal Links */}
           <div className="flex flex-wrap justify-center gap-4 mb-6 text-sm">
             <Link href="/terms" className="text-white/70 hover:text-white transition-colors">
-              利用規約
+              {t("footer.terms")}
             </Link>
             <Link href="/privacy" className="text-white/70 hover:text-white transition-colors">
-              プライバシーポリシー
+              {t("footer.privacy")}
             </Link>
             <Link href="/legal" className="text-white/70 hover:text-white transition-colors">
-              特定商取引法に基づく表記
+              {t("footer.legal")}
             </Link>
             <Link href="/disclaimer" className="text-white/70 hover:text-white transition-colors">
-              免責事項
+              {t("footer.disclaimer")}
             </Link>
+          </div>
+
+          {/* Supervised */}
+          <div className="flex justify-center mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-full">
+              <BadgeCheck className="w-4 h-4 text-primary-light" />
+              <span className="text-xs text-white/70">{t("common.supervised")}</span>
+            </div>
           </div>
 
           {/* Disclaimer */}
           <p className="text-xs text-white/50 text-center mb-4 leading-relaxed">
-            本サービスは医療行為の代替ではありません。
-            緊急避妊薬の使用については、必ず医療従事者にご相談ください。
+            {t("landing.disclaimer")}
           </p>
 
           {/* Copyright */}
           <p className="text-xs text-white/40 text-center">
-            © 2024 Rescue Pill. All rights reserved.
+            {t("footer.copyright")}
           </p>
         </div>
       </footer>

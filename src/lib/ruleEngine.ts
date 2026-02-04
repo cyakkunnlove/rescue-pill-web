@@ -75,13 +75,13 @@ export function evaluate(answers: Answers): Result {
     };
   }
 
-  // 相互作用リスク
-  if (answers.interactionRisk === true) {
+  // 相互作用リスク（サプリメント服用あり）
+  if (answers.interactionRisk && answers.interactionRisk !== "特に飲んでいない") {
     return {
       route: "medical",
       headline: "医療機関での相談をおすすめします",
-      detail: "相互作用の可能性があるため、医療機関での確認が安心です。",
-      reasons: ["相互作用の可能性がある薬・サプリの服用がある"],
+      detail: "サプリメントとの相互作用の可能性があるため、医療機関での確認が安心です。",
+      reasons: ["サプリメントの服用がある"],
       notes: [],
       elapsedHours: hours,
     };

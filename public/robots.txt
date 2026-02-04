@@ -1,0 +1,9 @@
+# Rescue Pill - Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://rescue-pill.com/sitemap.xml
+
+# Disallow sensitive paths
+Disallow: /api/

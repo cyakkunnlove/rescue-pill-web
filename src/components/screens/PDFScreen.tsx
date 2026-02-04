@@ -59,15 +59,15 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
           ? answers.contraceptionIssues.join(" / ")
           : "未選択",
       ],
-      ["Q4 同意が確認できない状況が含まれますか？", formatTri(answers.nonConsensual)],
+      ["Q4 その性行為はあなたの意思によるものでしたか？", formatTri(answers.nonConsensual)],
       ["Q5 妊娠検査で陽性でしたか？", formatTri(answers.pregnancyTest, "未検査")],
       [
-        "Q6 持病・禁忌に該当する項目はありますか？",
+        "Q6 治療中の病気や持病はありますか？",
         answers.contraindications.length > 0
           ? answers.contraindications.join(" / ")
           : "未選択",
       ],
-      ["Q7 相互作用の可能性がある薬・サプリを服用中ですか？", formatBool(answers.interactionRisk)],
+      ["Q7 サプリメントを飲んでいますか？", answers.interactionRisk || "未選択"],
       ["Q8 現在、授乳中ですか？", formatTri(answers.breastfeeding, "わからない")],
       ["Q9 最終月経開始日（任意）", formatDate(answers.lastPeriodDate)],
       [

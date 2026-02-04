@@ -31,6 +31,15 @@ export default function Home() {
     resetAll,
   } = useAppStore();
 
+  // Check if consent is still valid (24 hours)
+  const isConsentValid = useCallback(() => {
+    if (!consentDate) return false;
+    const consentTime = new Date(consentDate).getTime();
+    const now = Date.now();
+    const hours24 = 24 * 60 * 60 * 1000;
+    return now - consentTime < hours24;
+  }, [consentDate]);
+
   const [showConsent, setShowConsent] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -43,12 +52,12 @@ export default function Home() {
   }, [setStep]);
 
   const handleEntryProceed = useCallback(() => {
-    if (consentDate) {
+    if (isConsentValid()) {
       setStep("precheck");
     } else {
       setShowConsent(true);
     }
-  }, [consentDate, setStep]);
+  }, [isConsentValid, setStep]);
 
   const handleConsentAgree = useCallback(() => {
     giveConsent();

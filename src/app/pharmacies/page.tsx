@@ -14,10 +14,14 @@ import {
   ExternalLink,
   Loader2,
   AlertCircle,
+  LocateFixed,
+  Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { AdBanner } from "@/components/AdBanner";
+import { useTranslation } from "@/lib/i18n";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 interface PharmacyMin {
   n: string;  // name
@@ -53,14 +57,124 @@ const PREFECTURES = [
   "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
 ];
 
+// Reverse geocode coordinates to prefecture using OpenStreetMap Nominatim
+async function getPrefectureFromLocation(lat: number, lon: number): Promise<string | null> {
+  try {
+    console.log(`[Location] Reverse geocoding: ${lat}, ${lon}`);
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&addressdetails=1`,
+      { 
+        headers: { 
+          "Accept-Language": "ja",
+          "User-Agent": "RescuePillApp/1.0"
+        } 
+      }
+    );
+    
+    if (!response.ok) {
+      console.error(`[Location] Nominatim API error: ${response.status}`);
+      return null;
+    }
+    
+    const data = await response.json();
+    console.log("[Location] Nominatim response:", data?.address);
+    
+    // Try multiple possible fields for prefecture
+    const state = data?.address?.province || 
+                  data?.address?.state || 
+                  data?.address?.region ||
+                  data?.address?.city ||
+                  data?.address?.county;
+    
+    if (state) {
+      console.log(`[Location] Found state: ${state}`);
+      // Match to our prefecture list (handle both with and without suffix)
+      const matched = PREFECTURES.find(p => {
+        const baseName = p.replace(/[都道府県]$/, "");
+        return state.includes(baseName) || state === p;
+      });
+      console.log(`[Location] Matched prefecture: ${matched}`);
+      return matched || null;
+    }
+    
+    console.log("[Location] No state found in response");
+    return null;
+  } catch (err) {
+    console.error("[Location] Error:", err);
+    return null;
+  }
+}
+
 export default function PharmaciesPage() {
+  const { t } = useTranslation();
   const [pharmacies, setPharmacies] = useState<Pharmacy[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
   const [showAfterHoursOnly, setShowAfterHoursOnly] = useState(false);
-  const [showFemalePharmacistOnly, setShowFemalePharmacistOnly] = useState(false);
+  const [locationLoading, setLocationLoading] = useState(false);
+  const [locationDetected, setLocationDetected] = useState(false);
+  const [locationError, setLocationError] = useState<string | null>(null);
+
+  // Function to get user location
+  const detectLocation = async () => {
+    if (typeof navigator === "undefined" || !navigator.geolocation) {
+      console.log("[Location] Geolocation not supported");
+      setLocationError("位置情報がサポートされていません");
+      return;
+    }
+    
+    setLocationLoading(true);
+    setLocationError(null);
+    console.log("[Location] Requesting location...");
+    
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude, accuracy } = position.coords;
+        console.log(`[Location] Got position: ${latitude}, ${longitude} (accuracy: ${accuracy}m)`);
+        
+        const prefecture = await getPrefectureFromLocation(latitude, longitude);
+        if (prefecture) {
+          console.log(`[Location] Setting prefecture: ${prefecture}`);
+          setSelectedPrefecture(prefecture);
+          setLocationDetected(true);
+          setLocationError(null);
+        } else {
+          console.log("[Location] Could not determine prefecture");
+          setLocationError("都道府県を特定できませんでした。手動で選択してください。");
+        }
+        setLocationLoading(false);
+      },
+      (error) => {
+        console.error("[Location] Geolocation error:", error.code, error.message);
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            setLocationError("位置情報の許可が必要です。設定から許可してください。");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setLocationError("位置情報を取得できませんでした。");
+            break;
+          case error.TIMEOUT:
+            setLocationError("位置情報の取得がタイムアウトしました。");
+            break;
+          default:
+            setLocationError("位置情報を取得できませんでした。");
+        }
+        setLocationLoading(false);
+      },
+      { 
+        timeout: 15000,        // 15秒タイムアウト
+        maximumAge: 60000,     // 1分間のキャッシュ
+        enableHighAccuracy: false  // 高精度モードは遅いのでオフ
+      }
+    );
+  };
+
+  // Get user location on page load
+  useEffect(() => {
+    detectLocation();
+  }, []);
 
   useEffect(() => {
     fetch("/data/otc_pharmacies.json")
@@ -107,15 +221,12 @@ export default function PharmaciesPage() {
       result = result.filter((p) => p.afterHours);
     }
 
-    if (showFemalePharmacistOnly) {
-      result = result.filter((p) => p.femalePharmacist);
-    }
-
     return result.slice(0, 100); // Limit to 100 results for performance
-  }, [pharmacies, selectedPrefecture, searchQuery, showAfterHoursOnly, showFemalePharmacistOnly]);
+  }, [pharmacies, selectedPrefecture, searchQuery, showAfterHoursOnly]);
 
   const openInMaps = (pharmacy: Pharmacy) => {
-    const query = encodeURIComponent(pharmacy.address);
+    // Include both name and address for accurate location
+    const query = encodeURIComponent(`${pharmacy.name} ${pharmacy.address}`);
     window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, "_blank");
   };
 
@@ -127,16 +238,19 @@ export default function PharmaciesPage() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-primary-light z-50">
-        <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-4">
-          <Link href="/" className="p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
-            <ArrowLeft className="w-5 h-5 text-text-primary" />
-          </Link>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-              <Heart className="w-4 h-4 text-white" fill="white" />
+        <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Link href="/" className="p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
+              <ArrowLeft className="w-5 h-5 text-text-primary" />
+            </Link>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                <Heart className="w-4 h-4 text-white" fill="white" />
+              </div>
+              <span className="font-bold text-text-primary">{t("pharmacies.title")}</span>
             </div>
-            <span className="font-bold text-text-primary">対応薬局検索</span>
           </div>
+          <LanguageSwitcher compact />
         </div>
       </header>
 
@@ -148,13 +262,60 @@ export default function PharmaciesPage() {
           className="bg-primary-light rounded-2xl p-4 mb-6"
         >
           <p className="text-sm text-text-secondary">
-            <strong className="text-primary">厚生労働省公式リスト</strong>に基づく、
-            <strong>処方箋なしで緊急避妊薬を購入できる</strong>薬局一覧です。
-            （{pharmacies.length.toLocaleString()}件）
+            <strong className="text-primary">{t("pharmacies.officialList")}</strong> - {t("pharmacies.canBuyWithout")}
+            （{pharmacies.length.toLocaleString()}{t("common.results")}）
           </p>
           <p className="text-xs text-text-muted mt-2">
-            ※ 試験的販売参加薬局のみ掲載
+            {t("pharmacies.trialNote")}
           </p>
+        </motion.div>
+
+        {/* Location Status */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-white rounded-2xl p-4 mb-6 shadow-card"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              {locationLoading ? (
+                <p className="text-sm text-primary flex items-center gap-2">
+                  <LocateFixed className="w-4 h-4 animate-pulse" />
+                  {t("pharmacies.detectingLocation")}
+                </p>
+              ) : locationError ? (
+                <p className="text-sm text-text-secondary flex items-center gap-2">
+                  <LocateFixed className="w-4 h-4" />
+                  {t("pharmacies.locationError")}
+                </p>
+              ) : locationDetected ? (
+                <p className="text-sm text-green-600 flex items-center gap-2">
+                  <LocateFixed className="w-4 h-4" />
+                  {t("pharmacies.locationDetected")} {selectedPrefecture}
+                </p>
+              ) : (
+                <p className="text-sm text-text-secondary flex items-center gap-2">
+                  <LocateFixed className="w-4 h-4" />
+                  {t("pharmacies.autoDetect")}
+                </p>
+              )}
+            </div>
+            <Button
+              onClick={detectLocation}
+              disabled={locationLoading}
+              className="ml-3 px-4 py-2 text-sm"
+            >
+              {locationLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <>
+                  <Navigation className="w-4 h-4 mr-1" />
+                  {t("pharmacies.currentLocation")}
+                </>
+              )}
+            </Button>
+          </div>
         </motion.div>
 
         {/* Search & Filters */}
@@ -162,7 +323,7 @@ export default function PharmaciesPage() {
           {/* Prefecture Select */}
           <div>
             <label className="text-sm font-medium text-text-secondary mb-2 block">
-              都道府県
+              {t("pharmacies.prefecture")}
             </label>
             <select
               value={selectedPrefecture}
@@ -171,7 +332,7 @@ export default function PharmaciesPage() {
                        focus:border-primary focus:outline-none bg-white
                        text-text-primary"
             >
-              <option value="">すべて</option>
+              <option value="">{t("pharmacies.all")}</option>
               {PREFECTURES.map((pref) => (
                 <option key={pref} value={pref}>
                   {pref}
@@ -187,7 +348,7 @@ export default function PharmaciesPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="薬局名・住所で検索"
+              placeholder={t("pharmacies.searchPlaceholder")}
               className="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-primary-light 
                        focus:border-primary focus:outline-none bg-white
                        text-text-primary placeholder:text-text-muted"
@@ -205,19 +366,7 @@ export default function PharmaciesPage() {
                          focus:ring-primary focus:ring-offset-0"
               />
               <span className="text-sm text-text-secondary">
-                時間外対応あり
-              </span>
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={showFemalePharmacistOnly}
-                onChange={(e) => setShowFemalePharmacistOnly(e.target.checked)}
-                className="w-5 h-5 rounded border-2 border-primary-light text-primary 
-                         focus:ring-primary focus:ring-offset-0"
-              />
-              <span className="text-sm text-text-secondary">
-                女性薬剤師対応
+                {t("pharmacies.afterHoursOnly")}
               </span>
             </label>
           </div>
@@ -253,14 +402,9 @@ export default function PharmaciesPage() {
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-bold text-text-primary flex-1 pr-2">{pharmacy.name}</h3>
                       <div className="flex flex-wrap gap-1 justify-end">
-                        {pharmacy.femalePharmacist && (
-                          <span className="px-2 py-0.5 bg-pink-100 text-pink-700 text-xs rounded-full whitespace-nowrap">
-                            女性薬剤師
-                          </span>
-                        )}
                         {pharmacy.afterHours && (
                           <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full whitespace-nowrap">
-                            時間外
+                            {t("pharmacies.afterHours")}
                           </span>
                         )}
                       </div>
@@ -295,7 +439,7 @@ export default function PharmaciesPage() {
                                  hover:bg-primary hover:text-white transition-colors"
                       >
                         <Navigation className="w-4 h-4" />
-                        地図で見る
+                        {t("pharmacies.viewOnMap")}
                       </button>
                       {pharmacy.phone && (
                         <button
@@ -305,7 +449,7 @@ export default function PharmaciesPage() {
                                    hover:bg-secondary hover:text-white transition-colors"
                         >
                           <Phone className="w-4 h-4" />
-                          電話する
+                          {t("pharmacies.call")}
                         </button>
                       )}
                     </div>
@@ -317,9 +461,21 @@ export default function PharmaciesPage() {
             {filteredPharmacies.length === 0 && (
               <div className="text-center py-12 text-text-muted">
                 <MapPin className="w-12 h-12 mx-auto mb-4 opacity-30" />
-                <p>条件に一致する薬局が見つかりませんでした</p>
+                <p>{t("pharmacies.noResults")}</p>
+                <p className="text-sm mt-2">{t("pharmacies.tryDifferent")}</p>
               </div>
             )}
+
+            {/* Link to Hospitals */}
+            <div className="mt-8 text-center">
+              <Link
+                href="/hospitals"
+                className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+              >
+                <Building2 className="w-4 h-4" />
+                {t("pharmacies.findHospitalLink")}
+              </Link>
+            </div>
           </>
         )}
 

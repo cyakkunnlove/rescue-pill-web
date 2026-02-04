@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 interface ButtonProps {
   children: ReactNode;
   onClick?: () => void;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "outline";
   disabled?: boolean;
   className?: string;
   type?: "button" | "submit";
@@ -20,10 +20,12 @@ export function Button({
   className = "",
   type = "button",
 }: ButtonProps) {
-  const baseClass =
-    variant === "primary"
-      ? "bg-primary text-white hover:bg-primary-dark shadow-soft"
-      : "bg-white text-primary border-2 border-primary hover:bg-primary-light hover:bg-opacity-20";
+  const variantClasses = {
+    primary: "bg-primary text-white hover:bg-primary-dark shadow-soft",
+    secondary: "bg-white text-primary border-2 border-primary hover:bg-primary-light hover:bg-opacity-20",
+    outline: "bg-transparent text-primary border-2 border-primary-light hover:border-primary hover:bg-primary-light/20",
+  };
+  const baseClass = variantClasses[variant];
 
   return (
     <motion.button

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { X, AlertTriangle, Shield, MapPin, Brain, FileWarning } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 interface ConsentModalProps {
   isOpen: boolean;
@@ -11,36 +12,37 @@ interface ConsentModalProps {
   onClose: () => void;
 }
 
-const consentItems = [
-  {
-    icon: AlertTriangle,
-    title: "医療行為の代替ではありません",
-    body: "医師・薬剤師の診断や治療の代替ではなく、行動整理のための情報提供ツールです。",
-  },
-  {
-    icon: FileWarning,
-    title: "緊急時は医療機関へ",
-    body: "症状が重い場合や緊急性が高い場合は、直ちに医療機関を受診してください。",
-  },
-  {
-    icon: Shield,
-    title: "データ保存の扱い",
-    body: "入力内容はブラウザ内に一時保存されます。サーバーへの送信はありません。",
-  },
-  {
-    icon: Brain,
-    title: "AI判定について",
-    body: "判定はルールベースのロジックで行われます。医療従事者の判断に代わるものではありません。",
-  },
-  {
-    icon: MapPin,
-    title: "位置情報の利用",
-    body: "近隣施設検索のために位置情報を利用する場合があります。",
-  },
-];
-
 export function ConsentModal({ isOpen, onAgree, onClose }: ConsentModalProps) {
+  const { t } = useTranslation();
   const [agreed, setAgreed] = useState(false);
+
+  const consentItems = [
+    {
+      icon: AlertTriangle,
+      titleKey: "consent.item1Title",
+      bodyKey: "consent.item1Body",
+    },
+    {
+      icon: FileWarning,
+      titleKey: "consent.item2Title",
+      bodyKey: "consent.item2Body",
+    },
+    {
+      icon: Shield,
+      titleKey: "consent.item3Title",
+      bodyKey: "consent.item3Body",
+    },
+    {
+      icon: Brain,
+      titleKey: "consent.item4Title",
+      bodyKey: "consent.item4Body",
+    },
+    {
+      icon: MapPin,
+      titleKey: "consent.item5Title",
+      bodyKey: "consent.item5Body",
+    },
+  ];
 
   return (
     <AnimatePresence>
@@ -60,7 +62,7 @@ export function ConsentModal({ isOpen, onAgree, onClose }: ConsentModalProps) {
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-primary-light">
               <h2 className="text-lg font-bold text-text-primary">
-                同意事項
+                {t("consent.title")}
               </h2>
               <button
                 onClick={onClose}
@@ -86,9 +88,9 @@ export function ConsentModal({ isOpen, onAgree, onClose }: ConsentModalProps) {
                     </div>
                     <div>
                       <h3 className="font-semibold text-sm text-text-primary mb-1">
-                        {item.title}
+                        {t(item.titleKey)}
                       </h3>
-                      <p className="text-xs text-text-secondary">{item.body}</p>
+                      <p className="text-xs text-text-secondary">{t(item.bodyKey)}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -105,11 +107,11 @@ export function ConsentModal({ isOpen, onAgree, onClose }: ConsentModalProps) {
                   className="w-5 h-5 rounded border-2 border-primary accent-primary cursor-pointer"
                 />
                 <span className="text-sm text-text-primary font-medium">
-                  上記内容に同意します
+                  {t("consent.agreeCheckbox")}
                 </span>
               </label>
               <Button onClick={onAgree} disabled={!agreed}>
-                同意して開始
+                {t("consent.agreeButton")}
               </Button>
             </div>
           </motion.div>
