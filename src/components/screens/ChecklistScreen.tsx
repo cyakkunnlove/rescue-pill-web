@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Result } from "@/types";
+import { useTranslation } from "@/lib/i18n";
 import { Check, Circle, Info, Wallet } from "lucide-react";
 
 interface ChecklistScreenProps {
@@ -12,24 +13,26 @@ interface ChecklistScreenProps {
   onBack: () => void;
 }
 
-const pharmacyItems = [
-  "保険証（あれば）",
-  "現金またはカード（約8,000〜15,000円）",
-  "メモや質問リスト（任意）",
-  "このアプリの結果画面/PDF",
-];
-
-const medicalItems = [
-  "保険証",
-  "現金またはカード（約15,000〜20,000円）",
-  "紹介状（あれば）",
-  "お薬手帳（あれば）",
-  "メモや質問リスト（任意）",
-  "このアプリの結果画面/PDF",
-];
-
 export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
+  const { t } = useTranslation();
   const isPharmacy = result.route === "pharmacy";
+  
+  const pharmacyItems = [
+    t("checklist.pharmacyItem1"),
+    t("checklist.pharmacyItem2"),
+    t("checklist.pharmacyItem3"),
+    t("checklist.pharmacyItem4"),
+  ];
+
+  const medicalItems = [
+    t("checklist.medicalItem1"),
+    t("checklist.medicalItem2"),
+    t("checklist.medicalItem3"),
+    t("checklist.medicalItem4"),
+    t("checklist.medicalItem5"),
+    t("checklist.medicalItem6"),
+  ];
+  
   const items = isPharmacy ? pharmacyItems : medicalItems;
   const [checks, setChecks] = useState<boolean[]>(
     new Array(items.length).fill(false)
@@ -54,10 +57,10 @@ export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
           className="text-center mb-6"
         >
           <h1 className="text-2xl font-bold text-text-primary">
-            {isPharmacy ? "薬局向け" : "医療機関向け"}持ち物
+            {isPharmacy ? t("checklist.pharmacyTitle") : t("checklist.medicalTitle")}
           </h1>
           <p className="text-sm text-text-secondary mt-1">
-            忘れ物がないか確認しましょう
+            {t("checklist.subtitle")}
           </p>
         </motion.div>
 
@@ -69,7 +72,7 @@ export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
           className="mb-6"
         >
           <div className="flex justify-between text-sm text-text-secondary mb-2">
-            <span>進捗</span>
+            <span>{t("checklist.progress")}</span>
             <span>
               {checkedCount} / {items.length}
             </span>

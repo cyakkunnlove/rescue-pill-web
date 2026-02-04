@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { ActionCard } from "@/components/ui/ActionCard";
 import { AdBanner } from "@/components/AdBanner";
 import { Result } from "@/types";
+import { useTranslation } from "@/lib/i18n";
 import {
   MapPin,
   ClipboardCheck,
@@ -30,6 +31,7 @@ export function ActionsScreen({
   onQR,
   onPDF,
 }: ActionsScreenProps) {
+  const { t } = useTranslation();
   const [showAppModal, setShowAppModal] = useState(false);
 
   const openMap = () => {
@@ -51,9 +53,9 @@ export function ActionsScreen({
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <h1 className="text-2xl font-bold text-text-primary">次の行動</h1>
+          <h1 className="text-2xl font-bold text-text-primary">{t("actions.title")}</h1>
           <p className="text-sm text-text-secondary mt-1">
-            必要な準備を確認しましょう
+            {t("actions.subtitle")}
           </p>
         </motion.div>
 
@@ -65,8 +67,8 @@ export function ActionsScreen({
             transition={{ delay: 0.1 }}
           >
             <ActionCard
-              title={result.route === "pharmacy" ? "近くの薬局を探す" : "近くの医療機関を探す"}
-              subtitle={result.route === "pharmacy" ? "OTC対応薬局を検索" : "産婦人科・婦人科を検索"}
+              title={result.route === "pharmacy" ? t("actions.searchPharmacy") : t("actions.searchHospital")}
+              subtitle={result.route === "pharmacy" ? t("actions.searchPharmacyDesc") : t("actions.searchHospitalDesc")}
               icon={MapPin}
               onClick={openMap}
               color="primary"
@@ -79,8 +81,8 @@ export function ActionsScreen({
             transition={{ delay: 0.2 }}
           >
             <ActionCard
-              title="持ち物を確認"
-              subtitle="チェックリストを表示"
+              title={t("actions.checklist")}
+              subtitle={t("actions.checklistDesc")}
               icon={ClipboardCheck}
               onClick={onChecklist}
               color="secondary"
@@ -93,8 +95,8 @@ export function ActionsScreen({
             transition={{ delay: 0.3 }}
           >
             <ActionCard
-              title="QRコードを表示"
-              subtitle="アプリ限定機能"
+              title={t("actions.generateQr")}
+              subtitle={t("actions.generateQrDesc")}
               icon={QrCode}
               onClick={() => setShowAppModal(true)}
               color="accent"
@@ -108,8 +110,8 @@ export function ActionsScreen({
             transition={{ delay: 0.4 }}
           >
             <ActionCard
-              title="PDFを表示"
-              subtitle="問診内容を印刷・保存"
+              title={t("actions.generatePdf")}
+              subtitle={t("actions.generatePdfDesc")}
               icon={FileText}
               onClick={onPDF}
               color="primary"
@@ -125,7 +127,7 @@ export function ActionsScreen({
           className="mt-8"
         >
           <h3 className="text-sm font-semibold text-text-secondary mb-3">
-            参考リンク
+            {t("actions.helpfulLinks")}
           </h3>
           <div className="bg-white rounded-2xl p-4 shadow-card space-y-3">
             <a
@@ -134,7 +136,7 @@ export function ActionsScreen({
               rel="noopener noreferrer"
               className="flex items-center justify-between text-sm text-text-primary hover:text-primary transition-colors"
             >
-              <span>厚生労働省 緊急避妊について</span>
+              <span>{t("actions.linkMhlw")}</span>
               <ExternalLink className="w-4 h-4 text-text-muted" />
             </a>
             <div className="border-t border-primary-light" />
@@ -144,7 +146,7 @@ export function ActionsScreen({
               rel="noopener noreferrer"
               className="flex items-center justify-between text-sm text-text-primary hover:text-primary transition-colors"
             >
-              <span>日本産婦人科医会</span>
+              <span>{t("actions.linkJaog")}</span>
               <ExternalLink className="w-4 h-4 text-text-muted" />
             </a>
           </div>
@@ -164,7 +166,7 @@ export function ActionsScreen({
         className="mt-6"
       >
         <Button variant="secondary" onClick={onBack}>
-          判定結果へ戻る
+          {t("actions.backToResult")}
         </Button>
       </motion.div>
 
