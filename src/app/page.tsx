@@ -7,6 +7,7 @@ import { evaluate } from "@/lib/ruleEngine";
 import { Answers, FlowStep, Result, CaseMeta } from "@/types";
 
 import { EntryScreen } from "@/components/screens/EntryScreen";
+import { LandingPage } from "@/components/screens/LandingPage";
 import { ConsentModal } from "@/components/screens/ConsentModal";
 import { PrecheckScreen } from "@/components/screens/PrecheckScreen";
 import { QuestionScreen } from "@/components/screens/QuestionScreen";
@@ -36,6 +37,10 @@ export default function Home() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleLandingStart = useCallback(() => {
+    setStep("entry");
+  }, [setStep]);
 
   const handleEntryProceed = useCallback(() => {
     if (consentDate) {
@@ -95,8 +100,19 @@ export default function Home() {
   }
 
   return (
-    <main className="max-w-md mx-auto min-h-screen">
+    <main className={step === "landing" ? "" : "max-w-md mx-auto min-h-screen"}>
       <AnimatePresence mode="wait">
+        {step === "landing" && (
+          <motion.div
+            key="landing"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <LandingPage onStart={handleLandingStart} />
+          </motion.div>
+        )}
+
         {step === "entry" && (
           <motion.div
             key="entry"

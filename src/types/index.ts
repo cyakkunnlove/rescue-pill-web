@@ -39,6 +39,7 @@ export interface CaseMeta {
 }
 
 export type FlowStep =
+  | "landing"
   | "entry"
   | "precheck"
   | "questions"

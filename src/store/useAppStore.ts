@@ -63,7 +63,7 @@ function createMeta(): CaseMeta {
 export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
-      step: "entry",
+      step: "landing",
       answers: initialAnswers,
       result: null,
       meta: createMeta(),
@@ -82,7 +82,7 @@ export const useAppStore = create<AppState>()(
 
       resetAll: () =>
         set({
-          step: "entry",
+          step: "landing",
           answers: initialAnswers,
           result: null,
           meta: createMeta(),
