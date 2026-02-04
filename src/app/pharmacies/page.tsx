@@ -320,34 +320,34 @@ export default function PharmaciesPage() {
           transition={{ delay: 0.1 }}
           className="bg-white rounded-2xl p-4 mb-6 shadow-card"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex-1">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex-1 min-w-0">
               {locationLoading ? (
                 <p className="text-sm text-primary flex items-center gap-2">
-                  <LocateFixed className="w-4 h-4 animate-pulse" />
-                  {t("pharmacies.detectingLocation")}
+                  <LocateFixed className="w-4 h-4 flex-shrink-0 animate-pulse" />
+                  <span>{t("pharmacies.detectingLocation")}</span>
                 </p>
               ) : locationError ? (
                 <p className="text-sm text-text-secondary flex items-center gap-2">
-                  <LocateFixed className="w-4 h-4" />
-                  {t("pharmacies.locationError")}
+                  <LocateFixed className="w-4 h-4 flex-shrink-0" />
+                  <span>{t("pharmacies.locationError")}</span>
                 </p>
               ) : locationDetected ? (
                 <p className="text-sm text-green-600 flex items-center gap-2">
-                  <LocateFixed className="w-4 h-4" />
-                  {t("pharmacies.locationDetected")} {userCity ? `${userCity}（${selectedPrefecture}）` : selectedPrefecture}
+                  <LocateFixed className="w-4 h-4 flex-shrink-0" />
+                  <span>{userCity ? `${userCity}（${selectedPrefecture}）の薬局を表示中` : `${selectedPrefecture}の薬局を表示中`}</span>
                 </p>
               ) : (
                 <p className="text-sm text-text-secondary flex items-center gap-2">
-                  <LocateFixed className="w-4 h-4" />
-                  {t("pharmacies.autoDetect")}
+                  <LocateFixed className="w-4 h-4 flex-shrink-0" />
+                  <span>{t("pharmacies.autoDetect")}</span>
                 </p>
               )}
             </div>
             <Button
               onClick={detectLocation}
               disabled={locationLoading}
-              className="ml-3 px-4 py-2 text-sm"
+              className="flex-shrink-0 px-3 py-2 text-sm"
             >
               {locationLoading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
