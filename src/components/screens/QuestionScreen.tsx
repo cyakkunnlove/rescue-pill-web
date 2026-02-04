@@ -251,14 +251,14 @@ export function QuestionScreen({
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col px-4 py-6">
+    <div className="h-[100dvh] bg-background flex flex-col px-4 py-4">
       <ProgressBar
         current={index + 1}
         total={questions.length}
         title={`${t("questions.question")} ${index + 1}/${questions.length}`}
       />
 
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={index}
@@ -268,11 +268,11 @@ export function QuestionScreen({
             animate="center"
             exit="exit"
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="flex-1 flex flex-col"
+            className="flex-1 flex flex-col min-h-0"
           >
             {/* Question Title */}
             <motion.h2
-              className="text-xl font-bold text-text-primary text-center mb-2"
+              className="text-lg font-bold text-text-primary text-center mb-2"
             >
               {currentQuestion.title}
             </motion.h2>
@@ -281,7 +281,7 @@ export function QuestionScreen({
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="flex items-start gap-2 bg-accent-light rounded-xl p-3 mb-4"
+                className="flex items-start gap-2 bg-accent-light rounded-xl p-2 mb-3"
               >
                 <Info className="w-4 h-4 text-accent-dark flex-shrink-0 mt-0.5" />
                 <p className="text-xs text-text-secondary">
@@ -290,8 +290,8 @@ export function QuestionScreen({
               </motion.div>
             )}
 
-            {/* Question Content */}
-            <div className="flex-1 mt-4">
+            {/* Question Content - scrollable */}
+            <div className="flex-1 mt-2 overflow-y-auto min-h-0">
               <QuestionContent
                 question={currentQuestion}
                 answers={answers}
@@ -306,17 +306,17 @@ export function QuestionScreen({
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-danger text-sm text-center mt-4"
+            className="text-danger text-sm text-center mt-2"
           >
             {t("questions.selectRequired")}
           </motion.p>
         )}
 
-        {/* Navigation */}
+        {/* Navigation - fixed at bottom */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="mt-6 grid grid-cols-2 gap-3"
+          className="mt-4 grid grid-cols-2 gap-3 flex-shrink-0"
         >
           <Button variant="secondary" onClick={goBack}>
             {t("common.back")}
@@ -329,7 +329,7 @@ export function QuestionScreen({
 
       {/* Show ad every 5 questions */}
       {(index + 1) % 5 === 0 && (
-        <div className="mt-4">
+        <div className="mt-2 flex-shrink-0">
           <AdBanner />
         </div>
       )}
