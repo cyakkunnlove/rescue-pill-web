@@ -96,6 +96,66 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
   return R * c;
 }
 
+// Check if pharmacy is currently open based on hours string
+function isOpenNow(hoursStr: string): boolean | null {
+  if (!hoursStr) return null;
+  
+  const now = new Date();
+  const dayOfWeek = now.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+  const currentTime = now.getHours() * 60 + now.getMinutes(); // minutes since midnight
+  
+  // Map day of week to Japanese
+  const dayMap: Record<number, string[]> = {
+    0: ['日'],
+    1: ['月'],
+    2: ['火'],
+    3: ['水'],
+    4: ['木'],
+    5: ['金'],
+    6: ['土'],
+  };
+  const todayChars = dayMap[dayOfWeek];
+  
+  // Normalize the hours string
+  const normalized = hoursStr
+    .replace(/[～〜]/g, '-')
+    .replace(/[：]/g, ':')
+    .replace(/[‐－―]/g, '-')
+    .replace(/[、,]/g, '､');
+  
+  // Check if today is included in any day range
+  // Patterns: "月-金", "月～金", "土", "日"
+  const segments = normalized.split('､');
+  
+  for (const segment of segments) {
+    // Match day range and time: "月-金:9:00-18:00" or "土:9:00-13:00"
+    const match = segment.match(/([月火水木金土日])(?:-([月火水木金土日]))?[:\s]*(\d{1,2}):?(\d{2})?-(\d{1,2}):?(\d{2})?/);
+    
+    if (!match) continue;
+    
+    const [, startDay, endDay, startH, startM = '0', endH, endM = '0'] = match;
+    
+    // Check if today is in the day range
+    const allDays = ['月', '火', '水', '木', '金', '土', '日'];
+    const startIdx = allDays.indexOf(startDay);
+    const endIdx = endDay ? allDays.indexOf(endDay) : startIdx;
+    const todayIdx = allDays.indexOf(todayChars[0]);
+    
+    const isToday = todayIdx >= startIdx && todayIdx <= endIdx;
+    
+    if (isToday) {
+      const openTime = parseInt(startH) * 60 + parseInt(startM);
+      const closeTime = parseInt(endH) * 60 + parseInt(endM);
+      
+      if (currentTime >= openTime && currentTime < closeTime) {
+        return true;
+      }
+    }
+  }
+  
+  return false;
+}
+
 // Reverse geocode coordinates to prefecture using OpenStreetMap Nominatim
 async function getPrefectureFromLocation(lat: number, lon: number): Promise<LocationResult> {
   try {
@@ -163,6 +223,7 @@ export default function PharmaciesPage() {
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
   const [showAfterHoursOnly, setShowAfterHoursOnly] = useState(false);
+  const [showOpenNowOnly, setShowOpenNowOnly] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const [locationDetected, setLocationDetected] = useState(false);
   const [locationError, setLocationError] = useState<string | null>(null);
@@ -284,6 +345,10 @@ export default function PharmaciesPage() {
       result = result.filter((p) => p.afterHours);
     }
 
+    if (showOpenNowOnly) {
+      result = result.filter((p) => isOpenNow(p.hours) === true);
+    }
+
     // Calculate distance and sort by nearest if user location is available
     if (userCoords) {
       result = result.map((p) => ({
@@ -303,7 +368,7 @@ export default function PharmaciesPage() {
     }
 
     return result.slice(0, 100); // Limit to 100 results for performance
-  }, [pharmacies, selectedPrefecture, searchQuery, showAfterHoursOnly, userCoords]);
+  }, [pharmacies, selectedPrefecture, searchQuery, showAfterHoursOnly, showOpenNowOnly, userCoords]);
 
   const openInMaps = (pharmacy: Pharmacy) => {
     // Include both name and address for accurate location
@@ -440,6 +505,18 @@ export default function PharmaciesPage() {
 
           {/* Filters */}
           <div className="flex flex-wrap gap-4">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={showOpenNowOnly}
+                onChange={(e) => setShowOpenNowOnly(e.target.checked)}
+                className="w-5 h-5 rounded border-2 border-primary-light text-primary 
+                         focus:ring-primary focus:ring-offset-0"
+              />
+              <span className="text-sm text-text-secondary">
+                営業中のみ
+              </span>
+            </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
