@@ -384,17 +384,22 @@ export default function PharmaciesPage() {
               )}
             </div>
             {/* Button - compact */}
-            <Button
+            <button
               onClick={detectLocation}
               disabled={locationLoading}
-              className="flex-shrink-0 px-3 py-2 text-sm"
+              className="flex-shrink-0 px-4 py-2 text-sm bg-primary text-white rounded-xl
+                       hover:bg-primary-dark transition-colors disabled:opacity-50
+                       flex items-center gap-1"
             >
               {locationLoading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
-                <Navigation className="w-4 h-4" />
+                <>
+                  <Navigation className="w-4 h-4" />
+                  <span>現在地</span>
+                </>
               )}
-            </Button>
+            </button>
           </div>
         </motion.div>
 
