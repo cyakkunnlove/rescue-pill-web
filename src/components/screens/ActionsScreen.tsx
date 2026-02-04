@@ -33,11 +33,16 @@ export function ActionsScreen({
   const [showAppModal, setShowAppModal] = useState(false);
 
   const openMap = () => {
-    const query = result.route === "pharmacy" ? "薬局 緊急避妊" : "産婦人科";
-    window.open(
-      `https://www.google.com/maps/search/${encodeURIComponent(query)}`,
-      "_blank"
-    );
+    if (result.route === "pharmacy") {
+      // Use our pharmacy search page
+      window.location.href = "/pharmacies";
+    } else {
+      // For medical facilities, use Google Maps
+      window.open(
+        `https://www.google.com/maps/search/${encodeURIComponent("産婦人科")}`,
+        "_blank"
+      );
+    }
   };
 
   return (
