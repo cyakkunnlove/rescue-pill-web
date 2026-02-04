@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { ChoiceButton } from "@/components/ui/ChoiceButton";
@@ -394,6 +394,7 @@ function QuestionContent({
               : answers.birthDate
           }
           onChange={(date) => updateAnswer(question.id, date)}
+          onSkip={goNext}
         />
       );
 
@@ -406,6 +407,8 @@ function QuestionContent({
           min={question.min}
           max={question.max}
           defaultValue={question.defaultValue}
+          onSkip={goNext}
+          wheelPicker={question.id === "cycleLengthDays"}
         />
       );
 
@@ -576,12 +579,21 @@ function BoolInput({
 function DateInput({
   value,
   onChange,
+  onSkip,
 }: {
   value: Date | null;
   onChange: (date: Date | null) => void;
+  onSkip?: () => void;
 }) {
   const formatForInput = (date: Date) => {
     return date.toISOString().slice(0, 10);
+  };
+
+  const handleSkip = () => {
+    onChange(null);
+    if (onSkip) {
+      setTimeout(onSkip, 100);
+    }
   };
 
   return (
@@ -596,7 +608,7 @@ function DateInput({
                    focus:border-primary focus:outline-none bg-white text-center
                    text-text-primary"
       />
-      <Button variant="secondary" onClick={() => onChange(null)}>
+      <Button variant="secondary" onClick={handleSkip}>
         スキップ
       </Button>
     </div>
@@ -610,6 +622,8 @@ function NumberInput({
   min,
   max,
   defaultValue,
+  onSkip,
+  wheelPicker,
 }: {
   value: number | null;
   onChange: (value: number | null) => void;
@@ -617,7 +631,31 @@ function NumberInput({
   min?: number;
   max?: number;
   defaultValue?: number;
+  onSkip?: () => void;
+  wheelPicker?: boolean;
 }) {
+  const handleSkip = () => {
+    onChange(null);
+    if (onSkip) {
+      setTimeout(onSkip, 100);
+    }
+  };
+
+  // Wheel picker for cycle length
+  if (wheelPicker && min !== undefined && max !== undefined) {
+    return (
+      <WheelPicker
+        value={value}
+        onChange={onChange}
+        min={min}
+        max={max}
+        defaultValue={defaultValue}
+        unit={unit}
+        onSkip={handleSkip}
+      />
+    );
+  }
+
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="flex items-center gap-2">
@@ -640,7 +678,124 @@ function NumberInput({
           </span>
         )}
       </div>
-      <Button variant="secondary" onClick={() => onChange(null)}>
+      <Button variant="secondary" onClick={handleSkip}>
+        スキップ
+      </Button>
+    </div>
+  );
+}
+
+// Wheel/Drum roll picker component
+function WheelPicker({
+  value,
+  onChange,
+  min,
+  max,
+  defaultValue,
+  unit,
+  onSkip,
+}: {
+  value: number | null;
+  onChange: (value: number) => void;
+  min: number;
+  max: number;
+  defaultValue?: number;
+  unit?: string;
+  onSkip?: () => void;
+}) {
+  const [selectedValue, setSelectedValue] = useState(value ?? defaultValue ?? Math.floor((min + max) / 2));
+  const containerRef = useRef<HTMLDivElement>(null);
+  const itemHeight = 48;
+  const visibleItems = 5;
+
+  const values = Array.from({ length: max - min + 1 }, (_, i) => min + i);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const index = selectedValue - min;
+      containerRef.current.scrollTo({
+        top: index * itemHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, []);
+
+  const handleScroll = () => {
+    if (containerRef.current) {
+      const scrollTop = containerRef.current.scrollTop;
+      const index = Math.round(scrollTop / itemHeight);
+      const newValue = min + index;
+      if (newValue !== selectedValue && newValue >= min && newValue <= max) {
+        setSelectedValue(newValue);
+        onChange(newValue);
+      }
+    }
+  };
+
+  const selectValue = (val: number) => {
+    setSelectedValue(val);
+    onChange(val);
+    if (containerRef.current) {
+      const index = val - min;
+      containerRef.current.scrollTo({
+        top: index * itemHeight,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <div className="relative w-48">
+        {/* Gradient overlays */}
+        <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none rounded-t-2xl" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none rounded-b-2xl" />
+        
+        {/* Selection indicator */}
+        <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-12 bg-primary-light bg-opacity-50 border-y-2 border-primary z-0 pointer-events-none" />
+        
+        {/* Scrollable wheel */}
+        <div
+          ref={containerRef}
+          onScroll={handleScroll}
+          className="h-60 overflow-y-scroll scroll-smooth snap-y snap-mandatory 
+                     scrollbar-hide relative border-2 border-primary-light rounded-2xl bg-white"
+          style={{
+            scrollSnapType: 'y mandatory',
+            WebkitOverflowScrolling: 'touch',
+          }}
+        >
+          {/* Padding items */}
+          <div style={{ height: itemHeight * 2 }} />
+          
+          {values.map((val) => (
+            <div
+              key={val}
+              onClick={() => selectValue(val)}
+              className={`h-12 flex items-center justify-center cursor-pointer snap-center
+                transition-all duration-150
+                ${selectedValue === val 
+                  ? 'text-2xl font-bold text-primary' 
+                  : 'text-lg text-text-muted'}`}
+              style={{ scrollSnapAlign: 'center' }}
+            >
+              {val}
+              {unit && selectedValue === val && (
+                <span className="ml-1 text-lg">{unit}</span>
+              )}
+            </div>
+          ))}
+          
+          {/* Padding items */}
+          <div style={{ height: itemHeight * 2 }} />
+        </div>
+      </div>
+      
+      <p className="text-sm text-text-muted">
+        スクロールまたはタップで選択
+      </p>
+      
+      <Button variant="secondary" onClick={onSkip}>
         スキップ
       </Button>
     </div>
