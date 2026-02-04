@@ -94,7 +94,7 @@ async function getPrefectureFromLocation(lat: number, lon: number): Promise<Loca
     
     if (!response.ok) {
       console.error(`[Location] Nominatim API error: ${response.status}`);
-      return null;
+      return { prefecture: null, city: null };
     }
     
     const data = await response.json();
