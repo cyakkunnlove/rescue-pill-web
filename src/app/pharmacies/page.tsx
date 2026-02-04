@@ -33,6 +33,8 @@ interface PharmacyMin {
   f: number;  // female pharmacist available
   m: number;  // male pharmacist available
   w: string;  // website
+  lat?: number | null;  // latitude
+  lon?: number | null;  // longitude
 }
 
 interface Pharmacy {
@@ -45,6 +47,9 @@ interface Pharmacy {
   femalePharmacist: boolean;
   malePharmacist: boolean;
   website: string;
+  lat?: number | null;
+  lon?: number | null;
+  distance?: number;  // km from user
 }
 
 const PREFECTURES = [
@@ -76,6 +81,19 @@ const ISO_TO_PREFECTURE: Record<string, string> = {
 interface LocationResult {
   prefecture: string | null;
   city: string | null;
+}
+
+// Calculate distance between two coordinates using Haversine formula
+function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371; // Earth's radius in km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
 }
 
 // Reverse geocode coordinates to prefecture using OpenStreetMap Nominatim
@@ -234,6 +252,8 @@ export default function PharmaciesPage() {
           femalePharmacist: p.f === 1,
           malePharmacist: p.m === 1,
           website: p.w,
+          lat: p.lat,
+          lon: p.lon,
         }));
         setPharmacies(transformed);
         setLoading(false);
@@ -264,8 +284,26 @@ export default function PharmaciesPage() {
       result = result.filter((p) => p.afterHours);
     }
 
+    // Calculate distance and sort by nearest if user location is available
+    if (userCoords) {
+      result = result.map((p) => ({
+        ...p,
+        distance: p.lat && p.lon 
+          ? calculateDistance(userCoords.lat, userCoords.lon, p.lat, p.lon)
+          : undefined,
+      }));
+      
+      // Sort by distance (pharmacies without coordinates go to the end)
+      result.sort((a, b) => {
+        if (a.distance === undefined && b.distance === undefined) return 0;
+        if (a.distance === undefined) return 1;
+        if (b.distance === undefined) return -1;
+        return a.distance - b.distance;
+      });
+    }
+
     return result.slice(0, 100); // Limit to 100 results for performance
-  }, [pharmacies, selectedPrefecture, searchQuery, showAfterHoursOnly]);
+  }, [pharmacies, selectedPrefecture, searchQuery, showAfterHoursOnly, userCoords]);
 
   const openInMaps = (pharmacy: Pharmacy) => {
     // Include both name and address for accurate location
@@ -429,8 +467,8 @@ export default function PharmaciesPage() {
           <>
             <p className="text-sm text-text-muted mb-4">
               {filteredPharmacies.length === 100
-                ? "100件以上の結果（上位100件を表示）"
-                : `${filteredPharmacies.length}件の結果`}
+                ? `100件以上の結果${userCoords ? "（近い順に100件表示）" : "（上位100件を表示）"}`
+                : `${filteredPharmacies.length}件の結果${userCoords ? "（近い順）" : ""}`}
             </p>
 
             <div className="space-y-3">
@@ -445,6 +483,13 @@ export default function PharmaciesPage() {
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-bold text-text-primary flex-1 pr-2">{pharmacy.name}</h3>
                       <div className="flex flex-wrap gap-1 justify-end">
+                        {pharmacy.distance !== undefined && (
+                          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full whitespace-nowrap">
+                            {pharmacy.distance < 1 
+                              ? `${Math.round(pharmacy.distance * 1000)}m` 
+                              : `${pharmacy.distance.toFixed(1)}km`}
+                          </span>
+                        )}
                         {pharmacy.afterHours && (
                           <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full whitespace-nowrap">
                             {t("pharmacies.afterHours")}
