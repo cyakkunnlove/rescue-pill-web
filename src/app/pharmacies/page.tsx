@@ -156,7 +156,7 @@ export default function PharmaciesPage() {
             setLocationError("位置情報を取得できませんでした。");
             break;
           case error.TIMEOUT:
-            setLocationError("位置情報の取得がタイムアウトしました。");
+            setLocationError("位置情報の取得に時間がかかっています。手動で都道府県を選択してください。");
             break;
           default:
             setLocationError("位置情報を取得できませんでした。");
@@ -164,8 +164,8 @@ export default function PharmaciesPage() {
         setLocationLoading(false);
       },
       { 
-        timeout: 15000,        // 15秒タイムアウト
-        maximumAge: 60000,     // 1分間のキャッシュ
+        timeout: 30000,        // 30秒タイムアウト（モバイルGPSは時間がかかることも）
+        maximumAge: 300000,    // 5分間のキャッシュ
         enableHighAccuracy: false  // 高精度モードは遅いのでオフ
       }
     );
