@@ -206,8 +206,8 @@ export function QuestionScreen({
     }
   };
 
-  const goNext = () => {
-    if (!isValid()) {
+  const goNext = (skipValidation = false) => {
+    if (!skipValidation && !isValid()) {
       setShowError(true);
       return;
     }
@@ -218,6 +218,11 @@ export function QuestionScreen({
       setDirection(1);
       setIndex((i) => i + 1);
     }
+  };
+  
+  // Auto-advance for single choice questions
+  const autoAdvance = () => {
+    setTimeout(() => goNext(true), 200);
   };
 
   const goBack = () => {
@@ -297,6 +302,7 @@ export function QuestionScreen({
                 answers={answers}
                 updateAnswer={updateAnswer}
                 goNext={goNext}
+                autoAdvance={autoAdvance}
               />
             </div>
           </motion.div>
@@ -341,7 +347,8 @@ interface QuestionContentProps {
   question: Question;
   answers: Answers;
   updateAnswer: (key: keyof Answers, value: unknown) => void;
-  goNext: () => void;
+  goNext: (skipValidation?: boolean) => void;
+  autoAdvance: () => void;
 }
 
 function QuestionContent({
@@ -349,6 +356,7 @@ function QuestionContent({
   answers,
   updateAnswer,
   goNext,
+  autoAdvance,
 }: QuestionContentProps) {
   switch (question.type) {
     case "datetime":
@@ -366,7 +374,7 @@ function QuestionContent({
           selected={answers[question.id] as string[]}
           onChange={(values) => updateAnswer(question.id, values)}
           noneOption={question.id === "contraindications" ? "特にない" : undefined}
-          onSelectNone={goNext}
+          onSelectNone={() => goNext(true)}
         />
       );
 
@@ -377,7 +385,7 @@ function QuestionContent({
           unknownLabel={question.unknownLabel || "回答しない"}
           onChange={(value) => {
             updateAnswer(question.id, value);
-            setTimeout(goNext, 200);
+            autoAdvance();
           }}
         />
       );
@@ -388,7 +396,7 @@ function QuestionContent({
           value={answers[question.id] as boolean | null}
           onChange={(value) => {
             updateAnswer(question.id, value);
-            setTimeout(goNext, 200);
+            autoAdvance();
           }}
         />
       );
@@ -445,7 +453,7 @@ function QuestionContent({
           selected={answers[question.id] as string | null}
           onChange={(value) => {
             updateAnswer(question.id, value);
-            setTimeout(goNext, 200);
+            autoAdvance();
           }}
         />
       );
