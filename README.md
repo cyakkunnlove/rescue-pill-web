@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rescue Pill Web
 
-## Getting Started
+緊急避妊薬の入手を支援するWebアプリケーション。
 
-First, run the development server:
+🌐 **Live:** https://rescue-pill-web.vercel.app
+
+## 機能
+
+- ✅ セルフチェック問診（16問）
+- ✅ ルールベース判定（薬局/医療機関/緊急）
+- ✅ QRコード生成・ダウンロード
+- ✅ PDF出力
+- ✅ 近隣薬局検索への導線
+- ✅ 広告配信（Google AdSense対応）
+
+## 技術スタック
+
+- Next.js 16 (App Router)
+- TypeScript
+- Tailwind CSS v4
+- Framer Motion
+- Zustand（状態管理）
+- qrcode.react / @react-pdf/renderer
+
+## セットアップ
 
 ```bash
+# 依存関係インストール
+npm install
+
+# 開発サーバー起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# ビルド
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 環境変数
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`.env.example` を `.env.local` にコピーして設定：
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cp .env.example .env.local
+```
 
-## Learn More
+### Google AdSense 設定
 
-To learn more about Next.js, take a look at the following resources:
+1. [Google AdSense](https://www.google.com/adsense/) でアカウント作成
+2. サイト審査を通過
+3. パブリッシャーIDと広告ユニットIDを取得
+4. 環境変数を設定：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+NEXT_PUBLIC_ADSENSE_PUBLISHER_ID=ca-pub-XXXXXXXXXXXXXXXXX
+NEXT_PUBLIC_ADSENSE_SLOT_BANNER=1234567890
+NEXT_PUBLIC_ADSENSE_SLOT_RECTANGLE=1234567891
+NEXT_PUBLIC_ADSENSE_SLOT_INLINE=1234567892
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. `public/ads.txt` を更新：
 
-## Deploy on Vercel
+```
+google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Vercelでの環境変数設定
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Vercelダッシュボード → Settings → Environment Variables
+2. 上記の環境変数を追加
+3. 再デプロイ
+
+### Google Analytics（任意）
+
+```env
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+## ページ構成
+
+| ページ | パス | 説明 |
+|--------|------|------|
+| トップ | `/` | サービス紹介 |
+| 利用規約 | `/terms` | 利用規約 |
+| プライバシーポリシー | `/privacy` | プライバシーポリシー |
+| 特定商取引法 | `/legal` | 特定商取引法に基づく表記 |
+| 免責事項 | `/disclaimer` | 免責事項 |
+
+## デプロイ
+
+Vercelに接続済み。`main` ブランチへのpushで自動デプロイ。
+
+## ライセンス
+
+Private
+
+---
+
+**⚠️ 注意:** 本サービスは医療行為ではありません。緊急避妊薬の使用については、必ず医療従事者にご相談ください。

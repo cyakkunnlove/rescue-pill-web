@@ -1,0 +1,10 @@
+# Google AdSense ads.txt
+# Replace PUBLISHER_ID with your actual AdSense Publisher ID (numbers only, without "ca-pub-")
+# Example: google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
+#
+# Instructions:
+# 1. Go to Google AdSense > Sites > ads.txt
+# 2. Copy your ads.txt content
+# 3. Replace this file's content with your actual ads.txt
+#
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
