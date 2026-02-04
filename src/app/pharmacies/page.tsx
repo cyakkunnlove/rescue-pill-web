@@ -73,8 +73,13 @@ const ISO_TO_PREFECTURE: Record<string, string> = {
   "JP-45": "宮崎県", "JP-46": "鹿児島県", "JP-47": "沖縄県"
 };
 
+interface LocationResult {
+  prefecture: string | null;
+  city: string | null;
+}
+
 // Reverse geocode coordinates to prefecture using OpenStreetMap Nominatim
-async function getPrefectureFromLocation(lat: number, lon: number): Promise<string | null> {
+async function getPrefectureFromLocation(lat: number, lon: number): Promise<LocationResult> {
   try {
     console.log(`[Location] Reverse geocoding: ${lat}, ${lon}`);
     const response = await fetch(
@@ -95,11 +100,15 @@ async function getPrefectureFromLocation(lat: number, lon: number): Promise<stri
     const data = await response.json();
     console.log("[Location] Nominatim response:", data?.address);
     
+    // Get city name for local search
+    const city = data?.address?.city || data?.address?.town || data?.address?.village || null;
+    console.log(`[Location] Found city: ${city}`);
+    
     // Method 1: Use ISO 3166-2 code (most reliable)
     const isoCode = data?.address?.["ISO3166-2-lvl4"];
     if (isoCode && ISO_TO_PREFECTURE[isoCode]) {
       console.log(`[Location] Found ISO code: ${isoCode} -> ${ISO_TO_PREFECTURE[isoCode]}`);
-      return ISO_TO_PREFECTURE[isoCode];
+      return { prefecture: ISO_TO_PREFECTURE[isoCode], city };
     }
     
     // Method 2: Try multiple possible fields for prefecture name
@@ -116,15 +125,15 @@ async function getPrefectureFromLocation(lat: number, lon: number): Promise<stri
       });
       if (matched) {
         console.log(`[Location] Matched prefecture: ${matched}`);
-        return matched;
+        return { prefecture: matched, city };
       }
     }
     
     console.log("[Location] Could not determine prefecture");
-    return null;
+    return { prefecture: null, city };
   } catch (err) {
     console.error("[Location] Error:", err);
-    return null;
+    return { prefecture: null, city: null };
   }
 }
 
@@ -139,6 +148,8 @@ export default function PharmaciesPage() {
   const [locationLoading, setLocationLoading] = useState(false);
   const [locationDetected, setLocationDetected] = useState(false);
   const [locationError, setLocationError] = useState<string | null>(null);
+  const [userCity, setUserCity] = useState<string | null>(null);
+  const [userCoords, setUserCoords] = useState<{lat: number, lon: number} | null>(null);
 
   // Function to get user location
   const detectLocation = async () => {
@@ -157,12 +168,21 @@ export default function PharmaciesPage() {
         const { latitude, longitude, accuracy } = position.coords;
         console.log(`[Location] Got position: ${latitude}, ${longitude} (accuracy: ${accuracy}m)`);
         
-        const prefecture = await getPrefectureFromLocation(latitude, longitude);
-        if (prefecture) {
-          console.log(`[Location] Setting prefecture: ${prefecture}`);
-          setSelectedPrefecture(prefecture);
+        // Store coordinates for distance calculation
+        setUserCoords({ lat: latitude, lon: longitude });
+        
+        const result = await getPrefectureFromLocation(latitude, longitude);
+        if (result.prefecture) {
+          console.log(`[Location] Setting prefecture: ${result.prefecture}, city: ${result.city}`);
+          setSelectedPrefecture(result.prefecture);
+          setUserCity(result.city);
           setLocationDetected(true);
           setLocationError(null);
+          
+          // Auto-fill search with city name for more relevant results
+          if (result.city) {
+            setSearchQuery(result.city);
+          }
         } else {
           console.log("[Location] Could not determine prefecture");
           setLocationError("都道府県を特定できませんでした。手動で選択してください。");
@@ -315,7 +335,7 @@ export default function PharmaciesPage() {
               ) : locationDetected ? (
                 <p className="text-sm text-green-600 flex items-center gap-2">
                   <LocateFixed className="w-4 h-4" />
-                  {t("pharmacies.locationDetected")} {selectedPrefecture}
+                  {t("pharmacies.locationDetected")} {userCity ? `${userCity}（${selectedPrefecture}）` : selectedPrefecture}
                 </p>
               ) : (
                 <p className="text-sm text-text-secondary flex items-center gap-2">
