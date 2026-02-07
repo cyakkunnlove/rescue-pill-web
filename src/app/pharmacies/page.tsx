@@ -647,9 +647,11 @@ export default function PharmaciesPage() {
         )}
 
         {/* Ad Banner */}
-        <div className="mt-8">
-          <AdBanner />
-        </div>
+        {!loading && !error && filteredPharmacies.length > 0 && (
+          <div className="mt-8">
+            <AdBanner />
+          </div>
+        )}
 
         {/* Source Info */}
         <div className="mt-8 text-center">

@@ -142,11 +142,6 @@ export function LandingPage({ onStart }: LandingPageProps) {
         </div>
       </section>
 
-      {/* Ad Banner */}
-      <div className="px-4 py-4">
-        <AdBanner />
-      </div>
-
       {/* Features Section */}
       <section className="px-4 py-12 bg-white">
         <motion.div

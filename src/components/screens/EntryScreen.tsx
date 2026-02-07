@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { AdBanner } from "@/components/AdBanner";
 import { Heart, Shield, Clock, FileText, Star } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
@@ -121,10 +120,6 @@ export function EntryScreen({ onProceed, hasConsent }: EntryScreenProps) {
         </motion.div>
       </div>
 
-      {/* Ad Banner */}
-      <div className="px-4 pb-4">
-        <AdBanner />
-      </div>
     </div>
   );
 }

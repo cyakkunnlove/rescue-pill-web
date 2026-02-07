@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/Button";
 import { ChoiceButton } from "@/components/ui/ChoiceButton";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Card } from "@/components/ui/Card";
-import { AdBanner } from "@/components/AdBanner";
 import {
   Answers,
   TriChoice,
@@ -333,12 +332,6 @@ export function QuestionScreen({
         </motion.div>
       </div>
 
-      {/* Show ad every 5 questions */}
-      {(index + 1) % 5 === 0 && (
-        <div className="mt-2 flex-shrink-0">
-          <AdBanner />
-        </div>
-      )}
     </div>
   );
 }
