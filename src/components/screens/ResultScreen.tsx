@@ -24,7 +24,7 @@ interface ResultScreenProps {
 }
 
 export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [reasonsExpanded, setReasonsExpanded] = useState(false);
   const [notesExpanded, setNotesExpanded] = useState(false);
 
@@ -68,25 +68,21 @@ export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
   };
 
   const getHeadline = () => {
-    switch (result.route) {
-      case "pharmacy":
-        return t("result.pharmacy.headline");
-      case "medical":
-        return t("result.medical.headline");
-      case "emergency":
-        return t("result.emergency.headline");
-    }
+    if (locale === "ja" && result.headline) return result.headline;
+    return result.route === "pharmacy"
+      ? t("result.pharmacy.headline")
+      : result.route === "medical"
+      ? t("result.medical.headline")
+      : t("result.emergency.headline");
   };
 
   const getDetail = () => {
-    switch (result.route) {
-      case "pharmacy":
-        return t("result.pharmacy.detail");
-      case "medical":
-        return t("result.medical.detail");
-      case "emergency":
-        return t("result.emergency.detail");
-    }
+    if (locale === "ja" && result.detail) return result.detail;
+    return result.route === "pharmacy"
+      ? t("result.pharmacy.detail")
+      : result.route === "medical"
+      ? t("result.medical.detail")
+      : t("result.emergency.detail");
   };
 
   const Icon = getIcon();
@@ -102,9 +98,7 @@ export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
           className="text-center mb-6"
         >
           <h1 className="text-lg font-bold text-text-secondary mb-1">
-            {result.route === "pharmacy" ? t("result.pharmacy.headline") : 
-             result.route === "medical" ? t("result.medical.headline") : 
-             t("result.emergency.headline")}
+            {getHeadline()}
           </h1>
         </motion.div>
 

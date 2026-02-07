@@ -23,6 +23,8 @@ export function evaluate(answers: Answers): Result {
   const hours = elapsedHours(answers.lastSexDate);
   const bmiValue = calculateBMI(answers.heightCm, answers.weight);
   const hasUnknownContra = answers.contraindications.includes("わからない");
+  const hasSupplementRisk =
+    answers.interactionRisk && answers.interactionRisk !== "特に飲んでいない";
 
   // 緊急症状チェック
   if (answers.dangerSymptoms === true) {
@@ -30,7 +32,7 @@ export function evaluate(answers: Answers): Result {
       route: "emergency",
       headline: "急いで医療機関へ連絡してください",
       detail: "強い症状があるため、自己判断は避けて受診を優先してください。",
-      reasons: ["強い腹痛・大量出血などの症状がある"],
+      reasons: ["強い症状があり、まず安全確認が必要です。"],
       notes: ["救急相談や夜間対応の医療機関も検討してください。"],
       elapsedHours: hours,
     };
@@ -42,8 +44,8 @@ export function evaluate(answers: Answers): Result {
       route: "medical",
       headline: "医療機関での相談をおすすめします",
       detail: "安心のため、医療機関でのサポートを優先してください。",
-      reasons: ["同意が確認できない状況が含まれる可能性"],
-      notes: ["必要に応じて支援先の相談も検討してください。"],
+      reasons: ["同意がない、または同意を確認しづらい状況の可能性があります。"],
+      notes: ["一人で抱えず、医療機関や相談窓口（#8891・#8008）も利用できます。"],
       elapsedHours: hours,
     };
   }
@@ -54,7 +56,7 @@ export function evaluate(answers: Answers): Result {
       route: "medical",
       headline: "医療機関での相談をおすすめします",
       detail: "妊娠検査が陽性の場合、医療機関での確認が必要です。",
-      reasons: ["妊娠検査が陽性"],
+      reasons: ["妊娠検査で陽性の結果が出ています。"],
       notes: [],
       elapsedHours: hours,
     };
@@ -69,19 +71,7 @@ export function evaluate(answers: Answers): Result {
       route: "medical",
       headline: "医療機関での相談をおすすめします",
       detail: "持病や禁忌の可能性があるため、医療機関での確認が安心です。",
-      reasons: ["禁忌に該当する可能性がある"],
-      notes: [],
-      elapsedHours: hours,
-    };
-  }
-
-  // 相互作用リスク（サプリメント服用あり）
-  if (answers.interactionRisk && answers.interactionRisk !== "特に飲んでいない") {
-    return {
-      route: "medical",
-      headline: "医療機関での相談をおすすめします",
-      detail: "サプリメントとの相互作用の可能性があるため、医療機関での確認が安心です。",
-      reasons: ["サプリメントの服用がある"],
+      reasons: ["持病や体質により、薬の選択を医師が確認する必要があります。"],
       notes: [],
       elapsedHours: hours,
     };
@@ -90,30 +80,50 @@ export function evaluate(answers: Answers): Result {
   // 時間不明
   if (hours === null) {
     return {
-      route: "medical",
-      headline: "医療機関での相談をおすすめします",
-      detail: "時間が不明なため、医療機関での確認が安心です。",
-      reasons: ["性交日時が未入力"],
-      notes: [],
+      route: "pharmacy",
+      headline: "まずは薬局で相談し、必要に応じて医療機関へ",
+      detail:
+        "性行為の日時により薬局で対応できる場合と、医療機関での対応が必要な場合があります。",
+      reasons: [
+        "性行為の日時が不明のため、薬局対応の可否が事前に確定できない状態です。",
+      ],
+      notes: [
+        ...(hasSupplementRisk
+          ? [
+              "サプリメントは一時中止が必要になる場合があります。薬剤師に服用中の内容を必ず伝えてください。",
+            ]
+          : []),
+        "薬剤師の判断により、医療機関の受診を案内される可能性があります。",
+      ],
       elapsedHours: null,
     };
   }
 
   // 72時間以内
   if (hours <= 72) {
-    reasons.push("性交から72時間以内");
+    reasons.push("性行為から72時間以内です。");
 
     if (answers.breastfeeding === "yes") {
-      notes.push("授乳中の場合は医療者に相談してください。");
+      notes.push("授乳中の方は、服用可否を医療者に確認してください。");
     }
     if (answers.pregnancyTest === "unknown") {
-      notes.push("必要に応じて妊娠検査を検討してください。");
+      notes.push("未検査の場合は、必要に応じて妊娠検査を検討してください。");
     }
     if (hasUnknownContra) {
-      notes.push("禁忌の有無が不明な場合は医療者に相談してください。");
+      notes.push(
+        "持病や禁忌の情報が不明な場合、薬剤師の判断で医療機関の受診を案内される可能性があります。"
+      );
     }
     if (bmiValue && bmiValue >= 30) {
-      notes.push("BMIが高い場合、効果が低下する可能性があります。");
+      notes.push("体格（BMI）によっては、薬の効果が下がる可能性があります。");
+    }
+    if (hasSupplementRisk) {
+      notes.push(
+        "サプリメントは一時中止が必要になる場合があります。薬剤師に服用中の内容を必ず伝えてください。"
+      );
+      notes.push(
+        "薬剤師の判断により、医療機関の受診を案内される可能性があります。"
+      );
     }
 
     return {
@@ -128,9 +138,21 @@ export function evaluate(answers: Answers): Result {
 
   // 72-120時間
   if (hours <= 120) {
-    reasons.push("性交から72時間を超過（120時間以内）");
+    reasons.push("性行為から72時間を超えており、医療機関での相談が適しています（120時間以内）。");
   } else {
-    reasons.push("性交から120時間を超過");
+    reasons.push("性行為から120時間を超えており、医療機関での相談が必要です。");
+  }
+
+  const medicalNotes: string[] = [];
+  if (hasSupplementRisk) {
+    medicalNotes.push(
+      "サプリメントは一時中止が必要になる場合があります。医師・薬剤師に服用中の内容を必ず伝えてください。"
+    );
+  }
+  if (hasUnknownContra) {
+    medicalNotes.push(
+      "薬局での相談は可能ですが、持病や禁忌が不明な場合は薬剤師の判断で医療機関受診を案内される可能性があります。"
+    );
   }
 
   return {
@@ -138,9 +160,7 @@ export function evaluate(answers: Answers): Result {
     headline: "医療機関での相談をおすすめします",
     detail: "時間経過により医療機関での対応が安心です。",
     reasons,
-    notes: hasUnknownContra
-      ? ["禁忌の有無が不明な場合は医療者に相談してください。"]
-      : [],
+    notes: medicalNotes,
     elapsedHours: hours,
   };
 }
