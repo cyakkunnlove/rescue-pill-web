@@ -148,15 +148,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
         />
         
-        {/* Google AdSense */}
-        {ADSENSE_PUBLISHER_ID && (
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
-            crossOrigin="anonymous"
-            strategy="afterInteractive"
-          />
-        )}
+        {/* Google AdSense - Removed from global layout to comply with policy */}
+        {/* AdSense is now loaded only on pages with substantial content */}
         
         {/* Google Analytics (optional) */}
         {process.env.NEXT_PUBLIC_GA_ID && (

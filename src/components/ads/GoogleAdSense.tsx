@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Script from "next/script";
 
 // AdSense Publisher ID - Replace with actual ID after approval
@@ -21,16 +21,18 @@ export function GoogleAdSense({
   style,
   className = "",
 }: AdSenseProps) {
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+
   useEffect(() => {
-    try {
-      if (typeof window !== "undefined" && ADSENSE_PUBLISHER_ID) {
+    if (scriptLoaded && typeof window !== "undefined" && ADSENSE_PUBLISHER_ID) {
+      try {
         // @ts-ignore
         (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (error) {
+        console.error("AdSense error:", error);
       }
-    } catch (error) {
-      console.error("AdSense error:", error);
     }
-  }, []);
+  }, [scriptLoaded]);
 
   // Show placeholder if no publisher ID is set
   if (!ADSENSE_PUBLISHER_ID) {
@@ -46,6 +48,14 @@ export function GoogleAdSense({
 
   return (
     <div className={className} style={style}>
+      {/* Load AdSense script only when this component is rendered */}
+      <Script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+        onLoad={() => setScriptLoaded(true)}
+      />
       <ins
         className="adsbygoogle"
         style={{
@@ -61,18 +71,9 @@ export function GoogleAdSense({
   );
 }
 
-// AdSense Script Component - Add to layout
+// AdSense Script Component - No longer needed globally
+// Keep for backward compatibility but recommend using GoogleAdSense component instead
 export function AdSenseScript() {
-  if (!ADSENSE_PUBLISHER_ID) {
-    return null;
-  }
-
-  return (
-    <Script
-      async
-      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
-      crossOrigin="anonymous"
-      strategy="afterInteractive"
-    />
-  );
+  // Script is now loaded by individual ad components
+  return null;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Script from "next/script";
 
 // AdSense Publisher ID from environment
 const ADSENSE_PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "";
@@ -24,6 +25,7 @@ export function AdBanner({
   className = "" 
 }: AdBannerProps) {
   const [adLoaded, setAdLoaded] = useState(false);
+  const [scriptLoaded, setScriptLoaded] = useState(false);
 
   const positionClasses = {
     top: "fixed top-0 left-0 right-0 z-50",
@@ -34,7 +36,7 @@ export function AdBanner({
   const adSlot = AD_SLOTS[format] || AD_SLOTS.inline;
 
   useEffect(() => {
-    if (ADSENSE_PUBLISHER_ID && adSlot) {
+    if (scriptLoaded && ADSENSE_PUBLISHER_ID && adSlot) {
       try {
         // @ts-ignore
         (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -43,12 +45,20 @@ export function AdBanner({
         console.error("AdSense error:", error);
       }
     }
-  }, [adSlot]);
+  }, [adSlot, scriptLoaded]);
 
   // Show actual AdSense ad if configured
   if (ADSENSE_PUBLISHER_ID && adSlot) {
     return (
       <div className={`${positionClasses[position]} ${className}`}>
+        {/* Load AdSense script only when this component is rendered */}
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+          onLoad={() => setScriptLoaded(true)}
+        />
         <ins
           className="adsbygoogle"
           style={{
