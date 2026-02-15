@@ -131,7 +131,7 @@ export function ActionsScreen({
           </h3>
           <div className="bg-white rounded-2xl p-4 shadow-card space-y-3">
             <a
-              href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000186912.html"
+              href="https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku.html"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-between text-sm text-text-primary hover:text-primary transition-colors"
@@ -141,7 +141,7 @@ export function ActionsScreen({
             </a>
             <div className="border-t border-primary-light" />
             <a
-              href="https://www.jaog.or.jp/"
+              href="https://www.jaog.or.jp/qa/youth/jyosei200122/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-between text-sm text-text-primary hover:text-primary transition-colors"

@@ -240,7 +240,7 @@ export default function HospitalsPage() {
 
             <Card>
               <a
-                href="https://www.pharmacy-ec-trial.jp/"
+                href="https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00005.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between"
@@ -259,7 +259,7 @@ export default function HospitalsPage() {
 
             <Card>
               <a
-                href="https://pilcon.org/help-line"
+                href="https://pilcon.org/help-line/afterpill"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between"
@@ -278,7 +278,7 @@ export default function HospitalsPage() {
 
             <Card>
               <a
-                href="https://www.jaog.or.jp/note/"
+                href="https://www.jaog.or.jp/qa/youth/jyosei200122/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between"
