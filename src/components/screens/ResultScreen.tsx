@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { AdBanner } from "@/components/AdBanner";
 import { Result } from "@/types";
 import { getRouteInfo } from "@/lib/ruleEngine";
 import {
@@ -238,7 +237,6 @@ export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
 
         {/* Ad */}
         <div className="mt-6">
-          <AdBanner />
         </div>
       </div>
 
