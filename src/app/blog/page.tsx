@@ -13,6 +13,27 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    slug: 'myths-and-facts',
+    title: '緊急避妊薬にまつわる7つの誤解と真実',
+    excerpt: '「太る」「不妊になる」「何度も使えない」など、緊急避妊薬に関する誤解を医学的根拠とともに解消します。',
+    date: '2025-02-12',
+    category: '基礎知識',
+  },
+  {
+    slug: 'emergency-vs-regular-pill',
+    title: '緊急避妊薬と低用量ピルの違いを解説',
+    excerpt: 'アフターピルと普段の避妊に使う低用量ピルは何が違う？成分、使い方、効果の違いをわかりやすく比較します。',
+    date: '2025-02-08',
+    category: '基礎知識',
+  },
+  {
+    slug: 'cost-comparison',
+    title: '緊急避妊薬の費用：薬局と病院の料金を徹底比較',
+    excerpt: 'OTC薬局と産婦人科、オンライン診療それぞれの費用相場を比較。できるだけ費用を抑える方法も紹介します。',
+    date: '2025-02-05',
+    category: '費用・料金',
+  },
+  {
     slug: 'what-is-emergency-contraception',
     title: '緊急避妊薬（アフターピル）とは？基本的な知識と仕組み',
     excerpt: '緊急避妊薬の効果、服用タイミング、副作用について医学的な観点からわかりやすく解説します。',
