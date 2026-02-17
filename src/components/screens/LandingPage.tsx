@@ -390,6 +390,9 @@ export function LandingPage({ onStart }: LandingPageProps) {
 
           {/* Links */}
           <div className="flex flex-wrap justify-center gap-4 mb-4 text-sm">
+            <Link href="/blog" className="text-white/70 hover:text-white transition-colors">
+              お役立ち情報
+            </Link>
             <Link href="/partners" className="text-white/70 hover:text-white transition-colors">
               {t("footer.partners")}
             </Link>
