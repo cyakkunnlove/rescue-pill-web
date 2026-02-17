@@ -1,10 +1,7 @@
-import Link from 'next/link';
-import { Metadata } from 'next';
+"use client";
 
-export const metadata: Metadata = {
-  title: 'お役立ち情報 | Rescue Pill',
-  description: '緊急避妊薬（アフターピル）に関する正しい知識、薬局での入手方法、よくある疑問への回答など、役立つ情報をお届けします。',
-};
+import Link from 'next/link';
+import { AdBanner } from "@/components/AdBanner";
 
 interface BlogPost {
   slug: string;
@@ -72,8 +69,48 @@ export default function BlogPage() {
           </p>
         </header>
 
+        {/* Ad Banner - Top */}
+        <div className="mb-8">
+          <AdBanner format="banner" />
+        </div>
+
         <div className="grid gap-6 md:grid-cols-2">
-          {blogPosts.map((post) => (
+          {blogPosts.slice(0, 3).map((post) => (
+            <article
+              key={post.slug}
+              className="bg-white rounded-xl shadow-sm border border-pink-100 overflow-hidden hover:shadow-md transition-shadow"
+            >
+              <Link href={`/blog/${post.slug}`}>
+                <div className="p-6">
+                  <span className="inline-block px-3 py-1 text-xs font-medium text-pink-600 bg-pink-50 rounded-full mb-3">
+                    {post.category}
+                  </span>
+                  <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+                    {post.title}
+                  </h2>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                  <time className="text-xs text-gray-400">
+                    {new Date(post.date).toLocaleDateString('ja-JP', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                </div>
+              </Link>
+            </article>
+          ))}
+        </div>
+
+        {/* Ad Banner - Middle */}
+        <div className="my-8">
+          <AdBanner format="rectangle" />
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {blogPosts.slice(3).map((post) => (
             <article
               key={post.slug}
               className="bg-white rounded-xl shadow-sm border border-pink-100 overflow-hidden hover:shadow-md transition-shadow"

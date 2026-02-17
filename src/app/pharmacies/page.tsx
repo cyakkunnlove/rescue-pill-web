@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -552,13 +552,19 @@ export default function PharmaciesPage() {
 
             <div className="space-y-3">
               {filteredPharmacies.map((pharmacy, index) => (
-                <motion.div
-                  key={`${pharmacy.name}-${pharmacy.address}-${index}`}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.02 }}
-                >
-                  <Card>
+                <React.Fragment key={`pharmacy-${index}`}>
+                  {/* Insert ad after every 20 results */}
+                  {index > 0 && index % 20 === 0 && (
+                    <div className="my-4">
+                      <AdBanner format="inline" />
+                    </div>
+                  )}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.02 }}
+                  >
+                    <Card>
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-bold text-text-primary flex-1 pr-2">{pharmacy.name}</h3>
                       <div className="flex flex-wrap gap-1 justify-end">
@@ -622,6 +628,7 @@ export default function PharmaciesPage() {
                     </div>
                   </Card>
                 </motion.div>
+                </React.Fragment>
               ))}
             </div>
 
