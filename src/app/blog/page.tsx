@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { AdBanner } from "@/components/AdBanner";
+import { useTranslation } from "@/lib/i18n";
 
 interface BlogPost {
   slug: string;
@@ -78,15 +79,17 @@ const blogPosts: BlogPost[] = [
 ];
 
 export default function BlogPage() {
+  const { t } = useTranslation();
+  
   return (
     <main className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <header className="text-center mb-12">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">
-            お役立ち情報
+            {t("blog.title")}
           </h1>
           <p className="text-gray-600">
-            緊急避妊薬に関する正しい知識と情報をお届けします
+            {t("blog.subtitle")}
           </p>
         </header>
 
@@ -165,7 +168,7 @@ export default function BlogPage() {
             href="/"
             className="inline-flex items-center text-pink-600 hover:text-pink-700"
           >
-            ← トップページに戻る
+            {t("blog.backToTop")}
           </Link>
         </div>
       </div>

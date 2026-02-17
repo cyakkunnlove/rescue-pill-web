@@ -359,7 +359,17 @@
     "disclaimer": "Disclaimer",
     "partners": "Partners",
     "contact": "Contact",
+    "blog": "Helpful Info",
     "backToTop": "Back to Top",
     "copyright": "© 2024 Rescue Pill. All rights reserved."
+  },
+  "blog": {
+    "title": "Helpful Information",
+    "subtitle": "Reliable information about emergency contraception",
+    "backToList": "← Back to articles",
+    "backToTop": "← Back to home",
+    "searchCta": "Looking for emergency contraception?",
+    "searchCtaDesc": "Find nearby pharmacies or clinics that can help",
+    "searchButton": "Find Pharmacy or Clinic"
   }
 }

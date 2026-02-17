@@ -340,7 +340,17 @@
     "disclaimer": "免责声明",
     "partners": "合作伙伴",
     "contact": "联系我们",
+    "blog": "实用信息",
     "backToTop": "返回顶部",
     "copyright": "© 2024 Rescue Pill. 保留所有权利。"
+  },
+  "blog": {
+    "title": "实用信息",
+    "subtitle": "关于紧急避孕的正确知识和信息",
+    "backToList": "← 返回文章列表",
+    "backToTop": "← 返回首页",
+    "searchCta": "正在寻找紧急避孕药？",
+    "searchCtaDesc": "搜索附近的药店或医疗机构",
+    "searchButton": "查找药店或医院"
   }
 }
