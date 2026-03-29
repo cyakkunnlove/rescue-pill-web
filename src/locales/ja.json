@@ -359,7 +359,17 @@
     "disclaimer": "免責事項",
     "partners": "パートナー募集",
     "contact": "お問い合わせ",
+    "blog": "お役立ち情報",
     "backToTop": "トップへ戻る",
     "copyright": "© 2024 Rescue Pill. All rights reserved."
+  },
+  "blog": {
+    "title": "お役立ち情報",
+    "subtitle": "緊急避妊薬に関する正しい知識と情報をお届けします",
+    "backToList": "← 記事一覧に戻る",
+    "backToTop": "← トップページに戻る",
+    "searchCta": "緊急避妊薬をお探しですか？",
+    "searchCtaDesc": "お近くのOTC対応薬局や医療機関を検索できます",
+    "searchButton": "薬局・医療機関を探す"
   }
 }

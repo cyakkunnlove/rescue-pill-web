@@ -313,7 +313,17 @@
     "disclaimer": "Miễn trừ trách nhiệm",
     "partners": "Đối tác",
     "contact": "Liên hệ",
+    "blog": "Thông tin hữu ích",
     "backToTop": "Về đầu trang",
     "copyright": "© 2024 Rescue Pill. Bảo lưu mọi quyền."
+  },
+  "blog": {
+    "title": "Thông tin hữu ích",
+    "subtitle": "Kiến thức chính xác về thuốc tránh thai khẩn cấp",
+    "backToList": "← Quay lại danh sách",
+    "backToTop": "← Quay lại trang chủ",
+    "searchCta": "Bạn đang tìm thuốc tránh thai khẩn cấp?",
+    "searchCtaDesc": "Tìm nhà thuốc hoặc cơ sở y tế gần bạn",
+    "searchButton": "Tìm nhà thuốc hoặc bệnh viện"
   }
 }

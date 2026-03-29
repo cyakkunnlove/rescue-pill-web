@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-
 import { Result } from "@/types";
 import { getRouteInfo } from "@/lib/ruleEngine";
 import {
@@ -236,7 +235,13 @@ export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
           </motion.div>
         )}
 
+<<<<<<< HEAD
 
+=======
+        {/* Ad */}
+        <div className="mt-6">
+        </div>
+>>>>>>> 233354b249c37f2d122ae6e9adfeeca068e3a470
       </div>
 
       {/* Navigation */}

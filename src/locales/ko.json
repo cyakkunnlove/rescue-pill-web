@@ -313,7 +313,17 @@
     "disclaimer": "면책조항",
     "partners": "파트너 모집",
     "contact": "문의하기",
+    "blog": "유용한 정보",
     "backToTop": "맨 위로",
     "copyright": "© 2024 Rescue Pill. All rights reserved."
+  },
+  "blog": {
+    "title": "유용한 정보",
+    "subtitle": "응급 피임약에 관한 정확한 지식과 정보",
+    "backToList": "← 기사 목록으로",
+    "backToTop": "← 홈으로 돌아가기",
+    "searchCta": "응급 피임약을 찾고 계신가요?",
+    "searchCtaDesc": "가까운 약국이나 의료기관을 검색하세요",
+    "searchButton": "약국・병원 찾기"
   }
 }
