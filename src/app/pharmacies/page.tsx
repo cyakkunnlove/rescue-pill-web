@@ -553,12 +553,7 @@ export default function PharmaciesPage() {
             <div className="space-y-3">
               {filteredPharmacies.map((pharmacy, index) => (
                 <React.Fragment key={`pharmacy-${index}`}>
-                  {/* Insert ad after every 20 results */}
-                  {index > 0 && index % 20 === 0 && (
-                    <div className="my-4">
-                      <AdBanner format="inline" />
-                    </div>
-                  )}
+
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}

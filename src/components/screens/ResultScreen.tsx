@@ -234,14 +234,6 @@ export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
             )}
           </motion.div>
         )}
-
-<<<<<<< HEAD
-
-=======
-        {/* Ad */}
-        <div className="mt-6">
-        </div>
->>>>>>> 233354b249c37f2d122ae6e9adfeeca068e3a470
       </div>
 
       {/* Navigation */}
