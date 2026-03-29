@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { ActionCard } from "@/components/ui/ActionCard";
-import { AdBanner } from "@/components/AdBanner";
+
 import { Result } from "@/types";
 import { useTranslation } from "@/lib/i18n";
 import {
@@ -152,10 +152,7 @@ export function ActionsScreen({
           </div>
         </motion.div>
 
-        {/* Ad */}
-        <div className="mt-6">
-          <AdBanner />
-        </div>
+
       </div>
 
       {/* Navigation */}

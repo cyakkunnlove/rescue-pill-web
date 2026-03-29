@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { AdBanner } from "@/components/AdBanner";
+
 import { useTranslation } from "@/lib/i18n";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
@@ -646,12 +646,7 @@ export default function PharmaciesPage() {
           </>
         )}
 
-        {/* Ad Banner */}
-        {!loading && !error && filteredPharmacies.length > 0 && (
-          <div className="mt-8">
-            <AdBanner />
-          </div>
-        )}
+
 
         {/* Source Info */}
         <div className="mt-8 text-center">
