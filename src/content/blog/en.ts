@@ -22,8 +22,9 @@ Emergency contraception (also called the morning-after pill or Plan B) is a medi
 The main active ingredient in emergency contraception used in Japan is **levonorgestrel**. This compound is listed on the WHO (World Health Organization) Essential Medicines List and has a well-established safety profile.
 
 ### Common Products
-- Norlevo (brand name)
-- Levonorgestrel tablets (generic)
+- NorLevo (pharmacist-guided and prescription versions)
+- Resoel 72 (pharmacist-guided drug)
+- Levonorgestrel products prescribed by medical institutions
 
 ## How It Works
 
@@ -36,19 +37,11 @@ Emergency contraception primarily prevents pregnancy through the following mecha
 
 ## Effectiveness and Timing
 
-The effectiveness of emergency contraception increases when taken as soon as possible after intercourse.
-
-| Timing | Pregnancy Prevention Rate |
-|--------|--------------------------|
-| Within 24 hours | Approximately 95% |
-| Within 48 hours | Approximately 85% |
-| Within 72 hours | Approximately 58% |
-
-Taking it within **72 hours (3 days)** is recommended, but the sooner the better.
+Levonorgestrel emergency contraception should be taken **as soon as possible within 72 hours** after intercourse. It does not prevent pregnancy 100% of the time. Three weeks after taking it, use a pregnancy test or visit a medical institution to confirm that you are not pregnant.
 
 ## How to Take It
 
-Take one tablet with water or lukewarm water. It can be taken with or without food.
+Take one tablet with water or lukewarm water. When purchasing at a pharmacy, the purchaser herself receives the pharmacist's explanation and takes the tablet in-store in front of the pharmacist.
 
 ## Important Notes
 
@@ -75,23 +68,22 @@ In Japan, there are two main ways to obtain emergency contraception.
 
 ## 1. Purchase at an OTC Pharmacy
 
-Since November 2023, emergency contraception can be purchased without a prescription at certain pharmacies.
+Since February 2, 2026, designated pharmacies may sell emergency contraception without a prescription as a pharmacist-guided drug. The MHLW pharmacy list was updated July 1, 2026.
 
 ### Purchase Process
 
-1. **Find an OTC pharmacy** - Use this app or the Ministry of Health, Labour and Welfare list
-2. **Visit the pharmacy** - You must come in person
-3. **Consultation with pharmacist** - Private consultation to discuss your situation
-4. **Take the medication on-site** - Generally taken at the pharmacy
-5. **Follow-up after 3 weeks** - Phone call to confirm pregnancy status
+1. **Find a designated pharmacy** - Check the latest MHLW list
+2. **Call before visiting** - Confirm stock and that a trained pharmacist is on duty
+3. **Visit in person** - The purchaser herself receives the pharmacist's checks and explanation
+4. **Take it on-site** - Take one tablet in-store in front of the pharmacist
+5. **Check after 3 weeks** - Use a pregnancy test or visit a medical institution to confirm that you are not pregnant
 
 ### Cost
-- Approximately ¥7,000-9,000 (varies by pharmacy)
-- Not covered by insurance, full self-pay
+Prices vary by product and pharmacy. Confirm the price and payment method before visiting.
 
 ### Notes
-- Parental consent may be required for those under 16
-- ID verification is required
+- Formal identification is not always required, but the pharmacist will confirm age and the pharmacy may request identification
+- There is no age restriction, but current practice encourages those under 16 to consult a medical institution
 - Not all pharmacies carry this medication
 
 ## 2. Prescription from an OB-GYN Clinic
@@ -106,8 +98,7 @@ You can receive a prescription after a medical consultation at a healthcare faci
 4. **Take the medication**
 
 ### Cost
-- Consultation fee + medication: approximately ¥6,000-20,000
-- Varies by clinic as it's not covered by insurance
+Consultation and medication charges vary by medical institution. Before visiting, confirm availability, reception hours, and costs.
 
 ### Benefits
 - Prescription tailored to your health and medical history
@@ -116,11 +107,11 @@ You can receive a prescription after a medical consultation at a healthcare faci
 
 ## Online Telemedicine Option
 
-Some healthcare providers offer emergency contraception prescriptions through telemedicine.
+Some healthcare providers offer telemedicine. Under the current guidance, after the consultation you visit a designated pharmacy, receive an explanation from a trained pharmacist, and take the medicine in front of that pharmacist.
 
 ### Notes
-- Delivery may take time
-- Confirm it will arrive within 72 hours
+- Do not assume home delivery; confirm the participating medical institution and designated pharmacy
+- Confirm the designated pharmacy's stock, trained-pharmacist coverage, and reception hours
 
 ## Which Should You Choose?
 
@@ -145,27 +136,25 @@ This app makes it easy to find nearby OTC pharmacies and healthcare facilities. 
     content: `
 ## What is an OTC Pharmacy?
 
-OTC (Over The Counter) pharmacies are certified pharmacies that can sell emergency contraception without a prescription.
-
-This program began as a pilot in November 2023, and only pharmacies meeting specific requirements are authorized to sell.
+Designated pharmacies meet the requirements to sell emergency contraception without a prescription as a pharmacist-guided drug. Formal pharmacy sales began February 2, 2026.
 
 ## How to Find an OTC Pharmacy
 
 ### 1. Use This App
-The Rescue Pill app uses your location to easily find nearby OTC pharmacies.
+Rescue Pill lets you search OTC pharmacies by prefecture, pharmacy name, or address.
 
 ### 2. Check the Ministry of Health List
-The Ministry of Health, Labour and Welfare publishes a nationwide list of OTC pharmacies on their website.
+The Ministry of Health, Labour and Welfare publishes a nationwide list of designated pharmacies. The list was updated July 1, 2026; because locations can be added or removed, always check the latest version.
 
 ### 3. Call to Confirm
-You can also call nearby pharmacies to ask if they offer OTC sales.
+Before visiting, call to confirm stock, that a trained pharmacist is on duty, and reception hours.
 
 ## Points to Consider When Choosing a Pharmacy
 
 - **Operating hours** - Open evenings or weekends?
 - **Private consultation room** - Is your privacy protected?
 - **Accessibility** - Can you get there quickly?
-- **Stock availability** - Calling ahead can provide peace of mind
+- **Stock and pharmacist coverage** - Always confirm by phone before visiting
 
 ## Detailed Purchase Process
 
@@ -188,15 +177,15 @@ The pharmacist will explain:
 - Follow-up procedures
 
 ### Step 4: Purchase and Take Medication
-Pay and generally take the medication on-site.
+The purchaser herself pays and takes one tablet in-store in front of the pharmacist.
 
 ### Step 5: Follow-up
-About 3 weeks later, the pharmacy will contact you by phone to confirm whether you got your period or took a pregnancy test.
+Three weeks after taking it, use a pregnancy test or visit a medical institution to confirm that you are not pregnant.
 
 ## What to Bring
 
-- **Government-issued ID** (driver's license, My Number card, etc.)
-- **Cash or credit card** (approximately ¥7,000-9,000)
+- **Items requested by the pharmacy** (formal ID is not always required, but the pharmacist will confirm age and may request identification)
+- **Payment method and price confirmed with the pharmacy**
 
 ## Frequently Asked Questions
 
@@ -204,10 +193,10 @@ About 3 weeks later, the pharmacy will contact you by phone to confirm whether y
 A: No. Generally, only the person who will take the medication can purchase it.
 
 ### Q: What is the minimum age?
-A: There is no age restriction, but those under 16 may need parental consent.
+A: There is no age restriction. Current practice encourages those under 16 to consult a medical institution.
 
 ### Q: Do I need an appointment?
-A: Most pharmacies don't require appointments, but calling ahead is recommended to avoid crowds.
+A: Requirements vary by pharmacy. Call before visiting to confirm stock, trained-pharmacist coverage, and the reception process.
 
 ## Summary
 
@@ -230,13 +219,11 @@ Serious side effects are very rare, and most people can use it safely.
 
 The following symptoms may occur after taking the medication, but they are usually temporary and resolve within a few days.
 
-### Common Side Effects (more than 10%)
+### Symptoms That May Occur After Taking It
 - **Withdrawal bleeding/spotting** - Bleeding separate from your period
 - **Headache**
 - **Nausea**
 - **Fatigue**
-
-### Occasional Side Effects (1-10%)
 - Dizziness
 - Lower abdominal pain
 - Breast tenderness
@@ -245,7 +232,7 @@ The following symptoms may occur after taking the medication, but they are usual
 - Diarrhea
 - Vomiting
 
-### Rare Side Effects (less than 1%)
+### Symptoms Requiring Prompt Consultation
 - Rash
 - Hives
 - Facial swelling
@@ -264,18 +251,20 @@ Taking emergency contraception may affect your next period.
 - **Delayed period**: May be delayed by a few days to a week
 - **Changes in flow**: May be heavier or lighter than usual
 
-If your period is more than a week late, take a pregnancy test or visit a healthcare provider.
+Regardless of whether bleeding occurs, three weeks after taking it use a pregnancy test or visit a medical institution to confirm that you are not pregnant.
 
 ## Usage Precautions
 
 ### Who Should Not Use It
 - Those allergic to any ingredients in this medication
-- Those with severe liver disease
+- Those diagnosed with liver disease
+- Those with an established pregnancy, such as a positive pregnancy test
 
-### Those Who Should Use with Caution
-- Those with liver problems
+### Consult a Pharmacist Before Use
+- Those under a doctor's care
 - Those with heart disease
 - Those with kidney problems
+- Those with a severe gastrointestinal condition
 
 If any of these apply to you, consult a pharmacist or doctor.
 
@@ -315,16 +304,9 @@ Emergency contraception is most effective when **taken as soon as possible after
 
 Effectiveness decreases with time, which is why the "within 72 hours" guideline exists, but in reality, **the sooner the better**.
 
-## Timing and Pregnancy Prevention Rates
+## Timing and Follow-up
 
-| Timing | Pregnancy Prevention Rate |
-|--------|--------------------------|
-| Within 12 hours | Approximately 99% |
-| Within 24 hours | Approximately 95% |
-| Within 48 hours | Approximately 85% |
-| Within 72 hours | Approximately 58% |
-
-These numbers clearly show how important early use is.
+Levonorgestrel emergency contraception should be taken as soon as possible within 72 hours after intercourse. It does not prevent pregnancy 100% of the time, so three weeks after taking it use a pregnancy test or visit a medical institution to confirm that you are not pregnant.
 
 ## Why Does Effectiveness Change Over Time?
 
@@ -340,9 +322,7 @@ The longer you wait, the more likely ovulation has already occurred, which is wh
 
 ## What If More Than 72 Hours Have Passed?
 
-Even after 72 hours, some effectiveness remains up to 120 hours (5 days).
-
-However, effectiveness is significantly reduced. Even if 72 hours have passed, we recommend consulting a healthcare provider rather than giving up.
+If more than 72 hours have passed, do not give up or wait on your own. Contact a medical institution immediately; available options depend on the elapsed time and your situation.
 
 ## Waiting is NOT an Option
 
@@ -354,7 +334,7 @@ Delaying for these reasons significantly reduces your chances of preventing preg
 Even at night or on weekends:
 - Some **OTC pharmacies** are open at night
 - **Emergency hospitals** may provide prescriptions
-- **Telemedicine services** can prescribe with next-day delivery
+- With **telemedicine**, current practice may require taking the medicine at a designated pharmacy in front of a trained pharmacist
 
 ## Be Prepared in Advance
 
@@ -362,7 +342,7 @@ To avoid panic in an emergency, we recommend checking the following in advance:
 
 1. **Location and hours of nearby OTC pharmacies**
 2. **Healthcare facilities that provide emergency contraception**
-3. **Estimated cost (approximately ¥7,000-15,000)**
+3. **Costs and payment methods, which vary by product, pharmacy, and medical institution**
 
 ## Summary
 
@@ -389,7 +369,7 @@ Here are answers to commonly asked questions about emergency contraception.
 
 **A: No, it's not 100% effective.**
 
-Even at the most effective timing (within 12 hours), the rate is approximately 99%, not complete prevention. If your period doesn't come within 3 weeks of taking it, take a pregnancy test.
+It does not prevent pregnancy 100% of the time. Regardless of whether bleeding occurs, three weeks after taking it use a pregnancy test or visit a medical institution to confirm that you are not pregnant.
 
 ---
 
@@ -425,7 +405,7 @@ These are temporary and your cycle usually returns to normal by the next period.
 
 **A: Yes, you can take it while breastfeeding.**
 
-A small amount of levonorgestrel passes into breast milk, but it is not known to affect the baby. If concerned, you can avoid breastfeeding for 8 hours after taking it and pump and discard the milk.
+Tell the pharmacist or doctor before taking it if you are breastfeeding. The consumer-drug instructions advise avoiding breastfeeding for 24 hours after taking it.
 
 ---
 
@@ -475,33 +455,33 @@ If this article doesn't answer your questions, we recommend consulting a pharmac
     `,
   },
   'cost-comparison': {
-    title: 'Emergency Contraception Costs: Pharmacy vs. Clinic Price Comparison',
-    description: 'Compare costs at OTC pharmacies, OB-GYN clinics, and telemedicine services. Tips for minimizing expenses included.',
+    title: 'Emergency Contraception Costs: What to Confirm with Pharmacies and Clinics',
+    description: 'Why costs vary among pharmacies, medical institutions, and telemedicine, and what to confirm in advance.',
     date: '2025-02-05',
     category: 'Cost & Pricing',
     content: `
 ## Is Emergency Contraception Expensive?
 
-Emergency contraception is not covered by insurance, so you pay the full cost yourself. Costs vary by how you obtain it, so knowing in advance is helpful.
+Emergency-contraception costs vary by product, pharmacy, medical institution, and consultation method. There is no single standard price or method that is always cheapest.
 
 ## Cost Comparison by Method
 
-| Method | Estimated Cost | Breakdown |
-|--------|---------------|-----------|
-| OTC Pharmacy | ¥7,000-9,000 | Medication only |
-| OB-GYN Clinic | ¥8,000-15,000 | Consultation + medication |
-| Telemedicine | ¥8,000-12,000 | Consultation + medication + shipping |
-| Emergency Hospital | ¥10,000-20,000 | Includes after-hours fees |
+| Method | What to Confirm in Advance |
+|--------|----------------------------|
+| Designated pharmacy | Product price, stock, payment method, and trained-pharmacist coverage |
+| OB-GYN/gynecology | Consultation charge, medicine price, reception hours, and payment method |
+| Telemedicine | Consultation charge, designated pharmacy, medicine price, and how it is received and taken |
+| Emergency medical institution | Availability, consultation charge, after-hours fees, and medicine price |
 
 ## Purchasing at OTC Pharmacies
 
 ### Benefits
 - No consultation fee
 - No prescription needed, saves time
-- Relatively affordable
+- Price and payment method can be confirmed before visiting
 
-### Cost Breakdown
-Medication only, approximately **¥7,000-9,000**. Prices vary slightly by pharmacy.
+### Confirming the Cost
+Prices vary by product and pharmacy. Call to confirm stock, trained-pharmacist coverage, price, and payment method.
 
 ## Prescription at OB-GYN Clinic
 
@@ -510,60 +490,43 @@ Medication only, approximately **¥7,000-9,000**. Prices vary slightly by pharma
 - Address health concerns
 - Discuss future contraception options
 
-### Cost Breakdown
-- Initial consultation fee: ¥1,000-3,000
-- Medication: ¥6,000-10,000
-- Total: approximately **¥8,000-15,000**
-
-Some clinics offer all-inclusive pricing.
+### Confirming the Cost
+How consultation and medication charges are calculated varies by medical institution. Confirm the total-cost structure and payment method before visiting.
 
 ## Telemedicine
 
 ### Benefits
 - Consultation from home
-- No face-to-face embarrassment
-- Some services available at night
+- Consult a doctor before traveling
 
-### Cost Breakdown
-- Consultation fee: ¥1,500-3,000
-- Medication: ¥6,000-8,000
-- Shipping: ¥500-1,000
-- Total: approximately **¥8,000-12,000**
-
-**Note**: Delivery may take time, so confirm it will arrive within 72 hours.
+### Confirming Cost and the Medication Process
+Consultation and medicine charges vary by service. Under current guidance, after the consultation you visit a designated pharmacy, receive an explanation from a trained pharmacist, and take the medicine in front of that pharmacist. Do not assume home delivery; confirm the designated pharmacy and costs in advance.
 
 ## Emergency Hospitals
 
 An option when needed at night or on weekends.
 
-### Cost Breakdown
-- After-hours/holiday surcharge: ¥3,000-8,000
-- Consultation + medication: ¥8,000-12,000
-- Total: approximately **¥10,000-20,000**
-
-Tends to be more expensive due to after-hours surcharges.
+### Confirming the Cost
+Consultation, after-hours, and medicine charges vary by institution. Confirm them if possible, but do not delay care when symptoms are urgent.
 
 ## Tips to Reduce Costs
 
-### 1. Choose Generic Medication
-Levonorgestrel tablets (generic) are cheaper than Norlevo (brand name). They are equally effective.
+### 1. Check Prices in Advance
+Prices vary by pharmacy and medical institution. Check by phone or on the provider's official website.
 
-### 2. Check Prices in Advance
-Prices vary by clinic and online service. Check by phone or website beforehand.
+### 2. Confirm Availability at the Same Time
+For pharmacies, confirm stock and trained-pharmacist coverage; for medical institutions, confirm reception hours and availability.
 
-### 3. Use OTC Pharmacies
-Without consultation fees, this is likely the most affordable option.
+### 3. Do Not Decide on Price Alone
+Levonorgestrel should be taken as soon as possible within 72 hours. If more than 72 hours have passed, contact a medical institution immediately.
 
 ## Payment Methods
 
-Most locations accept:
-- Cash
-- Credit cards
-- Electronic payment (some locations)
+Accepted payment methods vary by pharmacy and medical institution. Confirm whether cash, cards, or electronic payment are available.
 
 ## Summary
 
-Emergency contraception costs approximately ¥7,000-20,000. When time is critical, prioritize speed over cost, but when you have options, OTC pharmacies are most affordable.
+There is no single standard price for emergency contraception. Confirm the product and provider's charges, and choose an option that lets you obtain advice and take the medicine as soon as possible rather than deciding on price alone.
 
 Use this app to find nearby OTC pharmacies and check locations in advance.
     `,
@@ -588,26 +551,26 @@ This article clearly explains the differences between them.
 | Timing | Within 72 hours after intercourse | Same time every day |
 | Frequency | One-time use | Continuous use |
 | How to obtain | Pharmacy or healthcare facility | Healthcare facility (prescription required) |
-| Cost | ¥7,000-15,000/time | ¥2,000-3,000/month |
+| Cost | Varies by product and provider | Varies by product and medical institution |
 
 ## What is Emergency Contraception (Morning-After Pill)?
 
 ### Features
 - "Emergency" use when contraception failed or wasn't used
 - One-time dose
-- Contains high-dose hormones
-- Must be taken within 72 hours
+- One-time dose of levonorgestrel
+- Take as soon as possible within 72 hours
 
 ### Main Ingredient
-**Levonorgestrel** (progestin) in high dose
+**Levonorgestrel** (progestin)
 
 ### Advantages
 - Available for emergency situations
 - Single dose
 
 ### Disadvantages
-- Expensive
-- More likely to cause side effects
+- Cost varies by product and provider
+- Side effects can occur
 - Not 100% effective
 - Not suitable for regular use
 
@@ -615,7 +578,7 @@ This article clearly explains the differences between them.
 
 ### Features
 - Daily use to maintain contraceptive effect
-- Over 99% effective when taken correctly
+- Highly effective when taken correctly and consistently
 - Also helps with menstrual cramps and PMS
 - Requires prescription
 
@@ -659,7 +622,7 @@ Consult a doctor or pharmacist for details.
 ## Common Misconceptions
 
 ### "Can I use emergency contraception regularly instead of birth control pills?"
-**No.** Emergency contraception contains high-dose hormones, which is stressful on the body and not recommended for regular use. Birth control pills are appropriate for ongoing contraception.
+**No.** Emergency contraception is intended for emergencies. Ask a doctor about ongoing methods such as birth control pills.
 
 ### "If I'm on birth control pills, do I never need emergency contraception?"
 **You might still need it if you miss pills.** Birth control pills are effective when taken correctly every day. If you miss pills, emergency contraception may be necessary.
@@ -704,9 +667,9 @@ Pregnancy is possible from the next ovulation after taking it. This has been con
 
 ## Myth 3: It Becomes Less Effective If Used Multiple Times
 
-### Fact: Effectiveness Does Not Change
+### Fact: There Is No Evidence That Your Body Develops "Tolerance"
 
-Emergency contraception is equally effective each time you use it. Your body does not develop "tolerance" to it.
+Repeated use alone is not known to cause "tolerance." However, effectiveness can vary with factors such as how soon it is taken and is never 100%. If you need it, contact a pharmacist or medical provider as soon as possible.
 
 However, emergency contraception is meant for "emergencies" only. If you need it frequently, consider ongoing contraception like birth control pills.
 
@@ -716,7 +679,7 @@ However, emergency contraception is meant for "emergencies" only. If you need it
 
 Emergency contraception is a medication that **prevents pregnancy**; it is not an abortion pill.
 
-Its main mechanism is inhibiting or delaying ovulation. It does not terminate an established pregnancy, and if taken during pregnancy, no adverse effects on the fetus have been reported.
+Its main mechanism is inhibiting or delaying ovulation; it does not end an established pregnancy. If a pregnancy is already established, such as after a positive pregnancy test, this medicine will not work; do not take it and contact a medical provider. If you are only worried about pregnancy from this intercourse, do not rule yourself out—within 72 hours, contact a listed pharmacy or medical provider immediately and confirm with a pharmacist or doctor.
 
 ## Myth 5: Side Effects Are Severe
 
@@ -727,12 +690,12 @@ Nausea and headaches are reported side effects, but they are usually mild and re
 Serious side effects are very rare. The WHO (World Health Organization) recognizes it as a safe medication.
 
 ### Common Side Effects
-- Nausea (approximately 15%)
-- Headache (approximately 15%)
+- Nausea
+- Headache
 - Fatigue
 - Spotting
 
-These are temporary and not cause for concern.
+If symptoms are severe, persist, or concern you, consult a pharmacist or doctor.
 
 ## Myth 6: Young People Can't Use It
 
@@ -740,7 +703,7 @@ These are temporary and not cause for concern.
 
 There is no medical age restriction for emergency contraception.
 
-However, those under 16 may need parental consent when purchasing at OTC pharmacies. There is no age restriction for prescriptions at healthcare facilities.
+Pharmacy sales do not apply a blanket parental-consent requirement. Under current practice, those under 16 are encouraged to consult a medical institution.
 
 ## Myth 7: Men Have Nothing to Do With It
 

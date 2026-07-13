@@ -1,11 +1,11 @@
 {
   "name": "Rescue Pill - 緊急避妊支援アプリ",
   "short_name": "Rescue Pill",
-  "description": "緊急避妊薬の入手を迅速化するため、利用者の事前問診→判定→薬局/医療機関連携までを支援します。",
+  "description": "厚生労働省等の公的情報をもとに、緊急避妊薬の入手先と相談先を案内するセルフチェックサービスです。",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFF5F8",
-  "theme_color": "#E8A0BF",
+  "theme_color": "#9B355D",
   "orientation": "portrait",
   "icons": [
     {

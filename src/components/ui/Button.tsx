@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface ButtonProps {
   children: ReactNode;
@@ -35,7 +35,7 @@ export function Button({
       whileHover={{ scale: disabled ? 1 : 1.02 }}
       whileTap={{ scale: disabled ? 1 : 0.98 }}
       className={`
-        w-full font-medium py-3.5 px-6 rounded-2xl
+        w-full flex items-center justify-center font-medium py-3.5 px-6 rounded-2xl
         transition-all duration-200
         disabled:opacity-50 disabled:cursor-not-allowed
         ${baseClass}

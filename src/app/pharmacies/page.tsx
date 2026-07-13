@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -14,315 +14,157 @@ import {
   ExternalLink,
   Loader2,
   AlertCircle,
-  LocateFixed,
   Building2,
 } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 
 import { useTranslation } from "@/lib/i18n";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 interface PharmacyMin {
-  n: string;  // name
-  p: string;  // prefecture
-  a: string;  // address
-  t: string;  // phone (tel)
-  h: string;  // hours
-  e: number;  // emergency/after hours
-  f: number;  // female pharmacist available
-  m: number;  // male pharmacist available
-  w: string;  // website
-  lat?: number | null;  // latitude
-  lon?: number | null;  // longitude
+  i: string;
+  n: string;
+  p: string;
+  a: string;
+  t: string;
+  h: string;
+  e: number;
+  x: string;
+  w: string;
+  r: number;
+}
+
+interface PharmacyMetadata {
+  sourcePage: string;
+  sourceFile: string;
+  sourceUpdatedAt: string;
+  importedAt: string;
+  total: number;
+  coordinateCount: number;
+  sourceSha256: string;
+  dataSha256: string;
 }
 
 interface Pharmacy {
+  id: string;
   name: string;
   prefecture: string;
   address: string;
   phone: string;
   hours: string;
   afterHours: boolean;
-  femalePharmacist: boolean;
-  malePharmacist: boolean;
+  afterHoursPhone: string;
+  preContactRequired: boolean;
   website: string;
-  lat?: number | null;
-  lon?: number | null;
-  distance?: number;  // km from user
 }
 
 const PREFECTURES = [
-  "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
-  "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県",
-  "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県",
-  "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県",
-  "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県",
-  "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県",
-  "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
+  ["北海道", "Hokkaido"], ["青森県", "Aomori"], ["岩手県", "Iwate"],
+  ["宮城県", "Miyagi"], ["秋田県", "Akita"], ["山形県", "Yamagata"],
+  ["福島県", "Fukushima"], ["茨城県", "Ibaraki"], ["栃木県", "Tochigi"],
+  ["群馬県", "Gunma"], ["埼玉県", "Saitama"], ["千葉県", "Chiba"],
+  ["東京都", "Tokyo"], ["神奈川県", "Kanagawa"], ["新潟県", "Niigata"],
+  ["富山県", "Toyama"], ["石川県", "Ishikawa"], ["福井県", "Fukui"],
+  ["山梨県", "Yamanashi"], ["長野県", "Nagano"], ["岐阜県", "Gifu"],
+  ["静岡県", "Shizuoka"], ["愛知県", "Aichi"], ["三重県", "Mie"],
+  ["滋賀県", "Shiga"], ["京都府", "Kyoto"], ["大阪府", "Osaka"],
+  ["兵庫県", "Hyogo"], ["奈良県", "Nara"], ["和歌山県", "Wakayama"],
+  ["鳥取県", "Tottori"], ["島根県", "Shimane"], ["岡山県", "Okayama"],
+  ["広島県", "Hiroshima"], ["山口県", "Yamaguchi"], ["徳島県", "Tokushima"],
+  ["香川県", "Kagawa"], ["愛媛県", "Ehime"], ["高知県", "Kochi"],
+  ["福岡県", "Fukuoka"], ["佐賀県", "Saga"], ["長崎県", "Nagasaki"],
+  ["熊本県", "Kumamoto"], ["大分県", "Oita"], ["宮崎県", "Miyazaki"],
+  ["鹿児島県", "Kagoshima"], ["沖縄県", "Okinawa"],
 ];
 
-// ISO 3166-2:JP codes to prefecture names
-const ISO_TO_PREFECTURE: Record<string, string> = {
-  "JP-01": "北海道", "JP-02": "青森県", "JP-03": "岩手県", "JP-04": "宮城県",
-  "JP-05": "秋田県", "JP-06": "山形県", "JP-07": "福島県", "JP-08": "茨城県",
-  "JP-09": "栃木県", "JP-10": "群馬県", "JP-11": "埼玉県", "JP-12": "千葉県",
-  "JP-13": "東京都", "JP-14": "神奈川県", "JP-15": "新潟県", "JP-16": "富山県",
-  "JP-17": "石川県", "JP-18": "福井県", "JP-19": "山梨県", "JP-20": "長野県",
-  "JP-21": "岐阜県", "JP-22": "静岡県", "JP-23": "愛知県", "JP-24": "三重県",
-  "JP-25": "滋賀県", "JP-26": "京都府", "JP-27": "大阪府", "JP-28": "兵庫県",
-  "JP-29": "奈良県", "JP-30": "和歌山県", "JP-31": "鳥取県", "JP-32": "島根県",
-  "JP-33": "岡山県", "JP-34": "広島県", "JP-35": "山口県", "JP-36": "徳島県",
-  "JP-37": "香川県", "JP-38": "愛媛県", "JP-39": "高知県", "JP-40": "福岡県",
-  "JP-41": "佐賀県", "JP-42": "長崎県", "JP-43": "熊本県", "JP-44": "大分県",
-  "JP-45": "宮崎県", "JP-46": "鹿児島県", "JP-47": "沖縄県"
-};
-
-interface LocationResult {
-  prefecture: string | null;
-  city: string | null;
+async function sha256(text: string): Promise<string> {
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(text)
+  );
+  return Array.from(new Uint8Array(digest), (byte) =>
+    byte.toString(16).padStart(2, "0")
+  ).join("");
 }
 
-// Calculate distance between two coordinates using Haversine formula
-function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-  const R = 6371; // Earth's radius in km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
+function dialablePhone(rawPhone: string): string | null {
+  const normalized = rawPhone.normalize("NFKC");
+  const candidates = normalized.match(/\+?\d(?:[\d()\-\s]*\d)?/g) ?? [];
+  const candidate = candidates.find(
+    (value) => value.replace(/\D/g, "").length >= 9
+  );
+  if (!candidate) return null;
+  const digits = candidate.replace(/\D/g, "");
+  return candidate.trim().startsWith("+") ? `+${digits}` : digits;
 }
 
-// Check if pharmacy is currently open based on hours string
-function isOpenNow(hoursStr: string): boolean | null {
-  if (!hoursStr) return null;
-  
-  const now = new Date();
-  const dayOfWeek = now.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
-  const currentTime = now.getHours() * 60 + now.getMinutes(); // minutes since midnight
-  
-  // Map day of week to Japanese
-  const dayMap: Record<number, string[]> = {
-    0: ['日'],
-    1: ['月'],
-    2: ['火'],
-    3: ['水'],
-    4: ['木'],
-    5: ['金'],
-    6: ['土'],
-  };
-  const todayChars = dayMap[dayOfWeek];
-  
-  // Normalize the hours string
-  const normalized = hoursStr
-    .replace(/[～〜]/g, '-')
-    .replace(/[：]/g, ':')
-    .replace(/[‐－―]/g, '-')
-    .replace(/[、,]/g, '､');
-  
-  // Check if today is included in any day range
-  // Patterns: "月-金", "月～金", "土", "日"
-  const segments = normalized.split('､');
-  
-  for (const segment of segments) {
-    // Match day range and time: "月-金:9:00-18:00" or "土:9:00-13:00"
-    const match = segment.match(/([月火水木金土日])(?:-([月火水木金土日]))?[:\s]*(\d{1,2}):?(\d{2})?-(\d{1,2}):?(\d{2})?/);
-    
-    if (!match) continue;
-    
-    const [, startDay, endDay, startH, startM = '0', endH, endM = '0'] = match;
-    
-    // Check if today is in the day range
-    const allDays = ['月', '火', '水', '木', '金', '土', '日'];
-    const startIdx = allDays.indexOf(startDay);
-    const endIdx = endDay ? allDays.indexOf(endDay) : startIdx;
-    const todayIdx = allDays.indexOf(todayChars[0]);
-    
-    const isToday = todayIdx >= startIdx && todayIdx <= endIdx;
-    
-    if (isToday) {
-      const openTime = parseInt(startH) * 60 + parseInt(startM);
-      const closeTime = parseInt(endH) * 60 + parseInt(endM);
-      
-      if (currentTime >= openTime && currentTime < closeTime) {
-        return true;
-      }
-    }
-  }
-  
-  return false;
-}
-
-// Reverse geocode coordinates to prefecture using OpenStreetMap Nominatim
-async function getPrefectureFromLocation(lat: number, lon: number): Promise<LocationResult> {
-  try {
-    console.log(`[Location] Reverse geocoding: ${lat}, ${lon}`);
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&addressdetails=1`,
-      { 
-        headers: { 
-          "Accept-Language": "ja",
-          "User-Agent": "RescuePillApp/1.0"
-        } 
-      }
-    );
-    
-    if (!response.ok) {
-      console.error(`[Location] Nominatim API error: ${response.status}`);
-      return { prefecture: null, city: null };
-    }
-    
-    const data = await response.json();
-    console.log("[Location] Nominatim response:", data?.address);
-    
-    // Get city name for local search
-    const city = data?.address?.city || data?.address?.town || data?.address?.village || null;
-    console.log(`[Location] Found city: ${city}`);
-    
-    // Method 1: Use ISO 3166-2 code (most reliable)
-    const isoCode = data?.address?.["ISO3166-2-lvl4"];
-    if (isoCode && ISO_TO_PREFECTURE[isoCode]) {
-      console.log(`[Location] Found ISO code: ${isoCode} -> ${ISO_TO_PREFECTURE[isoCode]}`);
-      return { prefecture: ISO_TO_PREFECTURE[isoCode], city };
-    }
-    
-    // Method 2: Try multiple possible fields for prefecture name
-    const state = data?.address?.province || 
-                  data?.address?.state || 
-                  data?.address?.region;
-    
-    if (state) {
-      console.log(`[Location] Found state field: ${state}`);
-      // Match to our prefecture list (handle both with and without suffix)
-      const matched = PREFECTURES.find(p => {
-        const baseName = p.replace(/[都道府県]$/, "");
-        return state.includes(baseName) || state === p;
-      });
-      if (matched) {
-        console.log(`[Location] Matched prefecture: ${matched}`);
-        return { prefecture: matched, city };
-      }
-    }
-    
-    console.log("[Location] Could not determine prefecture");
-    return { prefecture: null, city };
-  } catch (err) {
-    console.error("[Location] Error:", err);
-    return { prefecture: null, city: null };
-  }
+function phoneFieldsDiffer(left: string, right: string): boolean {
+  if (dialablePhone(left) !== dialablePhone(right)) return true;
+  const annotation = left
+    .normalize("NFKC")
+    .replace(/[+\d()\-\s]/g, "");
+  return annotation.length > 0;
 }
 
 export default function PharmaciesPage() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [pharmacies, setPharmacies] = useState<Pharmacy[]>([]);
+  const [metadata, setMetadata] = useState<PharmacyMetadata | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
   const [showAfterHoursOnly, setShowAfterHoursOnly] = useState(false);
-  const [showOpenNowOnly, setShowOpenNowOnly] = useState(false);
-  const [locationLoading, setLocationLoading] = useState(false);
-  const [locationDetected, setLocationDetected] = useState(false);
-  const [locationError, setLocationError] = useState<string | null>(null);
-  const [userCity, setUserCity] = useState<string | null>(null);
-  const [userCoords, setUserCoords] = useState<{lat: number, lon: number} | null>(null);
-
-  // Function to get user location
-  const detectLocation = async () => {
-    if (typeof navigator === "undefined" || !navigator.geolocation) {
-      console.log("[Location] Geolocation not supported");
-      setLocationError("位置情報がサポートされていません");
-      return;
-    }
-    
-    setLocationLoading(true);
-    setLocationError(null);
-    console.log("[Location] Requesting location...");
-    
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude, accuracy } = position.coords;
-        console.log(`[Location] Got position: ${latitude}, ${longitude} (accuracy: ${accuracy}m)`);
-        
-        // Store coordinates for distance calculation
-        setUserCoords({ lat: latitude, lon: longitude });
-        
-        const result = await getPrefectureFromLocation(latitude, longitude);
-        if (result.prefecture) {
-          console.log(`[Location] Setting prefecture: ${result.prefecture}, city: ${result.city}`);
-          setSelectedPrefecture(result.prefecture);
-          setUserCity(result.city);
-          setLocationDetected(true);
-          setLocationError(null);
-          
-          // Auto-fill search with city name for more relevant results
-          if (result.city) {
-            setSearchQuery(result.city);
-          }
-        } else {
-          console.log("[Location] Could not determine prefecture");
-          setLocationError("都道府県を特定できませんでした。手動で選択してください。");
-        }
-        setLocationLoading(false);
-      },
-      (error) => {
-        console.error("[Location] Geolocation error:", error.code, error.message);
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            setLocationError("位置情報の許可が必要です。設定から許可してください。");
-            break;
-          case error.POSITION_UNAVAILABLE:
-            setLocationError("位置情報を取得できませんでした。");
-            break;
-          case error.TIMEOUT:
-            setLocationError("位置情報の取得に時間がかかっています。手動で都道府県を選択してください。");
-            break;
-          default:
-            setLocationError("位置情報を取得できませんでした。");
-        }
-        setLocationLoading(false);
-      },
-      { 
-        timeout: 30000,        // 30秒タイムアウト（モバイルGPSは時間がかかることも）
-        maximumAge: 300000,    // 5分間のキャッシュ
-        enableHighAccuracy: false  // 高精度モードは遅いのでオフ
-      }
-    );
-  };
-
-  // Get user location on page load
-  useEffect(() => {
-    detectLocation();
-  }, []);
 
   useEffect(() => {
-    fetch("/data/otc_pharmacies.json")
-      .then((res) => res.json())
-      .then((data: PharmacyMin[]) => {
-        // Transform minimal format to full format
+    const controller = new AbortController();
+    Promise.all([
+      fetch("/data/otc_pharmacies.json", { signal: controller.signal }),
+      fetch("/data/otc_pharmacies.meta.json", { signal: controller.signal }),
+    ])
+      .then(async ([dataResponse, metadataResponse]) => {
+        if (!dataResponse.ok || !metadataResponse.ok) {
+          throw new Error("Pharmacy data request failed");
+        }
+        return Promise.all([
+          dataResponse.text(),
+          metadataResponse.json() as Promise<PharmacyMetadata>,
+        ]);
+      })
+      .then(async ([dataText, nextMetadata]) => {
+        const dataHash = await sha256(dataText);
+        if (dataHash !== nextMetadata.dataSha256) {
+          throw new Error("Pharmacy data hash does not match metadata");
+        }
+        const data = JSON.parse(dataText) as PharmacyMin[];
+        if (data.length !== nextMetadata.total) {
+          throw new Error("Pharmacy data and metadata counts do not match");
+        }
         const transformed = data.map((p) => ({
+          id: p.i,
           name: p.n,
           prefecture: p.p,
           address: p.a,
           phone: p.t,
           hours: p.h,
           afterHours: p.e === 1,
-          femalePharmacist: p.f === 1,
-          malePharmacist: p.m === 1,
+          afterHoursPhone: p.x,
+          preContactRequired: p.r === 1,
           website: p.w,
-          lat: p.lat,
-          lon: p.lon,
         }));
         setPharmacies(transformed);
-        setLoading(false);
+        setMetadata(nextMetadata);
       })
-      .catch((err) => {
-        setError("データの読み込みに失敗しました");
-        setLoading(false);
+      .catch((requestError: unknown) => {
+        if (!(requestError instanceof DOMException && requestError.name === "AbortError")) {
+          setError(true);
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
       });
+
+    return () => controller.abort();
   }, []);
 
   const filteredPharmacies = useMemo(() => {
@@ -345,30 +187,8 @@ export default function PharmaciesPage() {
       result = result.filter((p) => p.afterHours);
     }
 
-    if (showOpenNowOnly) {
-      result = result.filter((p) => isOpenNow(p.hours) === true);
-    }
-
-    // Calculate distance and sort by nearest if user location is available
-    if (userCoords) {
-      result = result.map((p) => ({
-        ...p,
-        distance: p.lat && p.lon 
-          ? calculateDistance(userCoords.lat, userCoords.lon, p.lat, p.lon)
-          : undefined,
-      }));
-      
-      // Sort by distance (pharmacies without coordinates go to the end)
-      result.sort((a, b) => {
-        if (a.distance === undefined && b.distance === undefined) return 0;
-        if (a.distance === undefined) return 1;
-        if (b.distance === undefined) return -1;
-        return a.distance - b.distance;
-      });
-    }
-
     return result.slice(0, 100); // Limit to 100 results for performance
-  }, [pharmacies, selectedPrefecture, searchQuery, showAfterHoursOnly, showOpenNowOnly, userCoords]);
+  }, [pharmacies, selectedPrefecture, searchQuery, showAfterHoursOnly]);
 
   const openInMaps = (pharmacy: Pharmacy) => {
     // Include both name and address for accurate location
@@ -377,7 +197,8 @@ export default function PharmaciesPage() {
   };
 
   const callPharmacy = (phone: string) => {
-    window.location.href = `tel:${phone}`;
+    const phoneNumber = dialablePhone(phone);
+    if (phoneNumber) window.location.href = `tel:${phoneNumber}`;
   };
 
   return (
@@ -386,7 +207,7 @@ export default function PharmaciesPage() {
       <header className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-primary-light z-50">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/" className="p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
+            <Link href="/" aria-label={t("common.back")} className="min-w-11 min-h-11 flex items-center justify-center p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
               <ArrowLeft className="w-5 h-5 text-text-primary" />
             </Link>
             <div className="flex items-center gap-2">
@@ -401,6 +222,7 @@ export default function PharmaciesPage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 py-6">
+        <h1 className="sr-only">{t("pharmacies.title")}</h1>
         {/* Info Banner */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -414,66 +236,33 @@ export default function PharmaciesPage() {
           <p className="text-xs text-text-muted mt-2">
             {t("pharmacies.trialNote")}
           </p>
-        </motion.div>
-
-        {/* Location Status */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="bg-white rounded-2xl p-4 mb-6 shadow-card"
-        >
-          <div className="flex items-center justify-between gap-3">
-            {/* Status text */}
-            {locationLoading ? (
-              <p className="text-sm text-primary flex items-center gap-2">
-                <LocateFixed className="w-4 h-4 animate-pulse" />
-                <span>{t("pharmacies.detectingLocation")}</span>
-              </p>
-            ) : locationError ? (
-              <p className="text-sm text-text-secondary flex items-center gap-2">
-                <LocateFixed className="w-4 h-4" />
-                <span>{t("pharmacies.locationFailed")}</span>
-              </p>
-            ) : locationDetected ? (
-              <p className="text-sm text-green-600 flex items-center gap-2">
-                <LocateFixed className="w-4 h-4" />
-                <span>{userCity || selectedPrefecture}{t("pharmacies.locationDetected")}</span>
-              </p>
-            ) : (
-              <p className="text-sm text-text-secondary flex items-center gap-2">
-                <LocateFixed className="w-4 h-4" />
-                <span>{t("pharmacies.autoDetect")}</span>
-              </p>
-            )}
-            {/* Button */}
-            <button
-              onClick={detectLocation}
-              disabled={locationLoading}
-              className="px-4 py-2 text-sm bg-primary text-white rounded-xl whitespace-nowrap
-                       hover:bg-primary-dark transition-colors disabled:opacity-50
-                       flex items-center gap-1"
-            >
-              {locationLoading ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <>
-                  <Navigation className="w-4 h-4" />
-                  <span>{t("pharmacies.currentLocation")}</span>
-                </>
-              )}
-            </button>
-          </div>
+          {metadata && (
+            <p className="text-xs text-text-muted mt-1">
+              {new Intl.DateTimeFormat(
+                locale === "ja"
+                  ? "ja-JP"
+                  : locale === "zh"
+                    ? "zh-CN"
+                    : locale === "ko"
+                      ? "ko-KR"
+                      : locale === "vi"
+                        ? "vi-VN"
+                        : "en-US",
+                { year: "numeric", month: "long", day: "numeric" }
+              ).format(new Date(`${metadata.sourceUpdatedAt}T00:00:00+09:00`))}
+            </p>
+          )}
         </motion.div>
 
         {/* Search & Filters */}
         <div className="space-y-4 mb-6">
           {/* Prefecture Select */}
           <div>
-            <label className="text-sm font-medium text-text-secondary mb-2 block">
+            <label htmlFor="prefecture" className="text-sm font-medium text-text-secondary mb-2 block">
               {t("pharmacies.prefecture")}
             </label>
             <select
+              id="prefecture"
               value={selectedPrefecture}
               onChange={(e) => setSelectedPrefecture(e.target.value)}
               className="w-full px-4 py-3 rounded-xl border-2 border-primary-light 
@@ -481,9 +270,9 @@ export default function PharmaciesPage() {
                        text-text-primary"
             >
               <option value="">{t("pharmacies.all")}</option>
-              {PREFECTURES.map((pref) => (
-                <option key={pref} value={pref}>
-                  {pref}
+              {PREFECTURES.map(([prefecture, romaji]) => (
+                <option key={prefecture} value={prefecture}>
+                  {locale === "ja" ? prefecture : `${romaji} (${prefecture})`}
                 </option>
               ))}
             </select>
@@ -494,6 +283,7 @@ export default function PharmaciesPage() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
             <input
               type="text"
+              aria-label={t("pharmacies.searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t("pharmacies.searchPlaceholder")}
@@ -505,18 +295,6 @@ export default function PharmaciesPage() {
 
           {/* Filters */}
           <div className="flex flex-wrap gap-4">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={showOpenNowOnly}
-                onChange={(e) => setShowOpenNowOnly(e.target.checked)}
-                className="w-5 h-5 rounded border-2 border-primary-light text-primary 
-                         focus:ring-primary focus:ring-offset-0"
-              />
-              <span className="text-sm text-text-secondary">
-                {t("pharmacies.openNowOnly")}
-              </span>
-            </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
@@ -540,21 +318,20 @@ export default function PharmaciesPage() {
         ) : error ? (
           <div className="flex items-center justify-center py-12 text-danger">
             <AlertCircle className="w-6 h-6 mr-2" />
-            {error}
+            {t("pharmacies.loadError")}
           </div>
         ) : (
           <>
             <p className="text-sm text-text-muted mb-4">
               {filteredPharmacies.length === 100
-                ? `${t("pharmacies.moreThan100")}${userCoords ? `（${t("pharmacies.showing100ByDistance")}）` : `（${t("pharmacies.showing100")}）`}`
-                : `${filteredPharmacies.length}${t("pharmacies.resultsCount")}${userCoords ? `（${t("pharmacies.sortedByDistance")}）` : ""}`}
+                ? `${t("pharmacies.moreThan100")}（${t("pharmacies.showing100")}）`
+                : `${filteredPharmacies.length}${t("pharmacies.resultsCount")}`}
             </p>
 
             <div className="space-y-3">
               {filteredPharmacies.map((pharmacy, index) => (
-                <React.Fragment key={`pharmacy-${index}`}>
-
                   <motion.div
+                    key={pharmacy.id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.02 }}
@@ -563,13 +340,6 @@ export default function PharmaciesPage() {
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-bold text-text-primary flex-1 pr-2">{pharmacy.name}</h3>
                       <div className="flex flex-wrap gap-1 justify-end">
-                        {pharmacy.distance !== undefined && (
-                          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full whitespace-nowrap">
-                            {pharmacy.distance < 1 
-                              ? `${Math.round(pharmacy.distance * 1000)}m` 
-                              : `${pharmacy.distance.toFixed(1)}km`}
-                          </span>
-                        )}
                         {pharmacy.afterHours && (
                           <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full whitespace-nowrap">
                             {t("pharmacies.afterHours")}
@@ -579,15 +349,32 @@ export default function PharmaciesPage() {
                     </div>
 
                     <div className="space-y-2 text-sm text-text-secondary">
-                      <div className="flex items-start gap-2">
-                        <MapPin className="w-4 h-4 text-text-muted flex-shrink-0 mt-0.5" />
-                        <span>{pharmacy.address}</span>
-                      </div>
+                      {pharmacy.address && (
+                        <div className="flex items-start gap-2">
+                          <MapPin className="w-4 h-4 text-text-muted flex-shrink-0 mt-0.5" />
+                          <span>{pharmacy.address}</span>
+                        </div>
+                      )}
 
                       {pharmacy.phone && (
                         <div className="flex items-center gap-2">
                           <Phone className="w-4 h-4 text-text-muted" />
-                          <span>{pharmacy.phone}</span>
+                          <span>
+                            {t("pharmacies.primaryPhone")}: {pharmacy.phone}
+                          </span>
+                        </div>
+                      )}
+
+                      {pharmacy.afterHoursPhone &&
+                        phoneFieldsDiffer(
+                          pharmacy.afterHoursPhone,
+                          pharmacy.phone
+                        ) && (
+                        <div className="flex items-center gap-2">
+                          <Phone className="w-4 h-4 text-text-muted" />
+                          <span>
+                            {t("pharmacies.afterHoursPhone")}: {pharmacy.afterHoursPhone}
+                          </span>
                         </div>
                       )}
 
@@ -599,7 +386,7 @@ export default function PharmaciesPage() {
                       )}
                     </div>
 
-                    <div className="flex gap-2 mt-4">
+                    <div className="grid grid-cols-2 gap-2 mt-4">
                       <button
                         onClick={() => openInMaps(pharmacy)}
                         className="flex-1 flex items-center justify-center gap-2 px-3 py-2 
@@ -609,7 +396,7 @@ export default function PharmaciesPage() {
                         <Navigation className="w-4 h-4" />
                         {t("pharmacies.viewOnMap")}
                       </button>
-                      {pharmacy.phone && (
+                      {pharmacy.phone && dialablePhone(pharmacy.phone) && (
                         <button
                           onClick={() => callPharmacy(pharmacy.phone)}
                           className="flex-1 flex items-center justify-center gap-2 px-3 py-2 
@@ -620,10 +407,25 @@ export default function PharmaciesPage() {
                           {t("pharmacies.call")}
                         </button>
                       )}
+                      {pharmacy.afterHoursPhone &&
+                        phoneFieldsDiffer(
+                          pharmacy.afterHoursPhone,
+                          pharmacy.phone
+                        ) &&
+                        dialablePhone(pharmacy.afterHoursPhone) && (
+                        <button
+                          onClick={() => callPharmacy(pharmacy.afterHoursPhone)}
+                          className="col-span-2 flex items-center justify-center gap-2 px-3 py-2
+                                   bg-secondary text-white rounded-xl text-sm font-medium
+                                   hover:bg-secondary-dark transition-colors"
+                        >
+                          <Phone className="w-4 h-4" />
+                          {t("pharmacies.callAfterHours")}
+                        </button>
+                      )}
                     </div>
                   </Card>
                 </motion.div>
-                </React.Fragment>
               ))}
             </div>
 
@@ -658,7 +460,7 @@ export default function PharmaciesPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-xs text-text-muted hover:text-primary transition-colors"
           >
-            データ出典: 厚生労働省（緊急避妊薬の試験的販売）
+            {t("pharmacies.dataSource")}
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>

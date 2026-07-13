@@ -1,0 +1,12 @@
+{
+  "sourcePage": "https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00005.html",
+  "sourceFile": "https://www.mhlw.go.jp/content/11120000/001717498.xlsx",
+  "sourceUpdatedAt": "2026-07-01",
+  "importedAt": "2026-07-13T14:38:48.677183+00:00",
+  "sheetName": "★20260701公表（一般用） (都道府県順)",
+  "total": 15304,
+  "deletedRowsExcluded": 411,
+  "coordinateCount": 6791,
+  "sourceSha256": "a2587579283c33482801639645ece5239abc4bb1b0186633e7ad601615d77a0f",
+  "dataSha256": "4025162d9935910ec5937cf876ab08ec718224f25134dd5fde57ee6f865759a6"
+}

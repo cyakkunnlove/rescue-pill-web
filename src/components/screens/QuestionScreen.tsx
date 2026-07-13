@@ -5,13 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { ChoiceButton } from "@/components/ui/ChoiceButton";
 import { ProgressBar } from "@/components/ui/ProgressBar";
-import { Card } from "@/components/ui/Card";
+import type { Answers, TriChoice } from "@/types";
 import {
-  Answers,
-  TriChoice,
   CONTRACEPTION_OPTIONS,
   CONTRAINDICATION_OPTIONS,
-  CONSULT_OPTIONS,
   CONDITION_CATEGORIES,
   MEDICATION_CATEGORIES,
   SUPPLEMENT_TAGS,
@@ -19,6 +16,7 @@ import {
 } from "@/types";
 import { Info, ChevronDown, ChevronUp, Search, Plus } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { translateAnswerOption } from "@/lib/answerLabels";
 
 interface QuestionScreenProps {
   onBack: () => void;
@@ -56,7 +54,7 @@ export function QuestionScreen({
   onComplete,
   initialAnswers,
 }: QuestionScreenProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>(initialAnswers);
   const [showError, setShowError] = useState(false);
@@ -68,6 +66,7 @@ export function QuestionScreen({
       title: t("questions.q1"),
       type: "datetime",
       hint: t("questions.q1Hint"),
+      unknownLabel: t("questions.q1Unknown"),
     },
     {
       id: "contraceptionIssues",
@@ -115,113 +114,59 @@ export function QuestionScreen({
       optional: true,
     },
     {
-      id: "cycleLengthDays",
-      title: t("questions.q9"),
-      type: "number",
-      optional: true,
-      unit: t("questions.q9Unit"),
-      min: 20,
-      max: 40,
-      defaultValue: 28,
-    },
-    {
       id: "birthDate",
       title: t("questions.q10"),
       type: "date",
       optional: true,
     },
-    {
-      id: "heightCm",
-      title: t("questions.q11"),
-      type: "number",
-      optional: true,
-      unit: t("questions.q11Unit"),
-      min: 120,
-      max: 200,
-      defaultValue: 155,
-    },
-    {
-      id: "weight",
-      title: t("questions.q12"),
-      type: "number",
-      optional: true,
-      unit: t("questions.q12Unit"),
-      min: 30,
-      max: 150,
-      defaultValue: 50,
-    },
-    {
-      id: "locationText",
-      title: t("questions.q13"),
-      type: "text",
-      optional: true,
-      hint: t("questions.q13Hint"),
-    },
-    {
-      id: "conditionTags",
-      title: t("questions.q14"),
-      type: "tags",
-      optional: true,
-    },
-    {
-      id: "medicationTags",
-      title: t("questions.q15"),
-      type: "tags",
-      optional: true,
-    },
-    {
-      id: "consultPreference",
-      title: t("questions.q16"),
-      type: "single",
-      options: CONSULT_OPTIONS,
-      optional: true,
-    },
   ];
 
-  const currentQuestion = questions[index];
-  const progress = ((index + 1) / questions.length) * 100;
+  const optionLabel = (option: string) => translateAnswerOption(option, locale);
 
-  const isValid = (): boolean => {
+  const currentQuestion = questions[index];
+  const isValid = (candidateAnswers: Answers): boolean => {
     const q = currentQuestion;
     if (q.optional) return true;
 
     switch (q.id) {
       case "lastSexDate":
-        return answers.lastSexDate !== null;
+        return candidateAnswers.lastSexDate !== null;
       case "contraceptionIssues":
-        return answers.contraceptionIssues.length > 0;
+        return candidateAnswers.contraceptionIssues.length > 0;
       case "nonConsensual":
-        return answers.nonConsensual !== null;
+        return candidateAnswers.nonConsensual !== null;
       case "pregnancyTest":
-        return answers.pregnancyTest !== null;
+        return candidateAnswers.pregnancyTest !== null;
       case "contraindications":
-        return answers.contraindications.length > 0;
+        return candidateAnswers.contraindications.length > 0;
       case "interactionRisk":
-        return answers.interactionRisk !== null;
+        return candidateAnswers.interactionRisk !== null;
       case "breastfeeding":
-        return answers.breastfeeding !== null;
+        return candidateAnswers.breastfeeding !== null;
       default:
         return true;
     }
   };
 
-  const goNext = (skipValidation = false) => {
-    if (!skipValidation && !isValid()) {
+  const goNext = (
+    skipValidation = false,
+    answerOverrides?: Partial<Answers>
+  ) => {
+    const nextAnswers = answerOverrides
+      ? { ...answers, ...answerOverrides }
+      : answers;
+    if (!skipValidation && !isValid(nextAnswers)) {
       setShowError(true);
       return;
     }
+    if (answerOverrides) setAnswers(nextAnswers);
     setShowError(false);
     if (index === questions.length - 1) {
-      onComplete(answers);
+      onComplete(nextAnswers);
     } else {
       setDirection(1);
-      setIndex((i) => i + 1);
+      setIndex(index + 1);
     }
-  };
-  
-  // Auto-advance for single choice questions
-  const autoAdvance = () => {
-    setTimeout(() => goNext(true), 200);
   };
 
   const goBack = () => {
@@ -229,7 +174,7 @@ export function QuestionScreen({
       onBack();
     } else {
       setDirection(-1);
-      setIndex((i) => i - 1);
+      setIndex(index - 1);
       setShowError(false);
     }
   };
@@ -301,7 +246,10 @@ export function QuestionScreen({
                 answers={answers}
                 updateAnswer={updateAnswer}
                 goNext={goNext}
-                autoAdvance={autoAdvance}
+                optionLabel={optionLabel}
+                yesLabel={t("common.yes")}
+                noLabel={t("common.no")}
+                skipLabel={t("common.skip")}
               />
             </div>
           </motion.div>
@@ -326,7 +274,7 @@ export function QuestionScreen({
           <Button variant="secondary" onClick={goBack}>
             {t("common.back")}
           </Button>
-          <Button onClick={goNext}>
+          <Button onClick={() => goNext()}>
             {index === questions.length - 1 ? t("common.viewResults") : t("common.next")}
           </Button>
         </motion.div>
@@ -340,8 +288,14 @@ interface QuestionContentProps {
   question: Question;
   answers: Answers;
   updateAnswer: (key: keyof Answers, value: unknown) => void;
-  goNext: (skipValidation?: boolean) => void;
-  autoAdvance: () => void;
+  goNext: (
+    skipValidation?: boolean,
+    answerOverrides?: Partial<Answers>
+  ) => void;
+  optionLabel: (option: string) => string;
+  yesLabel: string;
+  noLabel: string;
+  skipLabel: string;
 }
 
 function QuestionContent({
@@ -349,14 +303,20 @@ function QuestionContent({
   answers,
   updateAnswer,
   goNext,
-  autoAdvance,
+  optionLabel,
+  yesLabel,
+  noLabel,
+  skipLabel,
 }: QuestionContentProps) {
   switch (question.type) {
     case "datetime":
       return (
         <DateTimeInput
+          label={question.title}
           value={answers.lastSexDate}
           onChange={(date) => updateAnswer("lastSexDate", date)}
+          onUnknown={() => goNext(true, { lastSexDate: null })}
+          unknownLabel={question.unknownLabel || skipLabel}
         />
       );
 
@@ -367,7 +327,7 @@ function QuestionContent({
           selected={answers[question.id] as string[]}
           onChange={(values) => updateAnswer(question.id, values)}
           noneOption={question.id === "contraindications" ? "特にない" : undefined}
-          onSelectNone={() => goNext(true)}
+          optionLabel={optionLabel}
         />
       );
 
@@ -376,10 +336,9 @@ function QuestionContent({
         <TriChoiceInput
           value={answers[question.id] as TriChoice | null}
           unknownLabel={question.unknownLabel || "回答しない"}
-          onChange={(value) => {
-            updateAnswer(question.id, value);
-            autoAdvance();
-          }}
+          yesLabel={yesLabel}
+          noLabel={noLabel}
+          onChange={(value) => updateAnswer(question.id, value)}
         />
       );
 
@@ -387,23 +346,24 @@ function QuestionContent({
       return (
         <BoolInput
           value={answers[question.id] as boolean | null}
-          onChange={(value) => {
-            updateAnswer(question.id, value);
-            autoAdvance();
-          }}
+          onChange={(value) => updateAnswer(question.id, value)}
         />
       );
 
     case "date":
       return (
         <DateInput
+          label={question.title}
           value={
             question.id === "lastPeriodDate"
               ? answers.lastPeriodDate
               : answers.birthDate
           }
           onChange={(date) => updateAnswer(question.id, date)}
-          onSkip={goNext}
+          onSkip={() =>
+            goNext(true, { [question.id]: null } as Partial<Answers>)
+          }
+          skipLabel={skipLabel}
         />
       );
 
@@ -416,7 +376,9 @@ function QuestionContent({
           min={question.min}
           max={question.max}
           defaultValue={question.defaultValue}
-          onSkip={goNext}
+          onSkip={() =>
+            goNext(true, { [question.id]: null } as Partial<Answers>)
+          }
           wheelPicker={question.id === "cycleLengthDays"}
         />
       );
@@ -444,10 +406,8 @@ function QuestionContent({
         <SingleSelect
           options={question.options || []}
           selected={answers[question.id] as string | null}
-          onChange={(value) => {
-            updateAnswer(question.id, value);
-            autoAdvance();
-          }}
+          optionLabel={optionLabel}
+          onChange={(value) => updateAnswer(question.id, value)}
         />
       );
 
@@ -458,33 +418,49 @@ function QuestionContent({
 
 // Sub-components for different input types
 function DateTimeInput({
+  label,
   value,
   onChange,
+  onUnknown,
+  unknownLabel,
 }: {
+  label: string;
   value: Date | null;
-  onChange: (date: Date) => void;
+  onChange: (date: Date | null) => void;
+  onUnknown: () => void;
+  unknownLabel: string;
 }) {
   const now = new Date();
   const formatForInput = (date: Date) => {
+    if (!Number.isFinite(date.getTime())) return "";
     const offset = date.getTimezoneOffset();
     const local = new Date(date.getTime() - offset * 60 * 1000);
     return local.toISOString().slice(0, 16);
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center gap-3">
       <input
         type="datetime-local"
+        aria-label={label}
         value={value ? formatForInput(value) : ""}
         max={formatForInput(now)}
-        onChange={(e) => onChange(new Date(e.target.value))}
+        onChange={(event) => {
+          const rawValue = event.currentTarget.value;
+          if (!rawValue) {
+            onChange(null);
+            return;
+          }
+          const parsed = new Date(rawValue);
+          onChange(Number.isFinite(parsed.getTime()) ? parsed : null);
+        }}
         className="w-full px-4 py-4 text-lg rounded-2xl border-2 border-primary-light 
                    focus:border-primary focus:outline-none bg-white text-center
                    text-text-primary"
       />
-      <p className="text-xs text-text-muted mt-2">
-        できるだけ正確な日時を入力してください
-      </p>
+      <Button variant="secondary" onClick={onUnknown}>
+        {unknownLabel}
+      </Button>
     </div>
   );
 }
@@ -494,18 +470,17 @@ function MultiSelect({
   selected,
   onChange,
   noneOption,
-  onSelectNone,
+  optionLabel,
 }: {
   options: string[];
   selected: string[];
   onChange: (values: string[]) => void;
   noneOption?: string;
-  onSelectNone?: () => void;
+  optionLabel: (option: string) => string;
 }) {
   const toggleOption = (option: string) => {
     if (option === noneOption) {
       onChange([option]);
-      onSelectNone?.();
       return;
     }
     
@@ -522,7 +497,7 @@ function MultiSelect({
       {options.map((option) => (
         <ChoiceButton
           key={option}
-          label={option}
+          label={optionLabel(option)}
           selected={selected.includes(option)}
           onClick={() => toggleOption(option)}
           multi
@@ -535,21 +510,25 @@ function MultiSelect({
 function TriChoiceInput({
   value,
   unknownLabel,
+  yesLabel,
+  noLabel,
   onChange,
 }: {
   value: TriChoice | null;
   unknownLabel: string;
+  yesLabel: string;
+  noLabel: string;
   onChange: (value: TriChoice) => void;
 }) {
   return (
     <div className="space-y-3">
       <ChoiceButton
-        label="はい"
+        label={yesLabel}
         selected={value === "yes"}
         onClick={() => onChange("yes")}
       />
       <ChoiceButton
-        label="いいえ"
+        label={noLabel}
         selected={value === "no"}
         onClick={() => onChange("no")}
       />
@@ -586,39 +565,52 @@ function BoolInput({
 }
 
 function DateInput({
+  label,
   value,
   onChange,
   onSkip,
+  skipLabel,
 }: {
+  label: string;
   value: Date | null;
   onChange: (date: Date | null) => void;
   onSkip?: () => void;
+  skipLabel: string;
 }) {
   const formatForInput = (date: Date) => {
+    if (!Number.isFinite(date.getTime())) return "";
     return date.toISOString().slice(0, 10);
   };
 
   const handleSkip = () => {
-    onChange(null);
     if (onSkip) {
-      setTimeout(onSkip, 100);
+      onSkip();
+      return;
     }
+    onChange(null);
   };
 
   return (
     <div className="flex flex-col items-center gap-3">
       <input
         type="date"
+        aria-label={label}
         value={value ? formatForInput(value) : ""}
-        onChange={(e) =>
-          onChange(e.target.value ? new Date(e.target.value) : null)
-        }
+        onChange={(event) => {
+          const rawValue = event.currentTarget.value;
+          if (!rawValue) {
+            onChange(null);
+            return;
+          }
+          const parsed = new Date(rawValue);
+          onChange(Number.isFinite(parsed.getTime()) ? parsed : null);
+        }}
         className="w-full px-4 py-4 text-lg rounded-2xl border-2 border-primary-light 
                    focus:border-primary focus:outline-none bg-white text-center
                    text-text-primary"
       />
       <Button variant="secondary" onClick={handleSkip}>
-        スキップ
+        {skipLabel}
       </Button>
     </div>
   );
@@ -644,10 +636,11 @@ function NumberInput({
   wheelPicker?: boolean;
 }) {
   const handleSkip = () => {
-    onChange(null);
     if (onSkip) {
-      setTimeout(onSkip, 100);
+      onSkip();
+      return;
     }
+    onChange(null);
   };
 
   // Wheel picker for cycle length
@@ -715,7 +708,6 @@ function WheelPicker({
   const [selectedValue, setSelectedValue] = useState(value ?? defaultValue ?? Math.floor((min + max) / 2));
   const containerRef = useRef<HTMLDivElement>(null);
   const itemHeight = 48;
-  const visibleItems = 5;
 
   const values = Array.from({ length: max - min + 1 }, (_, i) => min + i);
 
@@ -727,7 +719,7 @@ function WheelPicker({
         behavior: 'smooth',
       });
     }
-  }, []);
+  }, [min, selectedValue]);
 
   const handleScroll = () => {
     if (containerRef.current) {
@@ -1021,17 +1013,19 @@ function SingleSelect({
   options,
   selected,
   onChange,
+  optionLabel,
 }: {
   options: string[];
   selected: string | null;
   onChange: (value: string) => void;
+  optionLabel: (option: string) => string;
 }) {
   return (
     <div className="space-y-3">
       {options.map((option) => (
         <ChoiceButton
           key={option}
-          label={option}
+          label={optionLabel(option)}
           selected={selected === option}
           onClick={() => onChange(option)}
         />

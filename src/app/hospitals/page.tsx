@@ -1,22 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowLeft,
-  Heart,
   MapPin,
-  Phone,
   Clock,
   Navigation,
   ExternalLink,
-  Loader2,
-  LocateFixed,
   Hospital,
   AlertTriangle,
 } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { AdBanner } from "@/components/AdBanner";
 import { useTranslation } from "@/lib/i18n";
@@ -24,44 +18,13 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export default function HospitalsPage() {
   const { t } = useTranslation();
-  const [userLocation, setUserLocation] = useState<{lat: number, lon: number} | null>(null);
-  const [locationLoading, setLocationLoading] = useState(true);
-  const [locationError, setLocationError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (typeof navigator !== "undefined" && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setUserLocation({
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-          });
-          setLocationLoading(false);
-        },
-        (error) => {
-          setLocationError("位置情報を取得できませんでした");
-          setLocationLoading(false);
-        },
-        { timeout: 10000, maximumAge: 300000 }
-      );
-    } else {
-      setLocationError("位置情報がサポートされていません");
-      setLocationLoading(false);
-    }
-  }, []);
 
   const openGoogleMaps = (searchQuery: string) => {
-    if (userLocation) {
-      window.open(
-        `https://www.google.com/maps/search/${encodeURIComponent(searchQuery)}/@${userLocation.lat},${userLocation.lon},14z`,
-        "_blank"
-      );
-    } else {
-      window.open(
-        `https://www.google.com/maps/search/${encodeURIComponent(searchQuery)}`,
-        "_blank"
-      );
-    }
+    window.open(
+      `https://www.google.com/maps/search/${encodeURIComponent(searchQuery)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
   return (
@@ -70,7 +33,7 @@ export default function HospitalsPage() {
       <header className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-primary-light z-50">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/" className="p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
+            <Link href="/" aria-label={t("common.back")} className="min-w-11 min-h-11 flex items-center justify-center p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
               <ArrowLeft className="w-5 h-5 text-text-primary" />
             </Link>
             <div className="flex items-center gap-2">
@@ -85,6 +48,7 @@ export default function HospitalsPage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 py-6">
+        <h1 className="sr-only">{t("hospitals.title")}</h1>
         {/* Important Notice */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -100,33 +64,11 @@ export default function HospitalsPage() {
               <p className="text-xs text-amber-700 mt-1">
                 {t("hospitals.noticeDesc")}
               </p>
+              <p className="text-xs text-amber-700 mt-2 font-medium">
+                {t("hospitals.onlineNotice")}
+              </p>
             </div>
           </div>
-        </motion.div>
-
-        {/* Location Status */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="bg-primary-light rounded-2xl p-4 mb-6"
-        >
-          {locationLoading ? (
-            <p className="text-sm text-primary flex items-center gap-2">
-              <LocateFixed className="w-4 h-4 animate-pulse" />
-              {t("hospitals.locationLoading")}
-            </p>
-          ) : locationError ? (
-            <p className="text-sm text-text-secondary flex items-center gap-2">
-              <LocateFixed className="w-4 h-4" />
-              {t("hospitals.locationError")}
-            </p>
-          ) : (
-            <p className="text-sm text-green-600 flex items-center gap-2">
-              <LocateFixed className="w-4 h-4" />
-              {t("hospitals.locationStatus")}
-            </p>
-          )}
         </motion.div>
 
         {/* Search Options */}
@@ -141,7 +83,7 @@ export default function HospitalsPage() {
             transition={{ delay: 0.2 }}
           >
             <button
-              onClick={() => openGoogleMaps("産婦人科")}
+              onClick={() => openGoogleMaps("緊急避妊 産婦人科")}
               className="w-full text-left"
             >
               <Card className="cursor-pointer hover:shadow-lg transition-shadow">
@@ -165,7 +107,7 @@ export default function HospitalsPage() {
             transition={{ delay: 0.3 }}
           >
             <button
-              onClick={() => openGoogleMaps("婦人科")}
+              onClick={() => openGoogleMaps("緊急避妊 婦人科")}
               className="w-full text-left"
             >
               <Card className="cursor-pointer hover:shadow-lg transition-shadow">
@@ -189,7 +131,9 @@ export default function HospitalsPage() {
             transition={{ delay: 0.4 }}
           >
             <button
-              onClick={() => openGoogleMaps("緊急避妊 婦人科")}
+              onClick={() =>
+                openGoogleMaps("休日 夜間 産婦人科 緊急避妊")
+              }
               className="w-full text-left"
             >
               <Card className="cursor-pointer hover:shadow-lg transition-shadow">
@@ -241,7 +185,7 @@ export default function HospitalsPage() {
 
             <Card>
               <a
-                href="https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00005.html"
+                href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000186912_00002.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between"
@@ -260,7 +204,7 @@ export default function HospitalsPage() {
 
             <Card>
               <a
-                href="https://pilcon.org/help-line/afterpill"
+                href="https://www.mhlw.go.jp/stf/newpage_38226.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between"
@@ -279,7 +223,7 @@ export default function HospitalsPage() {
 
             <Card>
               <a
-                href="https://www.jaog.or.jp/qa/youth/jyosei200122/"
+                href="https://www.gender.go.jp/policy/no_violence/seibouryoku/consult.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between"

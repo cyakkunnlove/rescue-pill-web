@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Globe, ChevronDown, Check } from "lucide-react";
-import { useI18n, LOCALES, Locale } from "@/lib/i18n";
+import { useI18n, LOCALES } from "@/lib/i18n";
 
 export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
-  const { locale, setLocale } = useI18n();
+  const { locale, setLocale, t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
 
   const currentLocale = LOCALES.find((l) => l.code === locale);
@@ -14,8 +14,11 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   return (
     <div className="relative">
       <button
+        type="button"
+        aria-expanded={isOpen}
+        aria-label={t("common.selectLanguage")}
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-2 px-3 py-2 rounded-xl
+        className={`flex min-h-11 items-center gap-2 px-3 py-2 rounded-xl
                    bg-white/80 backdrop-blur-sm border border-primary-light
                    hover:border-primary transition-colors
                    ${compact ? "text-sm" : ""}`}
@@ -54,7 +57,9 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
             >
               {LOCALES.map((loc) => (
                 <button
+                  type="button"
                   key={loc.code}
+                  aria-pressed={locale === loc.code}
                   onClick={() => {
                     setLocale(loc.code);
                     setIsOpen(false);

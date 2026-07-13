@@ -26,7 +26,6 @@ export function GoogleAdSense({
   useEffect(() => {
     if (scriptLoaded && typeof window !== "undefined" && ADSENSE_PUBLISHER_ID) {
       try {
-        // @ts-ignore
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (error) {
         console.error("AdSense error:", error);

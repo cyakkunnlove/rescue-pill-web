@@ -10,7 +10,7 @@ export default function TermsPage() {
       {/* Header */}
       <header className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-primary-light z-50">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-4">
-          <Link href="/" className="p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
+          <Link href="/" aria-label="トップへ戻る" className="min-w-11 min-h-11 flex items-center justify-center p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
             <ArrowLeft className="w-5 h-5 text-text-primary" />
           </Link>
           <div className="flex items-center gap-2">
@@ -29,7 +29,7 @@ export default function TermsPage() {
           animate={{ opacity: 1, y: 0 }}
         >
           <h1 className="text-2xl font-bold text-text-primary mb-2">利用規約</h1>
-          <p className="text-sm text-text-muted mb-8">最終更新日: 2024年12月1日</p>
+          <p className="text-sm text-text-muted mb-8">最終更新日: 2026年7月13日</p>
 
           <div className="prose prose-sm max-w-none text-text-secondary space-y-6">
             <section>
@@ -46,7 +46,7 @@ export default function TermsPage() {
               <ol className="list-decimal pl-5 space-y-2">
                 <li>本サービスは、緊急避妊薬の入手を検討するユーザーに対し、セルフチェック機能および情報提供を行うものです。</li>
                 <li>本サービスは医療行為ではなく、医療アドバイスの提供を目的としたものではありません。</li>
-                <li>本サービスの判定結果は参考情報であり、最終的な判断は必ず医療従事者にご相談ください。</li>
+                <li>本サービスの案内は一般的な参考情報であり、個別の診断や購入可否を確定するものではありません。最終的な確認は医療従事者にご相談ください。</li>
               </ol>
             </section>
 
@@ -54,7 +54,7 @@ export default function TermsPage() {
               <h2 className="text-lg font-bold text-text-primary mt-8 mb-4">第3条（利用資格）</h2>
               <ol className="list-decimal pl-5 space-y-2">
                 <li>本サービスは、日本国内に居住する方を対象としています。</li>
-                <li>未成年の方が利用する場合は、保護者の同意を得た上でご利用ください。</li>
+                <li>未成年の方も利用できます。16歳未満の方には、厚生労働省の運用に沿って産婦人科・小児科等への相談も案内します。</li>
               </ol>
             </section>
 
@@ -85,7 +85,7 @@ export default function TermsPage() {
               <ol className="list-decimal pl-5 space-y-2">
                 <li>当方は、本サービスの情報の正確性、完全性、有用性等について、いかなる保証も行いません。</li>
                 <li>当方は、本サービスの利用によりユーザーに生じた損害について、当方の故意または重過失による場合を除き、一切の責任を負いません。</li>
-                <li>本サービスの判定結果に基づく行動は、ユーザーの自己責任において行ってください。</li>
+                <li>緊急避妊薬の使用や受診については、薬剤師または医師の説明を受けてください。</li>
               </ol>
             </section>
 
@@ -128,7 +128,7 @@ export default function TermsPage() {
       <footer className="px-4 py-6 bg-text-primary mt-12">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-xs text-white/50">
-            © 2024 Rescue Pill. All rights reserved.
+            © 2026 Rescue Pill. All rights reserved.
           </p>
         </div>
       </footer>

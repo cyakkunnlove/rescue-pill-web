@@ -3,16 +3,13 @@ import Script from "next/script";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n";
 
-// AdSense Publisher ID (from env or fallback)
-const ADSENSE_PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-6450475655166600";
-
 // Structured Data for SEO
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Rescue Pill",
   "alternateName": "レスキューピル",
-  "description": "緊急避妊薬の入手を迅速化するため、利用者の事前問診→判定→薬局/医療機関連携までを支援します。匿名で利用可能。",
+  "description": "緊急避妊に関するセルフチェック、一般的な行動案内、厚生労働省の公開情報に基づく薬局・医療機関検索を提供します。",
   "url": "https://rescue-pill.com",
   "applicationCategory": "HealthApplication",
   "operatingSystem": "Any",
@@ -45,7 +42,7 @@ export const metadata: Metadata = {
     template: "%s | Rescue Pill"
   },
   description:
-    "緊急避妊薬（アフターピル）の入手を迅速化するため、利用者の事前問診→判定→薬局/医療機関連携までを支援します。匿名で利用可能。OTC対応薬局や産婦人科を簡単検索。",
+    "緊急避妊薬（アフターピル）について、一般的な行動案内と、厚生労働省の公開情報に基づく販売薬局・医療機関の検索を提供します。診断・診療の代替ではありません。",
   keywords: [
     "緊急避妊薬",
     "アフターピル", 

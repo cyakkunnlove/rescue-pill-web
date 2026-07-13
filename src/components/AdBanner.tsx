@@ -24,7 +24,6 @@ export function AdBanner({
   format = "inline",
   className = "" 
 }: AdBannerProps) {
-  const [adLoaded, setAdLoaded] = useState(false);
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
   const positionClasses = {
@@ -38,9 +37,7 @@ export function AdBanner({
   useEffect(() => {
     if (scriptLoaded && ADSENSE_PUBLISHER_ID && adSlot) {
       try {
-        // @ts-ignore
         (window.adsbygoogle = window.adsbygoogle || []).push({});
-        setAdLoaded(true);
       } catch (error) {
         console.error("AdSense error:", error);
       }

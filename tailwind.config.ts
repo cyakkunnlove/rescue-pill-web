@@ -10,19 +10,19 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#E8A0BF",
+          DEFAULT: "#9B355D",
           light: "#F2C6D8",
-          dark: "#D485A6",
+          dark: "#762442",
         },
         secondary: {
-          DEFAULT: "#BA90C6",
+          DEFAULT: "#664270",
           light: "#D4B8DE",
-          dark: "#9A70A8",
+          dark: "#4E2F58",
         },
         accent: {
           DEFAULT: "#C0DBEA",
           light: "#E1EEF5",
-          dark: "#9BC5DC",
+          dark: "#376F8C",
         },
         background: {
           DEFAULT: "#FFF8F8",
@@ -31,12 +31,12 @@ const config: Config = {
         },
         text: {
           primary: "#4A3B52",
-          secondary: "#7D6B8A",
-          muted: "#A99AB5",
+          secondary: "#5C4E65",
+          muted: "#62546D",
         },
-        danger: "#E57373",
-        warning: "#FFB74D",
-        success: "#81C784",
+        danger: "#B4232F",
+        warning: "#8A4B00",
+        success: "#2E7043",
       },
       fontFamily: {
         sans: [
@@ -52,7 +52,7 @@ const config: Config = {
         "3xl": "2rem",
       },
       boxShadow: {
-        soft: "0 4px 20px rgba(232, 160, 191, 0.15)",
+        soft: "0 4px 20px rgba(155, 53, 93, 0.15)",
         card: "0 2px 12px rgba(0, 0, 0, 0.05)",
       },
     },

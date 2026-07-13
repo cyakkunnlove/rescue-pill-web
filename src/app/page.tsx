@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppStore } from "@/store/useAppStore";
 import { evaluate } from "@/lib/ruleEngine";
-import { Answers, FlowStep, Result, CaseMeta } from "@/types";
+import type { Answers } from "@/types";
 
 import { EntryScreen } from "@/components/screens/EntryScreen";
 import { LandingPage } from "@/components/screens/LandingPage";
@@ -41,12 +41,6 @@ export default function Home() {
   }, [consentDate]);
 
   const [showConsent, setShowConsent] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleLandingStart = useCallback(() => {
     setStep("entry");
   }, [setStep]);
@@ -95,26 +89,13 @@ export default function Home() {
     resetAll();
   }, [resetAll]);
 
-  // Don't render until mounted to avoid hydration mismatch
-  if (!mounted) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <motion.div
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl"
-        />
-      </div>
-    );
-  }
-
   return (
     <main className={step === "landing" ? "" : "max-w-md mx-auto min-h-screen"}>
       <AnimatePresence mode="wait">
         {step === "landing" && (
           <motion.div
             key="landing"
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
@@ -131,7 +112,7 @@ export default function Home() {
           >
             <EntryScreen
               onProceed={handleEntryProceed}
-              hasConsent={!!consentDate}
+              hasConsent={isConsentValid()}
             />
           </motion.div>
         )}

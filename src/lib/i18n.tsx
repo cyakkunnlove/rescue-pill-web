@@ -1,6 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import { MotionConfig } from "framer-motion";
 
 // Import locale files
 import ja from "@/locales/ja.json";
@@ -38,24 +40,27 @@ const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("ja");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Get saved locale or detect from browser
-    const saved = localStorage.getItem("locale") as Locale | null;
-    if (saved && translations[saved]) {
-      setLocaleState(saved);
-    } else {
-      // Try to detect from browser language
+    const timer = window.setTimeout(() => {
+      const saved = localStorage.getItem("locale") as Locale | null;
+      if (saved && translations[saved]) {
+        setLocaleState(saved);
+        return;
+      }
+
       const browserLang = navigator.language.split("-")[0];
-      if (browserLang === "ja") setLocaleState("ja");
-      else if (browserLang === "zh") setLocaleState("zh");
-      else if (browserLang === "vi") setLocaleState("vi");
-      else if (browserLang === "ko") setLocaleState("ko");
-      else setLocaleState("ja"); // Default to Japanese for Japan-focused app
-    }
-    setMounted(true);
+      if (["ja", "en", "zh", "vi", "ko"].includes(browserLang)) {
+        setLocaleState(browserLang as Locale);
+      }
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
@@ -86,15 +91,12 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     return typeof value === "string" ? value : key;
   };
 
-  // Don't render until mounted to avoid hydration mismatch
-  if (!mounted) {
-    return null;
-  }
-
   return (
-    <I18nContext.Provider value={{ locale, setLocale, t }}>
-      {children}
-    </I18nContext.Provider>
+    <MotionConfig reducedMotion="user">
+      <I18nContext.Provider value={{ locale, setLocale, t }}>
+        {children}
+      </I18nContext.Provider>
+    </MotionConfig>
   );
 }
 

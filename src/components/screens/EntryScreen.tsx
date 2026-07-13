@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { Heart, Shield, Clock, FileText, Star } from "lucide-react";
+import { Heart, Shield, Clock, FileText } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 interface EntryScreenProps {

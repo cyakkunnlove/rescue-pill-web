@@ -4,9 +4,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { Result } from "@/types";
+import type { Result } from "@/types";
 import { useTranslation } from "@/lib/i18n";
-import { Check, Circle, Info, Wallet } from "lucide-react";
+import { Check, Circle, Info } from "lucide-react";
 
 interface ChecklistScreenProps {
   result: Result;
@@ -16,12 +16,14 @@ interface ChecklistScreenProps {
 export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
   const { t } = useTranslation();
   const isPharmacy = result.route === "pharmacy";
+  const hasUnknownTiming = isPharmacy && result.elapsedHours === null;
   
   const pharmacyItems = [
     t("checklist.pharmacyItem1"),
     t("checklist.pharmacyItem2"),
     t("checklist.pharmacyItem3"),
     t("checklist.pharmacyItem4"),
+    t("checklist.pharmacyItem5"),
   ];
 
   const medicalItems = [
@@ -33,7 +35,11 @@ export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
     t("checklist.medicalItem6"),
   ];
   
-  const items = isPharmacy ? pharmacyItems : medicalItems;
+  const items = hasUnknownTiming
+    ? [...new Set([...medicalItems, ...pharmacyItems])]
+    : isPharmacy
+      ? pharmacyItems
+      : medicalItems;
   const [checks, setChecks] = useState<boolean[]>(
     new Array(items.length).fill(false)
   );
@@ -57,7 +63,11 @@ export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
           className="text-center mb-6"
         >
           <h1 className="text-2xl font-bold text-text-primary">
-            {isPharmacy ? t("checklist.pharmacyTitle") : t("checklist.medicalTitle")}
+            {hasUnknownTiming
+              ? t("checklist.combinedTitle")
+              : isPharmacy
+                ? t("checklist.pharmacyTitle")
+                : t("checklist.medicalTitle")}
           </h1>
           <p className="text-sm text-text-secondary mt-1">
             {t("checklist.subtitle")}
@@ -98,6 +108,8 @@ export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
               {items.map((item, index) => (
                 <motion.button
                   key={index}
+                  type="button"
+                  aria-pressed={checks[index]}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + index * 0.05 }}
@@ -134,39 +146,6 @@ export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
           </Card>
         </motion.div>
 
-        {/* Cost Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="mt-6"
-        >
-          <Card className="bg-gradient-to-r from-accent-light to-primary-light">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center">
-                <Wallet className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-text-primary mb-1">
-                  費用の目安
-                </h3>
-                {isPharmacy ? (
-                  <div className="text-sm text-text-secondary space-y-1">
-                    <p>• 緊急避妊薬: 約8,000〜15,000円</p>
-                    <p>• 保険は通常適用されません</p>
-                  </div>
-                ) : (
-                  <div className="text-sm text-text-secondary space-y-1">
-                    <p>• 診察料 + 処方料: 約5,000〜10,000円</p>
-                    <p>• 緊急避妊薬: 約10,000〜15,000円</p>
-                    <p>• 保険適用の可能性あり（要確認）</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </Card>
-        </motion.div>
-
         {/* Tips */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -178,16 +157,15 @@ export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
             <div className="flex items-start gap-3">
               <Info className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
               <div className="text-sm text-text-secondary">
-                {isPharmacy ? (
-                  <p>
-                    事前に電話で在庫確認することをおすすめします。
-                    取り扱いのない薬局もあります。
-                  </p>
+                {hasUnknownTiming ? (
+                  <div className="space-y-2">
+                    <p>{t("hospitals.tip1")}</p>
+                    <p>{t("pharmacies.trialNote")}</p>
+                  </div>
+                ) : isPharmacy ? (
+                  <p>{t("pharmacies.trialNote")}</p>
                 ) : (
-                  <p>
-                    予約なしでも受診可能な場合がありますが、
-                    事前に電話で確認することをおすすめします。
-                  </p>
+                  <p>{t("hospitals.tip1")}</p>
                 )}
               </div>
             </div>
@@ -203,7 +181,7 @@ export function ChecklistScreen({ result, onBack }: ChecklistScreenProps) {
         className="mt-6"
       >
         <Button variant="secondary" onClick={onBack}>
-          戻る
+          {t("common.back")}
         </Button>
       </motion.div>
     </div>

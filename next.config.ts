@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: process.cwd(),
+  },
   // Security headers
   async headers() {
     return [
@@ -25,7 +28,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Permissions-Policy",
-            value: "geolocation=(self), microphone=(), camera=()",
+            value: "geolocation=(), microphone=(), camera=()",
           },
         ],
       },

@@ -1,11 +1,14 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { Result, CaseMeta, Answers, TriChoice } from "@/types";
+import type { Result, CaseMeta, Answers, TriChoice } from "@/types";
 import { Download, FileText, Loader2 } from "lucide-react";
+import { useTranslation, type Locale } from "@/lib/i18n";
+import { translateAnswerOption } from "@/lib/answerLabels";
+import { translateResultLine } from "@/lib/resultTranslations";
 
 interface PDFScreenProps {
   result: Result;
@@ -14,87 +17,112 @@ interface PDFScreenProps {
   onBack: () => void;
 }
 
-function formatBool(value: boolean | null): string {
-  if (value === null) return "未選択";
-  return value ? "はい" : "いいえ";
-}
-
-function formatTri(value: TriChoice | null, unknownLabel = "回答しない"): string {
-  if (value === null) return "未選択";
-  if (value === "yes") return "はい";
-  if (value === "no") return "いいえ";
-  return unknownLabel;
-}
-
-function formatDate(date: Date | null): string {
-  if (!date) return "未入力";
-  return new Intl.DateTimeFormat("ja-JP", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(date);
-}
-
-function formatDateTime(date: Date | null): string {
-  if (!date) return "未入力";
-  return new Intl.DateTimeFormat("ja-JP", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(date);
-}
+const DATE_LOCALES: Record<Locale, string> = {
+  ja: "ja-JP",
+  en: "en-US",
+  zh: "zh-CN",
+  vi: "vi-VN",
+  ko: "ko-KR",
+};
 
 export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
+  const { t, locale } = useTranslation();
   const [generating, setGenerating] = useState(false);
+  const [generationError, setGenerationError] = useState(false);
 
-  const qaPairs = useMemo(
-    () => [
-      ["Q1 強い腹痛・大量出血などの症状はありますか？", formatBool(answers.dangerSymptoms)],
-      ["Q2 最後の性行為はいつですか？", formatDateTime(answers.lastSexDate)],
+  const formatBool = (value: boolean | null): string => {
+    if (value === null) return t("pdf.notSelected");
+    return value ? t("common.yes") : t("common.no");
+  };
+
+  const formatTri = (
+    value: TriChoice | null,
+    unknownLabel = t("questions.noAnswer")
+  ): string => {
+    if (value === null) return t("pdf.notSelected");
+    if (value === "yes") return t("common.yes");
+    if (value === "no") return t("common.no");
+    return unknownLabel;
+  };
+
+  const formatDate = (date: Date | null): string => {
+    if (!date || !Number.isFinite(date.getTime())) return t("pdf.notEntered");
+    return new Intl.DateTimeFormat(DATE_LOCALES[locale], {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(date);
+  };
+
+  const formatDateTime = (date: Date | null): string => {
+    if (!date || !Number.isFinite(date.getTime())) return t("pdf.notEntered");
+    return new Intl.DateTimeFormat(DATE_LOCALES[locale], {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date);
+  };
+
+  const qaPairs = [
+      [`Q1 ${t("pdf.dangerQuestion")}`, formatBool(answers.dangerSymptoms)],
       [
-        "Q3 避妊の状況は？",
+        `Q2 ${t("questions.q1")}`,
+        answers.lastSexDate
+          ? formatDateTime(answers.lastSexDate)
+          : answers.dangerSymptoms
+            ? t("pdf.notEntered")
+            : t("questions.q1Unknown"),
+      ],
+      [
+        `Q3 ${t("questions.q2")}`,
         answers.contraceptionIssues.length > 0
-          ? answers.contraceptionIssues.join(" / ")
-          : "未選択",
+          ? answers.contraceptionIssues
+              .map((answer) => translateAnswerOption(answer, locale))
+              .join(" / ")
+          : t("pdf.notSelected"),
       ],
-      ["Q4 その性行為はあなたの意思によるものでしたか？", formatTri(answers.nonConsensual)],
-      ["Q5 妊娠検査で陽性でしたか？", formatTri(answers.pregnancyTest, "未検査")],
       [
-        "Q6 治療中の病気や持病はありますか？",
+        `Q4 ${t("questions.q3")}`,
+        formatTri(answers.nonConsensual),
+      ],
+      [
+        `Q5 ${t("questions.q4")}`,
+        formatTri(answers.pregnancyTest, t("questions.q4Unknown")),
+      ],
+      [
+        `Q6 ${t("questions.q5")}`,
         answers.contraindications.length > 0
-          ? answers.contraindications.join(" / ")
-          : "未選択",
-      ],
-      ["Q7 サプリメントを飲んでいますか？", answers.interactionRisk || "未選択"],
-      ["Q8 現在、授乳中ですか？", formatTri(answers.breastfeeding, "わからない")],
-      ["Q9 最終月経開始日（任意）", formatDate(answers.lastPeriodDate)],
-      [
-        "Q10 月経周期の長さ（日数・任意）",
-        answers.cycleLengthDays ? `${answers.cycleLengthDays}日` : "未入力",
-      ],
-      ["Q11 生年月日（任意）", formatDate(answers.birthDate)],
-      ["Q12 身長（任意）", answers.heightCm ? `${answers.heightCm}cm` : "未入力"],
-      ["Q13 体重（任意）", answers.weight ? `${answers.weight}kg` : "未入力"],
-      ["Q14 現在地（任意）", answers.locationText || "未入力"],
-      [
-        "Q15 持病・既往症（任意）",
-        answers.conditionTags.length > 0 ? answers.conditionTags.join(" / ") : "未入力",
+          ? answers.contraindications
+              .map((answer) => translateAnswerOption(answer, locale))
+              .join(" / ")
+          : t("pdf.notSelected"),
       ],
       [
-        "Q16 服用中の薬（任意）",
-        [...answers.medicationTags, ...answers.supplementTags].length > 0
-          ? [...answers.medicationTags, ...answers.supplementTags].join(" / ")
-          : "未入力",
+        `Q7 ${t("questions.q6")}`,
+        answers.interactionRisk
+          ? translateAnswerOption(answers.interactionRisk, locale)
+          : t("pdf.notSelected"),
       ],
-      ["Q17 相談先の希望（任意）", answers.consultPreference || "未入力"],
-    ],
-    [answers]
-  );
+      [
+        `Q8 ${t("questions.q7")}`,
+        formatTri(answers.breastfeeding, t("questions.q7Unknown")),
+      ],
+      [`Q9 ${t("questions.q8")}`, formatDate(answers.lastPeriodDate)],
+      [`Q10 ${t("questions.q10")}`, formatDate(answers.birthDate)],
+    ];
+
+  const routeLabel =
+    result.route === "pharmacy"
+      ? t("artifact.routePharmacy")
+      : result.route === "emergency"
+        ? t("artifact.routeEmergency")
+        : t("artifact.routeMedical");
 
   const generatePDF = async () => {
     setGenerating(true);
+    setGenerationError(false);
 
     try {
       // Dynamic import to avoid SSR issues
@@ -104,14 +132,14 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
 
       // Register font
       Font.register({
-        family: "NotoSansJP",
-        src: "https://fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.otf",
+        family: "NotoSansCJK",
+        src: `${window.location.origin}/fonts/NotoSansCJKjp-Regular.otf`,
       });
 
       const styles = StyleSheet.create({
         page: {
           padding: 40,
-          fontFamily: "NotoSansJP",
+          fontFamily: "NotoSansCJK",
           fontSize: 10,
         },
         header: {
@@ -121,7 +149,7 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
         },
         title: {
           fontSize: 18,
-          color: "#E8A0BF",
+          color: "#9B355D",
           marginBottom: 5,
         },
         subtitle: {
@@ -139,17 +167,19 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
           padding: 5,
         },
         row: {
-          flexDirection: "row",
+          flexDirection: "column",
           borderBottom: "0.5pt solid #F2C6D8",
           paddingVertical: 5,
         },
         question: {
-          width: "50%",
+          width: "100%",
           color: "#7D6B8A",
+          marginBottom: 2,
         },
         answer: {
-          width: "50%",
+          width: "100%",
           color: "#4A3B52",
+          paddingLeft: 8,
         },
         resultBox: {
           backgroundColor: "#FFF0F4",
@@ -177,30 +207,23 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
         },
       });
 
-      const routeLabel =
-        result.route === "pharmacy"
-          ? "薬局対応の可能性"
-          : result.route === "emergency"
-          ? "緊急受診"
-          : "医療機関推奨";
-
       const MyDocument = (
         <Document>
           <Page size="A4" style={styles.page}>
             <View style={styles.header}>
-              <Text style={styles.title}>Rescue Pill 問診結果</Text>
+              <Text style={styles.title}>{t("pdf.documentTitle")}</Text>
               <Text style={styles.subtitle}>
-                ケースID: {meta.caseId} | 作成: {formatDateTime(meta.createdAt)}
+                {t("pdf.caseId")}: {meta.caseId} | {t("pdf.createdAt")}: {formatDateTime(meta.createdAt)}
               </Text>
             </View>
 
             <View style={styles.resultBox}>
-              <Text style={styles.resultTitle}>判定: {routeLabel}</Text>
-              <Text style={styles.resultDetail}>{result.headline}</Text>
+              <Text style={styles.resultTitle}>{t("pdf.guidanceLabel")}: {routeLabel}</Text>
+              <Text style={styles.resultDetail}>{translateResultLine(result.headline, locale)}</Text>
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>問診内容</Text>
+              <Text style={styles.sectionTitle}>{t("pdf.inputContent")}</Text>
               {qaPairs.map(([q, a], i) => (
                 <View key={i} style={styles.row}>
                   <Text style={styles.question}>{q}</Text>
@@ -210,8 +233,7 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
             </View>
 
             <Text style={styles.footer}>
-              このPDFは参考情報であり、医療行為の代替ではありません。 | Rescue
-              Pill
+              {t("pdf.disclaimer")} | Rescue Pill
             </Text>
           </Page>
         </Document>
@@ -222,10 +244,13 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
       const link = document.createElement("a");
       link.href = url;
       link.download = `rescue-pill-${meta.caseId}.pdf`;
+      document.body.appendChild(link);
       link.click();
-      URL.revokeObjectURL(url);
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     } catch (error) {
       console.error("PDF generation failed:", error);
+      setGenerationError(true);
     } finally {
       setGenerating(false);
     }
@@ -240,9 +265,9 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-6"
         >
-          <h1 className="text-2xl font-bold text-text-primary">PDFプレビュー</h1>
+          <h1 className="text-2xl font-bold text-text-primary">{t("pdf.previewTitle")}</h1>
           <p className="text-sm text-text-secondary mt-1">
-            問診内容をPDFで保存・印刷できます
+            {t("pdf.previewSubtitle")}
           </p>
         </motion.div>
 
@@ -259,7 +284,7 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
               </div>
               <div>
                 <h3 className="font-semibold text-text-primary">
-                  問診結果PDF
+                  {t("pdf.cardTitle")}
                 </h3>
                 <p className="text-sm text-text-secondary">
                   {meta.caseId}
@@ -269,15 +294,18 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
 
             <div className="border-t border-primary-light pt-4 space-y-2 text-sm">
               <p className="text-text-secondary">
-                <span className="font-medium">含まれる内容:</span>
+                <span className="font-medium">{t("pdf.includes")}</span>
               </p>
               <ul className="list-disc list-inside text-text-muted space-y-1 pl-2">
-                <li>ケースID・作成日時</li>
-                <li>判定結果</li>
-                <li>全問診項目と回答</li>
+                <li>{t("pdf.includesCase")}</li>
+                <li>{t("pdf.includesGuidance")}</li>
+                <li>{t("pdf.includesAnswers")}</li>
               </ul>
             </div>
           </Card>
+          <p className="text-xs text-text-muted mt-3 leading-relaxed">
+            {t("pdf.sensitiveNotice")}
+          </p>
         </motion.div>
 
         {/* Q&A Preview */}
@@ -288,7 +316,7 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
           className="mb-6"
         >
           <h3 className="text-sm font-semibold text-text-secondary mb-3">
-            回答プレビュー
+            {t("pdf.answerPreview")}
           </h3>
           <Card className="max-h-60 overflow-y-auto">
             <div className="space-y-3">
@@ -299,7 +327,7 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
                 </div>
               ))}
               <p className="text-xs text-text-muted text-center">
-                ... 他 {qaPairs.length - 5} 項目
+                {t("pdf.moreItems").replace("{count}", String(qaPairs.length - 5))}
               </p>
             </div>
           </Card>
@@ -315,15 +343,20 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
             {generating ? (
               <span className="flex items-center justify-center gap-2">
                 <Loader2 className="w-5 h-5 animate-spin" />
-                生成中...
+                {t("pdf.generating")}
               </span>
             ) : (
               <span className="flex items-center justify-center gap-2">
                 <Download className="w-5 h-5" />
-                PDFをダウンロード
+                {t("pdf.download")}
               </span>
             )}
           </Button>
+          {generationError && (
+            <p role="alert" className="mt-3 text-sm text-danger text-center">
+              {t("pdf.generationError")}
+            </p>
+          )}
         </motion.div>
       </div>
 
@@ -335,7 +368,7 @@ export function PDFScreen({ result, meta, answers, onBack }: PDFScreenProps) {
         className="mt-6"
       >
         <Button variant="secondary" onClick={onBack}>
-          戻る
+          {t("common.back")}
         </Button>
       </motion.div>
     </div>

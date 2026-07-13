@@ -20,6 +20,7 @@ export function ChoiceButton({
     <motion.button
       type="button"
       onClick={onClick}
+      aria-pressed={selected}
       whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.99 }}
       className={`

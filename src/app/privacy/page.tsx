@@ -10,7 +10,7 @@ export default function PrivacyPage() {
       {/* Header */}
       <header className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-primary-light z-50">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-4">
-          <Link href="/" className="p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
+          <Link href="/" aria-label="トップへ戻る" className="min-w-11 min-h-11 flex items-center justify-center p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
             <ArrowLeft className="w-5 h-5 text-text-primary" />
           </Link>
           <div className="flex items-center gap-2">
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
           animate={{ opacity: 1, y: 0 }}
         >
           <h1 className="text-2xl font-bold text-text-primary mb-2">プライバシーポリシー</h1>
-          <p className="text-sm text-text-muted mb-8">最終更新日: 2024年12月1日</p>
+          <p className="text-sm text-text-muted mb-8">最終更新日: 2026年7月13日</p>
 
           <div className="prose prose-sm max-w-none text-text-secondary space-y-6">
             <section>
@@ -53,11 +53,11 @@ export default function PrivacyPage() {
                 <li>健康状態に関する情報（持病、服用中の薬など）</li>
                 <li>月経に関する情報</li>
                 <li>身体的特徴（身長、体重など）</li>
-                <li>位置情報（任意、薬局検索のため）</li>
               </ul>
               <p className="mt-4 p-4 bg-primary-light rounded-xl">
                 <strong className="text-primary">重要：</strong>これらの情報は
-                <strong>ユーザーの端末内のみで処理され、当方のサーバーには送信されません。</strong>
+                <strong>セルフチェック中はブラウザ内で処理され、当方のサーバーには保存されません。</strong>
+                ただし、お問い合わせフォームや外部リンクを利用した場合は、次項の外部サービスへ情報が送信されます。
               </p>
 
               <h3 className="font-bold text-text-primary mt-6 mb-2">1.2 自動的に収集される情報</h3>
@@ -68,9 +68,12 @@ export default function PrivacyPage() {
                 <li>アクセス日時</li>
                 <li>ブラウザの種類</li>
                 <li>デバイスの種類</li>
-                <li>IPアドレス（匿名化処理を行います）</li>
+                <li>IPアドレス</li>
                 <li>ページ閲覧履歴</li>
               </ul>
+              <p className="leading-relaxed mt-3">
+                これらはホスティング事業者のログ、またはアクセス解析・広告機能を設定している場合に各事業者へ送信されることがあります。
+              </p>
             </section>
 
             <section>
@@ -86,30 +89,34 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-text-primary mt-8 mb-4">3. 情報の第三者提供</h2>
+              <h2 className="text-lg font-bold text-text-primary mt-8 mb-4">3. 外部サービスへの送信</h2>
               <p className="leading-relaxed">
-                当方は、以下の場合を除き、ユーザーの個人情報を第三者に提供することはありません。
+                本サービスでは、機能の提供に必要な範囲で以下の外部サービスを利用します。送信される情報や保存期間は、各事業者の方針にも従います。
               </p>
               <ul className="list-disc pl-5 space-y-1 mt-2">
-                <li>ユーザーの同意がある場合</li>
-                <li>法令に基づく場合</li>
-                <li>人の生命、身体または財産の保護のために必要がある場合</li>
-                <li>公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合</li>
+                <li>Vercel: サイト配信、セキュリティ、アクセスログ</li>
+                <li>Formspree: お問い合わせフォームに入力して送信した内容</li>
+                <li>Google Maps: 「地図で見る」等の外部リンクを開いた場合の検索情報、接続情報</li>
+                <li>Google Analytics: 設定されている場合のアクセス解析</li>
+                <li>Google AdSense: 広告が表示されるページでの広告配信・測定</li>
               </ul>
+              <p className="leading-relaxed mt-3">
+                お問い合わせには、症状、服薬、妊娠可能性などの健康情報や、緊急対応を必要とする内容を入力しないでください。
+              </p>
             </section>
 
             <section>
               <h2 className="text-lg font-bold text-text-primary mt-8 mb-4">4. Cookie・広告について</h2>
               <h3 className="font-bold text-text-primary mt-4 mb-2">4.1 Cookieの使用</h3>
               <p className="leading-relaxed">
-                本サービスでは、ユーザー体験の向上およびアクセス解析のためにCookieを使用する場合があります。
+                本サービスおよび上記の外部サービスは、設定保存、アクセス解析、広告配信のためにCookieまたは類似技術を使用する場合があります。
                 ユーザーはブラウザの設定によりCookieを無効にすることができますが、
                 一部のサービス機能が利用できなくなる場合があります。
               </p>
 
               <h3 className="font-bold text-text-primary mt-6 mb-2">4.2 広告配信</h3>
               <p className="leading-relaxed">
-                本サービスでは、第三者配信の広告サービス（Google AdSense等）を利用しています。
+                本サービスでは、コンテンツページで第三者配信の広告サービス（Google AdSense）を利用する場合があります。
                 これらの広告配信事業者は、ユーザーの興味に応じた広告を表示するため、
                 Cookieを使用してユーザーの本サービスおよび他のサイトへのアクセス情報を収集する場合があります。
               </p>
@@ -125,7 +132,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-lg font-bold text-text-primary mt-8 mb-4">5. アクセス解析ツール</h2>
               <p className="leading-relaxed">
-                本サービスでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用する場合があります。
+                本サービスでは、設定されている場合にGoogleのアクセス解析ツール「Google Analytics」を利用します。
                 このGoogleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。
                 このトラフィックデータは匿名で収集されており、個人を特定するものではありません。
               </p>
@@ -134,9 +141,9 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-lg font-bold text-text-primary mt-8 mb-4">6. データの保存期間</h2>
               <p className="leading-relaxed">
-                本サービスのセルフチェック機能で入力された情報は、ユーザーの端末内にのみ一時的に保存され、
-                ブラウザを閉じるか、ユーザーが明示的に削除することで消去されます。
-                当方のサーバーには保存されません。
+                セルフチェックの回答と結果はブラウザのメモリ内で処理され、当方のサーバーには保存されません。
+                ブラウザのlocalStorageには、同意日時と言語設定を保存します。利用者が生成・保存・共有したPDFやQRコードの管理は利用者自身で行ってください。
+                お問い合わせ内容はFormspreeおよび当方の受信環境で処理されます。
               </p>
             </section>
 
@@ -151,8 +158,8 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-lg font-bold text-text-primary mt-8 mb-4">8. お子様のプライバシー</h2>
               <p className="leading-relaxed">
-                本サービスは、未成年者を含むすべての方を対象としていますが、
-                16歳未満のお子様が本サービスを利用する場合は、保護者の方の同意のもとでご利用ください。
+                本サービスは未成年者も利用できます。緊急避妊薬の購入に一律の年齢制限や保護者同意の要件はありませんが、
+                厚生労働省の運用では16歳未満の方に産婦人科・小児科等への相談を勧めています。不安がある場合は、医療従事者や信頼できる支援者へ相談してください。
               </p>
             </section>
 
@@ -179,7 +186,7 @@ export default function PrivacyPage() {
       <footer className="px-4 py-6 bg-text-primary mt-12">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-xs text-white/50">
-            © 2024 Rescue Pill. All rights reserved.
+            © 2026 Rescue Pill. All rights reserved.
           </p>
         </div>
       </footer>

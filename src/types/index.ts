@@ -35,7 +35,6 @@ export interface Result {
 export interface CaseMeta {
   caseId: string;
   createdAt: Date;
-  expiresAt: Date;
 }
 
 export type FlowStep =
@@ -211,9 +210,10 @@ export const SUPPLEMENT_TAGS = [
 ];
 
 export const CONTRAINDICATION_OPTIONS = [
-  "血栓症の既往",
-  "重度の肝障害",
-  "ポルフィリン症",
+  "肝臓病",
+  "心臓病・腎臓病",
+  "重い消化器疾患",
+  "薬や食品のアレルギー",
   "その他の病気",
   "わからない",
   "特にない",

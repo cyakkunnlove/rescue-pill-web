@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { X, AlertTriangle, Shield, MapPin, Brain, FileWarning } from "lucide-react";
+import { X, AlertTriangle, Shield, Brain, FileWarning } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 interface ConsentModalProps {
@@ -15,6 +15,48 @@ interface ConsentModalProps {
 export function ConsentModal({ isOpen, onAgree, onClose }: ConsentModalProps) {
   const { t } = useTranslation();
   const [agreed, setAgreed] = useState(false);
+  const titleId = useId();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const focusTimer = window.setTimeout(() => closeButtonRef.current?.focus(), 0);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setAgreed(false);
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab" || !dialogRef.current) return;
+
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => !element.hasAttribute("disabled"));
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.clearTimeout(focusTimer);
+      document.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused?.focus();
+    };
+  }, [isOpen, onClose]);
 
   const consentItems = [
     {
@@ -37,11 +79,6 @@ export function ConsentModal({ isOpen, onAgree, onClose }: ConsentModalProps) {
       titleKey: "consent.item4Title",
       bodyKey: "consent.item4Body",
     },
-    {
-      icon: MapPin,
-      titleKey: "consent.item5Title",
-      bodyKey: "consent.item5Body",
-    },
   ];
 
   return (
@@ -54,6 +91,11 @@ export function ConsentModal({ isOpen, onAgree, onClose }: ConsentModalProps) {
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-40"
         >
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            tabIndex={-1}
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
@@ -61,11 +103,16 @@ export function ConsentModal({ isOpen, onAgree, onClose }: ConsentModalProps) {
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-primary-light">
-              <h2 className="text-lg font-bold text-text-primary">
+              <h2 id={titleId} className="text-lg font-bold text-text-primary">
                 {t("consent.title")}
               </h2>
               <button
-                onClick={onClose}
+                ref={closeButtonRef}
+                onClick={() => {
+                  setAgreed(false);
+                  onClose();
+                }}
+                aria-label={t("common.close")}
                 className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center hover:bg-primary hover:bg-opacity-20 transition-colors"
               >
                 <X className="w-5 h-5 text-text-secondary" />
@@ -110,7 +157,13 @@ export function ConsentModal({ isOpen, onAgree, onClose }: ConsentModalProps) {
                   {t("consent.agreeCheckbox")}
                 </span>
               </label>
-              <Button onClick={onAgree} disabled={!agreed}>
+              <Button
+                onClick={() => {
+                  setAgreed(false);
+                  onAgree();
+                }}
+                disabled={!agreed}
+              >
                 {t("consent.agreeButton")}
               </Button>
             </div>

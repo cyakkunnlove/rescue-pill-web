@@ -8,11 +8,9 @@ import {
   Building2,
   HandHeart,
   Users,
-  CheckCircle,
   Mail,
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
 import { useTranslation } from "@/lib/i18n";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
@@ -52,7 +50,7 @@ export default function PartnersPage() {
       <header className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-primary-light z-50">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/" className="p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
+            <Link href="/" aria-label={t("common.back")} className="min-w-11 min-h-11 flex items-center justify-center p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
               <ArrowLeft className="w-5 h-5 text-text-primary" />
             </Link>
             <div className="flex items-center gap-2">
@@ -141,11 +139,12 @@ export default function PartnersPage() {
             {t("partners.ctaDesc")}
           </p>
           
-          <Link href="/contact">
-            <Button className="w-full py-4 text-lg">
-              <Mail className="w-5 h-5 mr-2" />
-              {t("partners.contactButton")}
-            </Button>
+          <Link
+            href="/contact"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-primary px-6 py-4 text-lg font-medium text-white shadow-soft transition-colors hover:bg-primary-dark"
+          >
+            <Mail className="w-5 h-5 mr-2" />
+            {t("partners.contactButton")}
           </Link>
         </motion.div>
 

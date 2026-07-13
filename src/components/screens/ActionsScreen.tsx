@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { ActionCard } from "@/components/ui/ActionCard";
 
-import { Result } from "@/types";
+import type { Result } from "@/types";
 import { useTranslation } from "@/lib/i18n";
 import {
   MapPin,
@@ -12,9 +13,7 @@ import {
   QrCode,
   FileText,
   ExternalLink,
-  Smartphone,
 } from "lucide-react";
-import { useState } from "react";
 
 interface ActionsScreenProps {
   result: Result;
@@ -32,16 +31,15 @@ export function ActionsScreen({
   onPDF,
 }: ActionsScreenProps) {
   const { t } = useTranslation();
-  const [showAppModal, setShowAppModal] = useState(false);
+  const router = useRouter();
+  const hasUnknownTiming =
+    result.route === "pharmacy" && result.elapsedHours === null;
 
-  const openMap = () => {
-    if (result.route === "pharmacy") {
-      // Use our pharmacy search page
-      window.location.href = "/pharmacies";
-    } else {
-      // Use our hospital search page
-      window.location.href = "/hospitals";
-    }
+  const openPharmacies = () => {
+    router.push("/pharmacies");
+  };
+  const openHospitals = () => {
+    router.push("/hospitals");
   };
 
   return (
@@ -61,6 +59,21 @@ export function ActionsScreen({
 
         {/* Actions */}
         <div className="space-y-3">
+          {hasUnknownTiming && (
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.05 }}
+            >
+              <ActionCard
+                title={t("actions.searchHospital")}
+                subtitle={t("actions.searchHospitalDesc")}
+                icon={MapPin}
+                onClick={openHospitals}
+                color="primary"
+              />
+            </motion.div>
+          )}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -70,7 +83,7 @@ export function ActionsScreen({
               title={result.route === "pharmacy" ? t("actions.searchPharmacy") : t("actions.searchHospital")}
               subtitle={result.route === "pharmacy" ? t("actions.searchPharmacyDesc") : t("actions.searchHospitalDesc")}
               icon={MapPin}
-              onClick={openMap}
+              onClick={result.route === "pharmacy" ? openPharmacies : openHospitals}
               color="primary"
             />
           </motion.div>
@@ -98,9 +111,8 @@ export function ActionsScreen({
               title={t("actions.generateQr")}
               subtitle={t("actions.generateQrDesc")}
               icon={QrCode}
-              onClick={() => setShowAppModal(true)}
+              onClick={onQR}
               color="accent"
-              badge="App"
             />
           </motion.div>
 
@@ -166,44 +178,6 @@ export function ActionsScreen({
           {t("actions.backToResult")}
         </Button>
       </motion.div>
-
-      {/* App Only Modal */}
-      {showAppModal && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-          onClick={() => setShowAppModal(false)}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto bg-primary-light rounded-2xl flex items-center justify-center mb-4">
-                <Smartphone className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold text-text-primary mb-2">
-                アプリ限定機能
-              </h3>
-              <p className="text-sm text-text-secondary mb-6 leading-relaxed">
-                QRコード生成機能はiOSアプリでご利用いただけます。
-                薬局での提示にはPDF出力をご利用ください。
-              </p>
-              <div className="space-y-3">
-                <Button onClick={() => { setShowAppModal(false); onPDF(); }}>
-                  PDFを表示する
-                </Button>
-                <Button variant="secondary" onClick={() => setShowAppModal(false)}>
-                  閉じる
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
     </div>
   );
 }

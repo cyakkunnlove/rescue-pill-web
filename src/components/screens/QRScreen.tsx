@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { QRCodeSVG } from "qrcode.react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { Result, CaseMeta, Answers } from "@/types";
+import type { Result, CaseMeta, Answers } from "@/types";
 import { Download, Share2, Info } from "lucide-react";
+import { useTranslation, type Locale } from "@/lib/i18n";
 
 interface QRScreenProps {
   result: Result;
@@ -19,12 +20,11 @@ interface QRPayload {
   v: number;
   caseId: string;
   createdAt: string;
-  expiresAt: string;
   route: string;
   flags: {
     danger: boolean;
     nonConsensual: boolean;
-    contraindication: boolean;
+    conditionToDiscuss: boolean;
     pregnancyPositive: boolean;
     interactionRisk: boolean;
   };
@@ -32,22 +32,18 @@ interface QRPayload {
 }
 
 export function QRScreen({ result, meta, answers, onBack }: QRScreenProps) {
+  const { t, locale } = useTranslation();
+  const [shareCopied, setShareCopied] = useState(false);
   const payload: QRPayload = useMemo(
     () => ({
-      v: 1,
+      v: 2,
       caseId: meta.caseId,
       createdAt: meta.createdAt.toISOString(),
-      expiresAt: meta.expiresAt.toISOString(),
-      route:
-        result.route === "pharmacy"
-          ? "薬局対応の可能性"
-          : result.route === "emergency"
-          ? "緊急受診"
-          : "医療機関推奨",
+      route: result.route,
       flags: {
         danger: answers.dangerSymptoms === true,
         nonConsensual: answers.nonConsensual === "yes",
-        contraindication: answers.contraindications.some(
+        conditionToDiscuss: answers.contraindications.some(
           (c) => c !== "わからない" && c !== "特にない"
         ),
         pregnancyPositive: answers.pregnancyTest === "yes",
@@ -60,17 +56,29 @@ export function QRScreen({ result, meta, answers, onBack }: QRScreenProps) {
 
   const qrData = JSON.stringify(payload);
 
+  const routeLabel =
+    result.route === "pharmacy"
+      ? t("artifact.routePharmacy")
+      : result.route === "emergency"
+        ? t("artifact.routeEmergency")
+        : t("artifact.routeMedical");
+
   const handleShare = async () => {
+    setShareCopied(false);
+    const shareText = `${t("qr.caseId")}: ${meta.caseId}\n${t("qr.guidanceLabel")}: ${routeLabel}`;
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Rescue Pill 問診結果",
-          text: `ケースID: ${meta.caseId}\n判定: ${payload.route}`,
+          title: t("qr.shareTitle"),
+          text: shareText,
           url: window.location.href,
         });
       } catch {
         // User cancelled
       }
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(`${shareText}\n${window.location.href}`);
+      setShareCopied(true);
     }
   };
 
@@ -98,8 +106,16 @@ export function QRScreen({ result, meta, answers, onBack }: QRScreenProps) {
     img.src = "data:image/svg+xml;base64," + btoa(svgData);
   };
 
+  const dateLocale: Record<Locale, string> = {
+    ja: "ja-JP",
+    en: "en-US",
+    zh: "zh-CN",
+    vi: "vi-VN",
+    ko: "ko-KR",
+  };
+
   const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat("ja-JP", {
+    return new Intl.DateTimeFormat(dateLocale[locale], {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -117,9 +133,9 @@ export function QRScreen({ result, meta, answers, onBack }: QRScreenProps) {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-6"
         >
-          <h1 className="text-2xl font-bold text-text-primary">QRコード</h1>
+          <h1 className="text-2xl font-bold text-text-primary">{t("qr.title")}</h1>
           <p className="text-sm text-text-secondary mt-1">
-            薬局・医療機関で提示できます
+            {t("qr.subtitle")}
           </p>
         </motion.div>
 
@@ -152,28 +168,26 @@ export function QRScreen({ result, meta, answers, onBack }: QRScreenProps) {
           <Card className="mb-4">
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-text-secondary">ケースID</span>
+                <span className="text-text-secondary">{t("qr.caseId")}</span>
                 <span className="text-text-primary font-medium">
                   {meta.caseId}
                 </span>
               </div>
               <div className="border-t border-primary-light" />
               <div className="flex justify-between">
-                <span className="text-text-secondary">作成日時</span>
+                <span className="text-text-secondary">{t("qr.createdAt")}</span>
                 <span className="text-text-primary">
                   {formatDate(meta.createdAt)}
-                </span>
-              </div>
-              <div className="border-t border-primary-light" />
-              <div className="flex justify-between">
-                <span className="text-text-secondary">有効期限</span>
-                <span className="text-text-primary">
-                  {formatDate(meta.expiresAt)}
                 </span>
               </div>
             </div>
           </Card>
         </motion.div>
+        {shareCopied && (
+          <p role="status" className="-mt-3 mb-6 text-center text-sm text-secondary">
+            {t("qr.linkCopied")}
+          </p>
+        )}
 
         {/* Action Buttons */}
         <motion.div
@@ -189,19 +203,17 @@ export function QRScreen({ result, meta, answers, onBack }: QRScreenProps) {
                        hover:bg-primary-light transition-colors"
           >
             <Download className="w-5 h-5" />
-            <span className="font-medium">保存</span>
+            <span className="font-medium">{t("qr.save")}</span>
           </button>
-          {typeof navigator.share !== "undefined" && (
-            <button
-              onClick={handleShare}
-              className="flex items-center justify-center gap-2 py-3 px-4
-                         bg-white rounded-xl shadow-card text-text-primary
-                         hover:bg-primary-light transition-colors"
-            >
-              <Share2 className="w-5 h-5" />
-              <span className="font-medium">共有</span>
-            </button>
-          )}
+          <button
+            onClick={handleShare}
+            className="flex items-center justify-center gap-2 py-3 px-4
+                       bg-white rounded-xl shadow-card text-text-primary
+                       hover:bg-primary-light transition-colors"
+          >
+            <Share2 className="w-5 h-5" />
+            <span className="font-medium">{t("qr.share")}</span>
+          </button>
         </motion.div>
 
         {/* Info */}
@@ -215,11 +227,10 @@ export function QRScreen({ result, meta, answers, onBack }: QRScreenProps) {
               <Info className="w-5 h-5 text-accent-dark flex-shrink-0 mt-0.5" />
               <div className="text-sm text-text-secondary">
                 <p className="mb-2">
-                  このQRコードには問診結果の概要が含まれています。
+                  {t("qr.sensitiveNotice")}
                 </p>
                 <p>
-                  薬局や医療機関でスキャンすると、
-                  問診内容を確認できます（対応施設のみ）。
+                  {t("qr.integrationNotice")}
                 </p>
               </div>
             </div>
@@ -235,7 +246,7 @@ export function QRScreen({ result, meta, answers, onBack }: QRScreenProps) {
         className="mt-6"
       >
         <Button variant="secondary" onClick={onBack}>
-          戻る
+          {t("common.back")}
         </Button>
       </motion.div>
     </div>

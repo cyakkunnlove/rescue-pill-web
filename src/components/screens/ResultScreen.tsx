@@ -4,17 +4,16 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { Result } from "@/types";
-import { getRouteInfo } from "@/lib/ruleEngine";
+import type { Result, ResultRoute } from "@/types";
 import {
   AlertCircle,
   AlertTriangle,
   CheckCircle2,
   ChevronDown,
   ChevronUp,
-  Heart,
 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { translateResultLine } from "@/lib/resultTranslations";
 
 interface ResultScreenProps {
   result: Result;
@@ -22,70 +21,52 @@ interface ResultScreenProps {
   onRestart: () => void;
 }
 
+const ROUTE_COLORS = {
+  pharmacy: {
+    bg: "bg-primary bg-opacity-10",
+    badge: "bg-primary",
+    icon: "text-primary",
+  },
+  medical: {
+    bg: "bg-warning bg-opacity-10",
+    badge: "bg-warning",
+    icon: "text-warning",
+  },
+  emergency: {
+    bg: "bg-danger bg-opacity-10",
+    badge: "bg-danger",
+    icon: "text-danger",
+  },
+} as const;
+
+function RouteIcon({ route, className }: { route: ResultRoute; className: string }) {
+  switch (route) {
+    case "pharmacy":
+      return <CheckCircle2 className={className} />;
+    case "medical":
+      return <AlertTriangle className={className} />;
+    case "emergency":
+      return <AlertCircle className={className} />;
+  }
+}
+
 export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
   const { t, locale } = useTranslation();
-  const [reasonsExpanded, setReasonsExpanded] = useState(false);
-  const [notesExpanded, setNotesExpanded] = useState(false);
+  const [reasonsExpanded, setReasonsExpanded] = useState(true);
+  const [notesExpanded, setNotesExpanded] = useState(true);
 
-  const routeInfo = getRouteInfo(result.route);
+  const guidanceLabel = {
+    ja: "案内の目安",
+    en: "General guidance",
+    zh: "一般指引",
+    vi: "Hướng dẫn tham khảo",
+    ko: "일반 안내",
+  }[locale];
 
-  const getIcon = () => {
-    switch (result.route) {
-      case "pharmacy":
-        return CheckCircle2;
-      case "medical":
-        return AlertTriangle;
-      case "emergency":
-        return AlertCircle;
-    }
-  };
+  const getHeadline = () => translateResultLine(result.headline, locale);
+  const getDetail = () => translateResultLine(result.detail, locale);
 
-  const getColorClasses = () => {
-    switch (result.route) {
-      case "pharmacy":
-        return {
-          bg: "bg-primary bg-opacity-10",
-          text: "text-primary",
-          badge: "bg-primary",
-          icon: "text-primary",
-        };
-      case "medical":
-        return {
-          bg: "bg-warning bg-opacity-10",
-          text: "text-warning",
-          badge: "bg-warning",
-          icon: "text-warning",
-        };
-      case "emergency":
-        return {
-          bg: "bg-danger bg-opacity-10",
-          text: "text-danger",
-          badge: "bg-danger",
-          icon: "text-danger",
-        };
-    }
-  };
-
-  const getHeadline = () => {
-    if (locale === "ja" && result.headline) return result.headline;
-    return result.route === "pharmacy"
-      ? t("result.pharmacy.headline")
-      : result.route === "medical"
-      ? t("result.medical.headline")
-      : t("result.emergency.headline");
-  };
-
-  const getDetail = () => {
-    if (locale === "ja" && result.detail) return result.detail;
-    return result.route === "pharmacy"
-      ? t("result.pharmacy.detail")
-      : result.route === "medical"
-      ? t("result.medical.detail")
-      : t("result.emergency.detail");
-  };
-
-  const Icon = getIcon();
-  const colors = getColorClasses();
+  const colors = ROUTE_COLORS[result.route];
 
   return (
     <div className="min-h-screen bg-background flex flex-col px-4 py-6">
@@ -111,8 +92,8 @@ export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
           <div
             className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${colors.badge} text-white`}
           >
-            <Icon className="w-5 h-5" />
-            <span className="font-semibold">{routeInfo.badge}</span>
+            <RouteIcon route={result.route} className="w-5 h-5" />
+            <span className="font-semibold">{guidanceLabel}</span>
           </div>
         </motion.div>
 
@@ -126,7 +107,7 @@ export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
           <div
             className={`w-24 h-24 rounded-full ${colors.bg} flex items-center justify-center`}
           >
-            <Icon className={`w-12 h-12 ${colors.icon}`} />
+            <RouteIcon route={result.route} className={`w-12 h-12 ${colors.icon}`} />
           </div>
         </motion.div>
 
@@ -185,7 +166,7 @@ export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
                       className="flex items-start gap-2 text-sm text-text-secondary"
                     >
                       <span className="text-primary">•</span>
-                      {reason}
+                      {translateResultLine(reason, locale)}
                     </li>
                   ))}
                 </ul>
@@ -226,7 +207,7 @@ export function ResultScreen({ result, onNext, onRestart }: ResultScreenProps) {
                       className="flex items-start gap-2 text-sm text-text-secondary"
                     >
                       <span className="text-secondary">•</span>
-                      {note}
+                      {translateResultLine(note, locale)}
                     </li>
                   ))}
                 </ul>

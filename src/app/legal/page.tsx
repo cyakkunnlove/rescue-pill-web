@@ -10,7 +10,7 @@ export default function LegalPage() {
       {/* Header */}
       <header className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-primary-light z-50">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-4">
-          <Link href="/" className="p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
+          <Link href="/" aria-label="トップへ戻る" className="min-w-11 min-h-11 flex items-center justify-center p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
             <ArrowLeft className="w-5 h-5 text-text-primary" />
           </Link>
           <div className="flex items-center gap-2">
@@ -29,7 +29,7 @@ export default function LegalPage() {
           animate={{ opacity: 1, y: 0 }}
         >
           <h1 className="text-2xl font-bold text-text-primary mb-2">特定商取引法に基づく表記</h1>
-          <p className="text-sm text-text-muted mb-8">最終更新日: 2024年12月1日</p>
+          <p className="text-sm text-text-muted mb-8">最終更新日: 2026年7月13日</p>
 
           <div className="prose prose-sm max-w-none text-text-secondary">
             <div className="bg-white rounded-2xl border-2 border-primary-light overflow-hidden">
@@ -80,7 +80,7 @@ export default function LegalPage() {
                       サービスURL
                     </th>
                     <td className="p-4 text-text-secondary">
-                      https://rescue-pill-web.vercel.app
+                      https://rescue-pill.com
                     </td>
                   </tr>
                   <tr className="border-b border-primary-light">
@@ -142,7 +142,7 @@ export default function LegalPage() {
             <section className="mt-8">
               <h2 className="text-lg font-bold text-text-primary mb-4">広告について</h2>
               <p className="leading-relaxed text-text-secondary">
-                本サービスでは、第三者配信の広告サービス（Google AdSense）を利用しています。
+                本サービスでは、コンテンツページで第三者配信の広告サービス（Google AdSense）を利用する場合があります。
                 広告の表示により、当方は広告収入を得る場合があります。
                 広告の内容については、広告配信事業者の責任において配信されるものであり、
                 当方が広告内容を保証するものではありません。
@@ -164,7 +164,7 @@ export default function LegalPage() {
       <footer className="px-4 py-6 bg-text-primary mt-12">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-xs text-white/50">
-            © 2024 Rescue Pill. All rights reserved.
+            © 2026 Rescue Pill. All rights reserved.
           </p>
         </div>
       </footer>

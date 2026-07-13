@@ -1,4 +1,10 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-require-imports */
+console.error(
+  'This script is retired: coordinates are not used by the site and direct edits would invalidate pharmacy metadata. Run npm run update:pharmacies instead.'
+);
+process.exit(1);
+
 /**
  * 薬局データに緯度経度を追加するスクリプト
  * 国土地理院APIを使用（無料）

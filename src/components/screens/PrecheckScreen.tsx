@@ -16,12 +16,9 @@ interface PrecheckScreenProps {
 export function PrecheckScreen({ onBack, onProceed }: PrecheckScreenProps) {
   const { t } = useTranslation();
   const [selection, setSelection] = useState<boolean | null>(null);
-  const [showError, setShowError] = useState(false);
 
   const handleSelect = (value: boolean) => {
     setSelection(value);
-    setShowError(false);
-    setTimeout(() => onProceed(value), 300);
   };
 
   return (
@@ -77,25 +74,23 @@ export function PrecheckScreen({ onBack, onProceed }: PrecheckScreenProps) {
           />
         </motion.div>
 
-        {showError && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-danger text-sm text-center mt-2"
-          >
-            {t("questions.selectRequired")}
-          </motion.p>
-        )}
-
         {/* Navigation */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mt-4 space-y-3"
+          className="mt-4 grid grid-cols-2 gap-3"
         >
           <Button variant="secondary" onClick={onBack}>
             {t("common.back")}
+          </Button>
+          <Button
+            disabled={selection === null}
+            onClick={() => {
+              if (selection !== null) onProceed(selection);
+            }}
+          >
+            {t("common.next")}
           </Button>
         </motion.div>
       </div>

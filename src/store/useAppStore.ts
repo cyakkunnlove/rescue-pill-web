@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Answers, Result, CaseMeta, FlowStep } from "@/types";
+import type { Answers, Result, CaseMeta, FlowStep } from "@/types";
 
 interface AppState {
   step: FlowStep;
@@ -52,11 +52,9 @@ function generateCaseId(): string {
 
 function createMeta(): CaseMeta {
   const now = new Date();
-  const expires = new Date(now.getTime() + 24 * 60 * 60 * 1000);
   return {
     caseId: generateCaseId(),
     createdAt: now,
-    expiresAt: expires,
   };
 }
 

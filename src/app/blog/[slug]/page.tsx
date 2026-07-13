@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { BlogArticle } from '@/components/blog/BlogArticle';
-import { getAllSlugs, getBlogPost } from '@/content/blog';
+import { CONTENT_REVIEWED_AT, getAllSlugs, getBlogPost } from '@/content/blog';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -18,8 +18,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${post.title} | Rescue Pill`,
+    title: post.title,
     description: post.description,
+    alternates: {
+      canonical: `https://rescue-pill.com/blog/${slug}`,
+    },
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.description,
+      url: `https://rescue-pill.com/blog/${slug}`,
+      publishedTime: post.date,
+      modifiedTime: CONTENT_REVIEWED_AT,
+    },
   };
 }
 

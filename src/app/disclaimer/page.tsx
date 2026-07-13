@@ -10,7 +10,7 @@ export default function DisclaimerPage() {
       {/* Header */}
       <header className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-primary-light z-50">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-4">
-          <Link href="/" className="p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
+          <Link href="/" aria-label="トップへ戻る" className="min-w-11 min-h-11 flex items-center justify-center p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
             <ArrowLeft className="w-5 h-5 text-text-primary" />
           </Link>
           <div className="flex items-center gap-2">
@@ -29,7 +29,7 @@ export default function DisclaimerPage() {
           animate={{ opacity: 1, y: 0 }}
         >
           <h1 className="text-2xl font-bold text-text-primary mb-2">免責事項</h1>
-          <p className="text-sm text-text-muted mb-8">最終更新日: 2024年12月1日</p>
+          <p className="text-sm text-text-muted mb-8">最終更新日: 2026年7月13日</p>
 
           {/* Important Notice */}
           <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-6 mb-8">
@@ -39,7 +39,7 @@ export default function DisclaimerPage() {
                 <h2 className="font-bold text-red-700 mb-2">重要なお知らせ</h2>
                 <p className="text-red-600 text-sm leading-relaxed">
                   本サービス「Rescue Pill」は<strong>医療行為ではありません</strong>。
-                  本サービスの情報や判定結果は参考情報であり、医療アドバイスの代替ではありません。
+                  本サービスの情報や行動案内は参考情報であり、医療アドバイスの代替ではありません。
                   <strong>緊急避妊薬の使用については、必ず医療従事者（医師・薬剤師）にご相談ください。</strong>
                 </p>
               </div>
@@ -65,8 +65,8 @@ export default function DisclaimerPage() {
                   本サービスの利用により得られる情報は、専門の医療従事者による診察や相談の代替となるものではありません。
                 </li>
                 <li>
-                  <strong className="text-text-primary">判定結果の限界：</strong>
-                  本サービスの判定結果は、入力された情報に基づく参考情報です。
+                  <strong className="text-text-primary">行動案内の限界：</strong>
+                  本サービスの案内は、入力された情報に基づく一般的な参考情報です。
                   個人の健康状態、既往症、服用中の薬などにより、実際に適切な対応は異なる場合があります。
                 </li>
                 <li>
@@ -85,7 +85,7 @@ export default function DisclaimerPage() {
                   これらを保証するものではありません。
                 </li>
                 <li>
-                  医療に関する情報は常に更新されています。本サービスの情報が最新でない場合があります。
+                  医療に関する情報は更新されます。本サービスでは確認日と一次情報を公開しますが、利用時には公式情報と医療従事者の説明を確認してください。
                 </li>
                 <li>
                   本サービスで紹介する薬局・医療機関の情報は、厚生労働省等の公開情報に基づいていますが、
@@ -131,9 +131,8 @@ export default function DisclaimerPage() {
             <section>
               <h2 className="text-lg font-bold text-text-primary mt-8 mb-4">6. 未成年者の利用について</h2>
               <p className="leading-relaxed">
-                未成年の方が本サービスを利用する場合は、保護者の方の同意を得た上でご利用ください。
-                また、未成年の方が緊急避妊薬の入手を検討される場合は、
-                信頼できる大人や医療従事者に相談されることを強くお勧めします。
+                未成年の方も本サービスを利用できます。緊急避妊薬の購入に一律の年齢制限や保護者同意の要件はありません。
+                厚生労働省の運用では16歳未満の方に産婦人科・小児科等への相談を勧めています。不安がある場合は、医療従事者や信頼できる支援者に相談してください。
               </p>
             </section>
 
@@ -145,14 +144,10 @@ export default function DisclaimerPage() {
                   <div className="text-sm">
                     <p className="font-bold text-yellow-700 mb-2">緊急時・体調不良の場合</p>
                     <ul className="space-y-1 text-yellow-700">
-                      <li>• 激しい腹痛、大量出血などの症状がある場合は、直ちに救急車（119番）を呼んでください</li>
-                      <li>• 体調に不安がある場合は、医療機関を受診してください</li>
-                      <li>• 性暴力被害に遭われた方は、警察（110番）や相談窓口にご連絡ください</li>
+                      <li>• 突然または持続する激しい腹痛、意識障害、呼吸困難など生命に関わる症状は119番へ連絡してください</li>
+                      <li>• 判断に迷う場合は、対応地域の救急安心センター #7119 または医療機関へ相談してください</li>
+                      <li>• 性暴力に関する支援はワンストップ支援センター #8891 を利用できます。届出は支援利用の条件ではありません</li>
                     </ul>
-                    <p className="mt-3 text-yellow-700">
-                      <strong>よりそいホットライン（24時間対応）：</strong>
-                      <a href="tel:0120-279-338" className="underline">0120-279-338</a>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -188,7 +183,7 @@ export default function DisclaimerPage() {
       <footer className="px-4 py-6 bg-text-primary mt-12">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-xs text-white/50">
-            © 2024 Rescue Pill. All rights reserved.
+            © 2026 Rescue Pill. All rights reserved.
           </p>
         </div>
       </footer>

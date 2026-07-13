@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "OTC対応薬局検索 - 緊急避妊薬を処方箋なしで購入",
+  title: "緊急避妊薬を販売する薬局・店舗を検索",
   description:
-    "緊急避妊薬（アフターピル）を処方箋なしで購入できるOTC対応薬局を検索。現在地や都道府県から最寄りの薬局を簡単に見つけられます。24時間対応・女性薬剤師在籍店も検索可能。",
+    "厚生労働省の2026年7月1日更新一覧に基づき、緊急避妊薬を処方箋なしで対面購入できる薬局・店舗を検索できます。来店前に在庫、研修修了薬剤師の勤務、営業時間を電話で確認してください。",
   keywords: [
     "緊急避妊薬 薬局",
     "アフターピル OTC",
@@ -11,12 +11,12 @@ export const metadata: Metadata = {
     "緊急避妊薬 購入",
     "モーニングアフターピル",
     "薬局検索",
-    "24時間薬局",
-    "女性薬剤師"
+    "厚生労働省 薬局一覧",
+    "要指導医薬品"
   ],
   openGraph: {
-    title: "OTC対応薬局検索 | Rescue Pill",
-    description: "緊急避妊薬を処方箋なしで購入できる薬局を検索。現在地から最寄りの対応薬局を見つけられます。",
+    title: "緊急避妊薬を販売する薬局・店舗 | Rescue Pill",
+    description: "厚生労働省の公開一覧から、緊急避妊薬を対面購入できる薬局・店舗を検索できます。",
   },
   alternates: {
     canonical: "https://rescue-pill.com/pharmacies",

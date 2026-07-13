@@ -10,9 +10,7 @@ import {
   Clock,
   FileText,
   MapPin,
-  QrCode,
   CheckCircle,
-  MessageCircle,
   ChevronDown,
   ArrowRight,
   Sparkles,
@@ -75,7 +73,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
 
           {/* Logo */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-8"
           >
@@ -94,7 +92,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
 
           {/* Hero Text */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="text-center max-w-md mx-auto mb-8"
@@ -111,7 +109,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
 
           {/* CTA */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             className="max-w-sm mx-auto space-y-4"
@@ -125,21 +123,44 @@ export function LandingPage({ onStart }: LandingPageProps) {
             </p>
           </motion.div>
 
-          {/* Supervised Badge */}
+          {/* Source review badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
             className="mt-8 flex justify-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-soft border border-primary-light">
+            <Link
+              href="/sources"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-soft border border-primary-light hover:border-primary transition-colors"
+            >
               <BadgeCheck className="w-5 h-5 text-primary" />
               <span className="text-sm font-medium text-text-primary">
                 {t("common.supervised")}
               </span>
-            </div>
+              <span className="text-xs text-text-muted whitespace-nowrap">2026-07-13</span>
+            </Link>
           </motion.div>
         </div>
+      </section>
+
+      {/* Official update */}
+      <section className="px-4 pb-8">
+        <Link
+          href="/pharmacies"
+          className="max-w-lg mx-auto flex items-start gap-3 rounded-2xl border border-primary-light bg-white p-4 shadow-card hover:border-primary transition-colors"
+        >
+          <BadgeCheck className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-bold text-text-primary">
+              {t("pharmacies.officialList")}
+            </p>
+            <p className="text-xs text-text-secondary mt-1 leading-relaxed">
+              {t("pharmacies.trialNote")}
+            </p>
+          </div>
+          <ArrowRight className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+        </Link>
       </section>
 
       {/* Features Section */}
@@ -337,17 +358,19 @@ export function LandingPage({ onStart }: LandingPageProps) {
             {t("landing.partnerDesc")}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
-            <Link href="/partners">
-              <Button variant="outline" className="w-full sm:w-auto">
-                <HandHeart className="w-4 h-4 mr-2" />
-                {t("landing.partnerButton")}
-              </Button>
+            <Link
+              href="/partners"
+              className="inline-flex min-h-11 w-full sm:w-auto items-center justify-center rounded-2xl border-2 border-primary-light bg-transparent px-6 py-3.5 font-medium text-primary transition-all hover:border-primary hover:bg-primary-light/20"
+            >
+              <HandHeart className="w-4 h-4 mr-2" />
+              {t("landing.partnerButton")}
             </Link>
-            <Link href="/contact">
-              <Button variant="outline" className="w-full sm:w-auto">
-                <Mail className="w-4 h-4 mr-2" />
-                {t("landing.contactButton")}
-              </Button>
+            <Link
+              href="/contact"
+              className="inline-flex min-h-11 w-full sm:w-auto items-center justify-center rounded-2xl border-2 border-primary-light bg-transparent px-6 py-3.5 font-medium text-primary transition-all hover:border-primary hover:bg-primary-light/20"
+            >
+              <Mail className="w-4 h-4 mr-2" />
+              {t("landing.contactButton")}
             </Link>
           </div>
         </motion.div>
@@ -417,12 +440,15 @@ export function LandingPage({ onStart }: LandingPageProps) {
             </Link>
           </div>
 
-          {/* Supervised */}
+          {/* Sources */}
           <div className="flex justify-center mb-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-full">
+            <Link
+              href="/sources"
+              className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-full hover:bg-white/15 transition-colors"
+            >
               <BadgeCheck className="w-4 h-4 text-primary-light" />
               <span className="text-xs text-white/70">{t("common.supervised")}</span>
-            </div>
+            </Link>
           </div>
 
           {/* Disclaimer */}

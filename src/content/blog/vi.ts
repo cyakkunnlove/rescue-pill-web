@@ -25,8 +25,9 @@ Thuốc tránh thai khẩn cấp (còn gọi là thuốc sau quan hệ) là lo�
 Thành phần chính của thuốc tránh thai khẩn cấp được sử dụng tại Nhật Bản là **Levonorgestrel**. Thành phần này cũng nằm trong Danh sách thuốc thiết yếu của WHO (Tổ chức Y tế Thế giới), là một loại thuốc có độ an toàn cao.
 
 ### Các sản phẩm tiêu biểu
-- Norlevo (thuốc gốc)
-- Levonorgestrel (thuốc generic)
+- NorLevo (thuốc cần dược sĩ hướng dẫn và thuốc kê đơn)
+- Resoel 72 (thuốc cần dược sĩ hướng dẫn)
+- Các chế phẩm levonorgestrel do cơ sở y tế kê đơn
 
 ## Cơ chế hoạt động
 
@@ -39,19 +40,11 @@ Thuốc tránh thai khẩn cấp ngăn ngừa mang thai chủ yếu thông qua c
 
 ## Hiệu quả và thời điểm uống
 
-Hiệu quả của thuốc tránh thai khẩn cấp tăng lên khi uống càng sớm càng tốt sau khi quan hệ tình dục.
-
-| Thời điểm uống | Tỷ lệ ngăn ngừa thai |
-|--------------|----------|
-| Trong vòng 24 giờ | Khoảng 95% |
-| Trong vòng 48 giờ | Khoảng 85% |
-| Trong vòng 72 giờ | Khoảng 58% |
-
-Khuyến cáo uống **trong vòng 72 giờ (3 ngày)**, nhưng càng sớm càng hiệu quả.
+Thuốc tránh thai khẩn cấp levonorgestrel cần được uống **càng sớm càng tốt trong vòng 72 giờ** sau quan hệ. Thuốc không ngăn ngừa mang thai 100%. Ba tuần sau khi uống, hãy dùng que thử thai hoặc đến cơ sở y tế để xác nhận không mang thai.
 
 ## Cách uống
 
-Uống 1 viên với nước hoặc nước ấm. Có thể uống bất kể đã ăn hay chưa.
+Uống 1 viên với nước hoặc nước ấm. Khi mua tại nhà thuốc, chính người sẽ uống thuốc phải nghe dược sĩ giải thích và uống tại nhà thuốc trước mặt dược sĩ.
 
 ## Lưu ý
 
@@ -78,23 +71,22 @@ Tại Nhật Bản, có hai cách chính để mua thuốc tránh thai khẩn c�
 
 ## 1. Mua tại nhà thuốc OTC
 
-Từ tháng 11 năm 2023, bạn có thể mua thuốc tránh thai khẩn cấp mà không cần đơn thuốc tại một số nhà thuốc.
+Từ ngày 2/2/2026, nhà thuốc được chỉ định có thể bán thuốc tránh thai khẩn cấp không cần đơn dưới dạng thuốc cần dược sĩ hướng dẫn. Danh sách nhà thuốc MHLW được cập nhật ngày 1/7/2026.
 
 ### Quy trình mua
 
-1. **Tìm nhà thuốc OTC** - Có thể xác nhận bằng ứng dụng này hoặc danh sách của Bộ Y tế
-2. **Đến nhà thuốc** - Bản thân phải trực tiếp đến
-3. **Tư vấn với dược sĩ** - Xác nhận tình trạng và nhận giải thích trong phòng riêng
-4. **Uống tại chỗ** - Nguyên tắc là uống ngay tại nhà thuốc
-5. **Theo dõi sau 3 tuần** - Xác nhận có mang thai hay không qua điện thoại
+1. **Tìm nhà thuốc được chỉ định** - Kiểm tra danh sách MHLW mới nhất
+2. **Gọi trước khi đến** - Xác nhận còn hàng và có dược sĩ đã hoàn thành đào tạo đang làm việc
+3. **Đích thân đến nhà thuốc** - Chính người sẽ uống thuốc nhận kiểm tra và giải thích từ dược sĩ
+4. **Uống tại chỗ** - Uống 1 viên tại nhà thuốc trước mặt dược sĩ
+5. **Kiểm tra sau 3 tuần** - Dùng que thử thai hoặc đến cơ sở y tế để xác nhận không mang thai
 
 ### Chi phí
-- Khoảng 7.000〜9.000 yên (tùy nhà thuốc)
-- Không được bảo hiểm chi trả, phải tự chi trả toàn bộ
+Giá khác nhau tùy sản phẩm và nhà thuốc. Hãy xác nhận giá và phương thức thanh toán trước khi đến.
 
 ### Lưu ý
-- Dưới 16 tuổi có thể cần sự đồng ý của phụ huynh
-- Cần giấy tờ tùy thân để xác nhận danh tính
+- Giấy tờ chính thức do chính phủ cấp không phải lúc nào cũng bắt buộc, nhưng dược sĩ sẽ xác nhận tuổi và nhà thuốc có thể yêu cầu xuất trình giấy tờ
+- Không giới hạn tuổi, nhưng theo thực hành hiện hành, người dưới 16 tuổi được khuyến nghị tham khảo cơ sở y tế
 - Không phải nhà thuốc nào cũng bán được
 
 ## 2. Được kê đơn tại khoa sản phụ khoa
@@ -109,8 +101,7 @@ Phương pháp khám bác sĩ tại cơ sở y tế và được kê đơn.
 4. **Uống thuốc**
 
 ### Chi phí
-- Phí khám + tiền thuốc khoảng 6.000〜20.000 yên
-- Là dịch vụ tự do nên khác nhau tùy cơ sở y tế
+Phí khám và tiền thuốc khác nhau tùy cơ sở y tế. Trước khi đến, hãy xác nhận khả năng tiếp nhận, giờ đăng ký và chi phí.
 
 ### Ưu điểm
 - Được kê đơn có xem xét tình trạng sức khỏe và tiền sử bệnh
@@ -119,11 +110,11 @@ Phương pháp khám bác sĩ tại cơ sở y tế và được kê đơn.
 
 ## Lựa chọn khám online
 
-Một số cơ sở y tế cũng có thể kê đơn thuốc tránh thai khẩn cấp qua khám online.
+Một số cơ sở y tế cung cấp khám trực tuyến. Theo hướng dẫn hiện hành, sau khi khám bạn đến nhà thuốc được chỉ định, nghe dược sĩ đã hoàn thành đào tạo giải thích và uống thuốc trước mặt dược sĩ đó.
 
 ### Lưu ý
-- Có thể mất thời gian giao hàng
-- Cần xác nhận trước liệu có nhận được trong 72 giờ không
+- Không mặc định rằng thuốc sẽ được giao về nhà; hãy xác nhận cơ sở y tế và nhà thuốc được chỉ định
+- Xác nhận trước tồn kho, lịch làm việc của dược sĩ đã hoàn thành đào tạo và giờ tiếp nhận tại nhà thuốc được chỉ định
 
 ## Nên chọn cách nào?
 
@@ -148,27 +139,25 @@ Với ứng dụng này, bạn có thể dễ dàng tìm kiếm nhà thuốc OTC
     content: `
 ## Nhà thuốc OTC là gì?
 
-Nhà thuốc OTC (Over The Counter) là nhà thuốc được cấp phép bán thuốc tránh thai khẩn cấp mà không cần đơn thuốc.
-
-Đây là chế độ thử nghiệm bắt đầu từ tháng 11 năm 2023, chỉ những nhà thuốc đáp ứng các yêu cầu nhất định mới được phép bán.
+Nhà thuốc được chỉ định đáp ứng các điều kiện bán thuốc tránh thai khẩn cấp không cần đơn dưới dạng thuốc cần dược sĩ hướng dẫn. Việc bán chính thức tại nhà thuốc bắt đầu ngày 2/2/2026.
 
 ## Cách tìm nhà thuốc OTC
 
 ### 1. Sử dụng ứng dụng này
-Ứng dụng Rescue Pill giúp bạn dễ dàng tìm kiếm nhà thuốc OTC gần bạn dựa trên vị trí.
+Rescue Pill cho phép tìm nhà thuốc OTC theo tỉnh/thành, tên nhà thuốc hoặc địa chỉ.
 
 ### 2. Kiểm tra danh sách của Bộ Y tế
-Danh sách nhà thuốc OTC trên toàn quốc được công bố trên trang web của Bộ Y tế, Lao động và Phúc lợi.
+Danh sách nhà thuốc được chỉ định trên toàn quốc được công bố trên trang web MHLW. Danh sách được cập nhật ngày 1/7/2026; vì có thể thêm hoặc xóa, hãy luôn kiểm tra bản mới nhất.
 
 ### 3. Gọi điện xác nhận
-Bạn cũng có thể gọi điện cho nhà thuốc gần đó để xác nhận có hỗ trợ bán OTC không.
+Trước khi đến, hãy gọi xác nhận còn hàng, có dược sĩ đã hoàn thành đào tạo đang làm việc và giờ tiếp nhận.
 
 ## Tiêu chí chọn nhà thuốc
 
 - **Giờ mở cửa** - Có mở vào ban đêm hoặc ngày nghỉ không
 - **Có phòng riêng không** - Môi trường đảm bảo quyền riêng tư
 - **Vị trí** - Có thể đến ngay không
-- **Tình trạng tồn kho** - Xác nhận trước sẽ yên tâm hơn
+- **Tồn kho và lịch dược sĩ** - Luôn xác nhận qua điện thoại trước khi đến
 
 ## Quy trình mua hàng (chi tiết)
 
@@ -191,15 +180,15 @@ Dược sĩ sẽ giải thích về:
 - Cách theo dõi sau đó
 
 ### Bước 4: Mua và uống
-Thanh toán và nguyên tắc là uống ngay tại chỗ.
+Chính người sẽ uống thuốc thanh toán và uống 1 viên tại nhà thuốc trước mặt dược sĩ.
 
 ### Bước 5: Theo dõi
-Sau khoảng 3 tuần, nhà thuốc sẽ liên hệ qua điện thoại để xác nhận kinh nguyệt đã đến chưa hoặc đã thử thai chưa.
+Ba tuần sau khi uống, hãy dùng que thử thai hoặc đến cơ sở y tế để xác nhận không mang thai.
 
 ## Những thứ cần mang theo
 
-- **Giấy tờ tùy thân** (bằng lái xe, thẻ My Number, v.v.)
-- **Tiền mặt hoặc thẻ tín dụng** (khoảng 7.000〜9.000 yên)
+- **Những thứ nhà thuốc yêu cầu** (giấy tờ chính thức không phải lúc nào cũng bắt buộc, nhưng dược sĩ sẽ xác nhận tuổi và có thể yêu cầu giấy tờ)
+- **Phương thức thanh toán và giá đã xác nhận với nhà thuốc**
 
 ## Câu hỏi thường gặp
 
@@ -207,10 +196,10 @@ Sau khoảng 3 tuần, nhà thuốc sẽ liên hệ qua điện thoại để x�
 A: Không. Nguyên tắc chỉ bản thân mới có thể mua.
 
 ### Q: Có thể mua từ mấy tuổi?
-A: Không có giới hạn tuổi, nhưng dưới 16 tuổi có thể cần sự đồng ý của phụ huynh.
+A: Không có giới hạn tuổi. Theo thực hành hiện hành, người dưới 16 tuổi được khuyến nghị tham khảo cơ sở y tế.
 
 ### Q: Có cần đặt trước không?
-A: Hầu hết nhà thuốc không cần đặt trước, nhưng khuyên nên liên hệ trước để tránh đông đúc.
+A: Yêu cầu khác nhau tùy nhà thuốc. Hãy gọi trước để xác nhận còn hàng, lịch của dược sĩ đã hoàn thành đào tạo và quy trình tiếp nhận.
 
 ## Tóm tắt
 
@@ -233,13 +222,11 @@ Tác dụng phụ nghiêm trọng rất hiếm gặp và hầu hết mọi ngư�
 
 Các triệu chứng sau có thể xuất hiện sau khi uống, nhưng thường chỉ là tạm thời và sẽ giảm trong vòng vài ngày.
 
-### Tác dụng phụ thường gặp (trên 10%)
+### Các triệu chứng có thể xuất hiện sau khi dùng
 - **Chảy máu do ngưng thuốc/chảy máu bất thường** - Chảy máu khác với kinh nguyệt
 - **Đau đầu**
 - **Buồn nôn**
 - **Mệt mỏi**
-
-### Tác dụng phụ đôi khi gặp (1〜10%)
 - Chóng mặt
 - Đau bụng dưới
 - Căng ngực
@@ -248,7 +235,7 @@ Các triệu chứng sau có thể xuất hiện sau khi uống, nhưng thườn
 - Tiêu chảy
 - Nôn mửa
 
-### Tác dụng phụ hiếm gặp (dưới 1%)
+### Triệu chứng cần được tư vấn ngay
 - Phát ban
 - Mề đay
 - Sưng mặt
@@ -267,18 +254,20 @@ Khi uống thuốc tránh thai khẩn cấp, kỳ kinh tiếp theo có thể b�
 - **Kinh đến muộn**: Có thể muộn hơn vài ngày〜1 tuần
 - **Thay đổi lượng máu**: Có thể nhiều hoặc ít hơn bình thường
 
-Nếu kinh muộn hơn 1 tuần so với dự kiến, hãy thử que thử thai hoặc đến cơ sở y tế.
+Bất kể có ra máu hay không, ba tuần sau khi uống hãy dùng que thử thai hoặc đến cơ sở y tế để xác nhận không mang thai.
 
 ## Lưu ý khi sử dụng
 
 ### Người không thể sử dụng
 - Người dị ứng với thành phần của thuốc
-- Người có bệnh gan nặng
+- Người đã được chẩn đoán mắc bệnh gan
+- Người đã có thai kỳ được xác lập, chẳng hạn khi kết quả thử thai dương tính
 
-### Người cần thận trọng khi sử dụng
-- Người có bệnh gan
+### Người cần hỏi dược sĩ trước khi dùng
+- Người đang được bác sĩ điều trị
 - Người có bệnh tim
 - Người có bệnh thận
+- Người mắc bệnh tiêu hóa nặng
 
 Nếu thuộc các trường hợp trên, hãy tham khảo ý kiến dược sĩ hoặc bác sĩ.
 
@@ -318,16 +307,9 @@ Hiệu quả của thuốc tránh thai khẩn cấp được phát huy tối đa
 
 Theo thời gian, hiệu quả sẽ giảm dần, vì vậy mặc dù có tiêu chuẩn "trong vòng 72 giờ", thực tế **càng sớm càng tốt**.
 
-## Thời điểm uống và tỷ lệ ngăn ngừa thai
+## Thời điểm uống và kiểm tra sau đó
 
-| Thời điểm uống | Tỷ lệ ngăn ngừa thai |
-|--------------|----------|
-| Trong vòng 12 giờ | Khoảng 99% |
-| Trong vòng 24 giờ | Khoảng 95% |
-| Trong vòng 48 giờ | Khoảng 85% |
-| Trong vòng 72 giờ | Khoảng 58% |
-
-Nhìn vào những con số này, bạn có thể thấy việc uống sớm quan trọng như thế nào.
+Thuốc tránh thai khẩn cấp levonorgestrel cần được uống càng sớm càng tốt trong vòng 72 giờ sau quan hệ. Thuốc không ngăn ngừa mang thai 100%, vì vậy ba tuần sau khi uống hãy dùng que thử thai hoặc đến cơ sở y tế để xác nhận không mang thai.
 
 ## Tại sao hiệu quả thay đổi theo thời gian
 
@@ -343,9 +325,7 @@ Thời gian trôi qua càng lâu, khả năng rụng trứng đã xảy ra càng
 
 ## Nếu quá 72 giờ thì sao?
 
-Ngay cả khi quá 72 giờ, nếu còn trong vòng 120 giờ (5 ngày), vẫn có một mức hiệu quả nhất định.
-
-Tuy nhiên, hiệu quả giảm đáng kể. Ngay cả khi đã quá 72 giờ, đừng bỏ cuộc và hãy tham khảo ý kiến cơ sở y tế.
+Nếu đã quá 72 giờ, đừng tự bỏ cuộc hoặc chờ đợi. Hãy liên hệ cơ sở y tế ngay; lựa chọn phù hợp phụ thuộc vào thời gian đã qua và tình trạng của bạn.
 
 ## Lựa chọn "chờ đợi" là KHÔNG NÊN
 
@@ -357,7 +337,7 @@ Việc trì hoãn uống thuốc vì những lý do như vậy sẽ làm giảm 
 Ngay cả vào ban đêm hoặc ngày nghỉ:
 - Trong số **nhà thuốc OTC** có những nơi mở cửa ban đêm
 - Có thể được kê đơn tại **bệnh viện cấp cứu**
-- Có dịch vụ **khám online** kê đơn và giao hàng ngày hôm sau
+- Khi dùng **khám trực tuyến**, thực hành hiện hành có thể yêu cầu uống thuốc tại nhà thuốc được chỉ định trước mặt dược sĩ đã hoàn thành đào tạo
 
 ## Chuẩn bị trước
 
@@ -365,7 +345,7 @@ Ngay cả vào ban đêm hoặc ngày nghỉ:
 
 1. **Vị trí và giờ mở cửa của nhà thuốc OTC gần đó**
 2. **Cơ sở y tế hỗ trợ tránh thai khẩn cấp**
-3. **Mức chi phí ước tính (khoảng 7.000〜15.000 yên)**
+3. **Chi phí và phương thức thanh toán khác nhau tùy sản phẩm, nhà thuốc và cơ sở y tế**
 
 ## Tóm tắt
 
@@ -392,7 +372,7 @@ Trả lời các câu hỏi được nhiều người hỏi về thuốc tránh 
 
 **A: Không, không phải 100%.**
 
-Ngay cả ở thời điểm hiệu quả nhất (trong 12 giờ) cũng chỉ khoảng 99%, không thể ngăn ngừa hoàn toàn. Nếu sau 3 tuần mà kinh vẫn chưa đến, hãy thử thai.
+Thuốc không ngăn ngừa mang thai 100%. Bất kể có ra máu hay không, ba tuần sau khi uống hãy dùng que thử thai hoặc đến cơ sở y tế để xác nhận không mang thai.
 
 ---
 
@@ -428,7 +408,7 @@ Thuốc tránh thai khẩn cấp là thuốc dùng cho "trường hợp khẩn c
 
 **A: Có, có thể uống.**
 
-Levonorgestrel có một lượng nhỏ đi vào sữa mẹ, nhưng không ảnh hưởng đến em bé. Nếu lo lắng, có thể tránh cho bú 8 giờ sau khi uống và vắt bỏ sữa.
+Nếu đang cho con bú, hãy báo cho dược sĩ hoặc bác sĩ trước khi uống. Hướng dẫn của thuốc không kê đơn yêu cầu tránh cho con bú trong 24 giờ sau khi uống.
 
 ---
 
@@ -478,33 +458,33 @@ Nếu bài viết này không giải đáp được thắc mắc của bạn, kh
     `,
   },
   'cost-comparison': {
-    title: 'Chi phí thuốc tránh thai khẩn cấp: So sánh giá tại nhà thuốc và bệnh viện',
-    description: 'So sánh mức chi phí tại nhà thuốc OTC, khoa sản phụ khoa và khám online. Cũng giới thiệu cách giảm chi phí.',
+    title: 'Chi phí thuốc tránh thai khẩn cấp: Những điều cần xác nhận với nhà thuốc và cơ sở y tế',
+    description: 'Giải thích vì sao chi phí khác nhau giữa nhà thuốc, cơ sở y tế và khám trực tuyến, cùng những điều cần xác nhận trước.',
     date: '2025-02-05',
     category: 'Chi phí',
     content: `
 ## Chi phí thuốc tránh thai khẩn cấp có cao không?
 
-Thuốc tránh thai khẩn cấp không được bảo hiểm chi trả nên phải tự chi trả toàn bộ. Chi phí khác nhau tùy theo cách mua nên nắm trước sẽ yên tâm hơn.
+Chi phí thuốc tránh thai khẩn cấp khác nhau tùy sản phẩm, nhà thuốc, cơ sở y tế và hình thức khám. Không có một mức giá chuẩn hay cách mua nào luôn rẻ nhất.
 
 ## So sánh chi phí theo cách mua
 
-| Cách mua | Mức chi phí | Chi tiết |
-|---------|---------|------|
-| Nhà thuốc OTC | 7.000〜9.000 yên | Chỉ tiền thuốc |
-| Khoa sản phụ khoa | 8.000〜15.000 yên | Phí khám + tiền thuốc |
-| Khám online | 8.000〜12.000 yên | Phí khám + tiền thuốc + phí ship |
-| Bệnh viện cấp cứu | 10.000〜20.000 yên | Có phụ phí ngoài giờ |
+| Cách mua | Điều cần xác nhận trước |
+|---------|------------------------|
+| Nhà thuốc được chỉ định | Giá sản phẩm, tồn kho, phương thức thanh toán, lịch dược sĩ đã hoàn thành đào tạo |
+| Sản phụ khoa/phụ khoa | Phí khám, tiền thuốc, giờ tiếp nhận, phương thức thanh toán |
+| Khám trực tuyến | Phí khám, nhà thuốc được chỉ định, tiền thuốc, cách nhận và uống thuốc |
+| Cơ sở y tế cấp cứu | Khả năng tiếp nhận, phí khám, phí ngoài giờ, tiền thuốc |
 
 ## Mua tại nhà thuốc OTC
 
 ### Ưu điểm
 - Không mất phí khám
 - Không cần đơn thuốc, tiết kiệm thời gian
-- Tương đối rẻ
+- Có thể xác nhận giá và phương thức thanh toán trước khi đến
 
-### Chi tiết chi phí
-Chỉ tiền thuốc khoảng **7.000〜9.000 yên**. Có sự chênh lệch nhỏ tùy nhà thuốc.
+### Xác nhận chi phí
+Giá khác nhau tùy sản phẩm và nhà thuốc. Hãy gọi xác nhận tồn kho, lịch dược sĩ đã hoàn thành đào tạo, giá và phương thức thanh toán.
 
 ## Kê đơn tại khoa sản phụ khoa
 
@@ -513,60 +493,43 @@ Chỉ tiền thuốc khoảng **7.000〜9.000 yên**. Có sự chênh lệch nh�
 - Giải tỏa lo lắng về sức khỏe
 - Có thể tư vấn về tránh thai trong tương lai
 
-### Chi tiết chi phí
-- Phí khám lần đầu: 1.000〜3.000 yên
-- Tiền thuốc: 6.000〜10.000 yên
-- Tổng cộng: khoảng **8.000〜15.000 yên**
-
-Một số phòng khám có mức giá bao gồm cả tiền thuốc.
+### Xác nhận chi phí
+Cách tính phí khám và tiền thuốc khác nhau tùy cơ sở y tế. Hãy xác nhận cách tính tổng chi phí và phương thức thanh toán trước khi đến.
 
 ## Khám online
 
 ### Ưu điểm
 - Có thể khám từ nhà
-- Không ngại gặp trực tiếp
-- Có dịch vụ hỗ trợ ban đêm
+- Có thể tham khảo bác sĩ trước khi di chuyển
 
-### Chi tiết chi phí
-- Phí khám: 1.500〜3.000 yên
-- Tiền thuốc: 6.000〜8.000 yên
-- Phí ship: 500〜1.000 yên
-- Tổng cộng: khoảng **8.000〜12.000 yên**
-
-**Lưu ý**: Có thể mất thời gian giao hàng, hãy chắc chắn xác nhận có nhận được trong 72 giờ không.
+### Xác nhận chi phí và cách uống thuốc
+Phí khám và tiền thuốc khác nhau tùy dịch vụ. Theo hướng dẫn hiện hành, sau khi khám bạn đến nhà thuốc được chỉ định, nghe dược sĩ đã hoàn thành đào tạo giải thích và uống thuốc trước mặt dược sĩ. Không mặc định giao thuốc về nhà; hãy xác nhận trước nhà thuốc được chỉ định và chi phí.
 
 ## Bệnh viện cấp cứu
 
 Là lựa chọn khi cần hỗ trợ vào ban đêm hoặc ngày nghỉ.
 
-### Chi tiết chi phí
-- Phụ phí ngoài giờ/ngày nghỉ: 3.000〜8.000 yên
-- Phí khám + tiền thuốc: 8.000〜12.000 yên
-- Tổng cộng: khoảng **10.000〜20.000 yên**
-
-Do có phụ phí ngoài giờ nên thường cao hơn các cách khác.
+### Xác nhận chi phí
+Phí khám, phí ngoài giờ và tiền thuốc khác nhau tùy cơ sở. Hãy xác nhận trước nếu có thể, nhưng đừng trì hoãn chăm sóc khi có triệu chứng khẩn cấp.
 
 ## Mẹo tiết kiệm chi phí
 
-### 1. Chọn thuốc generic
-Levonorgestrel (generic) rẻ hơn Norlevo (thuốc gốc). Hiệu quả tương đương.
+### 1. Xác nhận giá trước
+Giá khác nhau tùy nhà thuốc và cơ sở y tế. Hãy xác nhận qua điện thoại hoặc trang web chính thức của nơi cung cấp dịch vụ.
 
-### 2. Xác nhận giá trước
-Giá khác nhau tùy cơ sở y tế hoặc dịch vụ online. Hãy xác nhận qua điện thoại hoặc website.
+### 2. Đồng thời xác nhận khả năng cung cấp dịch vụ
+Với nhà thuốc, xác nhận tồn kho và lịch dược sĩ đã hoàn thành đào tạo; với cơ sở y tế, xác nhận giờ tiếp nhận và khả năng khám.
 
-### 3. Sử dụng nhà thuốc OTC
-Không mất phí khám nên có khả năng mua với giá rẻ nhất.
+### 3. Không quyết định chỉ dựa trên giá
+Levonorgestrel cần được uống càng sớm càng tốt trong vòng 72 giờ. Nếu đã quá 72 giờ, hãy liên hệ cơ sở y tế ngay.
 
 ## Phương thức thanh toán
 
-Hầu hết các nơi chấp nhận các phương thức thanh toán sau:
-- Tiền mặt
-- Thẻ tín dụng
-- Thanh toán điện tử (một số nơi)
+Phương thức thanh toán khác nhau tùy nhà thuốc và cơ sở y tế. Hãy xác nhận trước có thể dùng tiền mặt, thẻ hay thanh toán điện tử hay không.
 
 ## Tóm tắt
 
-Chi phí thuốc tránh thai khẩn cấp khoảng 7.000〜20.000 yên. Khi gấp, nên ưu tiên thời gian hơn chi phí, nhưng nếu có lựa chọn, nhà thuốc OTC là rẻ nhất.
+Không có một mức giá chuẩn cho thuốc tránh thai khẩn cấp. Hãy xác nhận chi phí của sản phẩm và nơi cung cấp, đồng thời chọn cách giúp bạn được tư vấn và uống thuốc càng sớm càng tốt thay vì chỉ quyết định theo giá.
 
 Hãy tìm kiếm nhà thuốc OTC gần bạn bằng ứng dụng này và xác nhận địa điểm trước.
     `,
@@ -591,26 +554,26 @@ Bài viết này sẽ giải thích dễ hiểu sự khác biệt giữa hai lo�
 | Thời điểm uống | Trong 72 giờ sau quan hệ | Uống vào giờ cố định mỗi ngày |
 | Tần suất uống | Chỉ 1 lần | Uống liên tục |
 | Cách mua | Nhà thuốc hoặc cơ sở y tế | Cơ sở y tế (cần đơn thuốc) |
-| Chi phí | 7.000〜15.000 yên/lần | 2.000〜3.000 yên/tháng |
+| Chi phí | Khác nhau tùy sản phẩm và nơi cung cấp | Khác nhau tùy sản phẩm và cơ sở y tế |
 
 ## Thuốc tránh thai khẩn cấp là gì
 
 ### Đặc điểm
 - Dùng "khẩn cấp" khi tránh thai thất bại hoặc không tránh thai
 - Hoàn thành chỉ với 1 lần uống
-- Chứa hormone liều cao
-- Cần uống trong 72 giờ
+- Một liều levonorgestrel
+- Uống càng sớm càng tốt trong vòng 72 giờ
 
 ### Thành phần chính
-Chứa **Levonorgestrel** (hormone hoàng thể) liều cao
+**Levonorgestrel** (progestin)
 
 ### Ưu điểm
 - Đối phó được trong trường hợp khẩn cấp
 - Chỉ cần 1 lần
 
 ### Nhược điểm
-- Chi phí cao
-- Dễ có tác dụng phụ
+- Chi phí khác nhau tùy sản phẩm và nơi cung cấp
+- Có thể xảy ra tác dụng phụ
 - Hiệu quả không phải 100%
 - Không phù hợp để dùng thường xuyên
 
@@ -618,7 +581,7 @@ Chứa **Levonorgestrel** (hormone hoàng thể) liều cao
 
 ### Đặc điểm
 - Uống hàng ngày để duy trì hiệu quả tránh thai
-- Nếu uống đúng cách, hiệu quả tránh thai trên 99%
+- Có hiệu quả tránh thai cao khi dùng đúng và đều đặn
 - Có tác dụng cải thiện đau bụng kinh và PMS
 - Cần đơn thuốc của bác sĩ
 
@@ -662,7 +625,7 @@ Chi tiết hãy tham khảo ý kiến bác sĩ hoặc dược sĩ.
 ## Hiểu lầm thường gặp
 
 ### "Nếu dùng thuốc tránh thai khẩn cấp thường xuyên có thay thế được thuốc tránh thai liều thấp không?"
-**Không.** Thuốc tránh thai khẩn cấp chứa hormone liều cao nên gánh nặng cho cơ thể lớn, không khuyến khích dùng thường xuyên. Để tránh thai liên tục, thuốc tránh thai liều thấp phù hợp hơn.
+**Không.** Thuốc tránh thai khẩn cấp dùng cho tình huống khẩn cấp. Hãy hỏi bác sĩ về phương pháp tránh thai liên tục như thuốc tránh thai liều thấp.
 
 ### "Nếu có thuốc tránh thai liều thấp thì không cần thuốc tránh thai khẩn cấp?"
 **Có thể cần khi quên uống.** Thuốc tránh thai liều thấp phát huy hiệu quả khi uống đúng hàng ngày. Khi quên uống, có thể cần thuốc tránh thai khẩn cấp.
@@ -707,9 +670,9 @@ Sau khi uống, từ lần rụng trứng tiếp theo, khả năng mang thai tr�
 
 ## Hiểu lầm 3: Dùng nhiều lần sẽ không còn hiệu quả
 
-### Sự thật: Hiệu quả không thay đổi
+### Sự thật: Không có bằng chứng cơ thể tạo ra "kháng thuốc"
 
-Thuốc tránh thai khẩn cấp dù dùng bao nhiêu lần cũng có hiệu quả tương tự mỗi lần. Không có "kháng thuốc".
+Chỉ riêng việc dùng lặp lại không được biết là gây "kháng thuốc". Tuy nhiên, hiệu quả mỗi lần có thể thay đổi tùy thời gian dùng thuốc và các yếu tố khác, đồng thời không bao giờ đạt 100%. Khi cần, hãy liên hệ dược sĩ hoặc cơ sở y tế sớm nhất có thể.
 
 Tuy nhiên, thuốc tránh thai khẩn cấp chỉ dành cho "trường hợp khẩn cấp". Nếu cần sử dụng thường xuyên, hãy cân nhắc các biện pháp tránh thai liên tục như thuốc tránh thai liều thấp.
 
@@ -719,7 +682,7 @@ Tuy nhiên, thuốc tránh thai khẩn cấp chỉ dành cho "trường hợp kh
 
 Thuốc tránh thai khẩn cấp là **thuốc ngăn ngừa mang thai**, không phải thuốc phá thai.
 
-Tác dụng chính là ức chế hoặc trì hoãn rụng trứng. Không có tác dụng chấm dứt thai kỳ đã làm tổ, và không có báo cáo về ảnh hưởng xấu đến thai nhi khi uống trong khi mang thai.
+Tác dụng chính là ức chế hoặc trì hoãn rụng trứng; thuốc không chấm dứt thai kỳ đã hình thành. Nếu thai kỳ đã được xác lập, chẳng hạn kết quả thử thai dương tính, thuốc này sẽ không có tác dụng; không dùng thuốc và hãy liên hệ cơ sở y tế. Nếu bạn chỉ lo có thể mang thai do lần quan hệ này, đừng tự loại mình khỏi cơ hội dùng thuốc: trong vòng 72 giờ, hãy liên hệ ngay nhà thuốc trong danh sách hoặc cơ sở y tế và xác nhận với dược sĩ hoặc bác sĩ.
 
 ## Hiểu lầm 5: Tác dụng phụ rất nặng
 
@@ -730,12 +693,12 @@ Tác dụng phụ như buồn nôn và đau đầu được báo cáo, nhưng h�
 Tác dụng phụ nghiêm trọng rất hiếm. WHO (Tổ chức Y tế Thế giới) cũng công nhận đây là loại thuốc có độ an toàn cao.
 
 ### Tác dụng phụ thường gặp
-- Buồn nôn (khoảng 15%)
-- Đau đầu (khoảng 15%)
+- Buồn nôn
+- Đau đầu
 - Mệt mỏi
 - Chảy máu bất thường
 
-Đây chỉ là tạm thời, không cần lo lắng.
+Nếu triệu chứng nặng, kéo dài hoặc khiến bạn lo lắng, hãy tham khảo dược sĩ hoặc bác sĩ.
 
 ## Hiểu lầm 6: Người trẻ không dùng được
 
@@ -743,7 +706,7 @@ Tác dụng phụ nghiêm trọng rất hiếm. WHO (Tổ chức Y tế Thế gi
 
 Thuốc tránh thai khẩn cấp không có giới hạn tuổi về mặt y học.
 
-Tuy nhiên, với người dưới 16 tuổi, khi mua tại nhà thuốc OTC có thể cần sự đồng ý của phụ huynh. Kê đơn tại cơ sở y tế không có giới hạn tuổi.
+Việc bán tại nhà thuốc không áp dụng yêu cầu đồng ý của phụ huynh một cách chung cho mọi trường hợp. Theo thực hành hiện hành, người dưới 16 tuổi được khuyến nghị tham khảo cơ sở y tế.
 
 ## Hiểu lầm 7: Nam giới không liên quan
 

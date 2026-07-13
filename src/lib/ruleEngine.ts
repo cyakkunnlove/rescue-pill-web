@@ -1,200 +1,159 @@
-import { Answers, Result, ResultRoute } from "@/types";
+import type { Answers, Result } from "@/types";
 
-function elapsedHours(date: Date | null): number | null {
+function elapsedHours(date: Date | null, now: Date): number | null {
   if (!date) return null;
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
+  const timestamp = date.getTime();
+  const nowTimestamp = now.getTime();
+  if (!Number.isFinite(timestamp) || !Number.isFinite(nowTimestamp)) return null;
+  const diff = nowTimestamp - timestamp;
   if (diff < 0) return null;
-  return Math.floor(diff / (1000 * 60 * 60));
+  return diff / (1000 * 60 * 60);
 }
 
-function calculateBMI(
-  heightCm: number | null,
-  weightKg: number | null
-): number | null {
-  if (!heightCm || !weightKg || heightCm <= 0) return null;
-  const meters = heightCm / 100;
-  return weightKg / (meters * meters);
+function ageOn(date: Date, birthDate: Date | null): number | null {
+  if (!birthDate) return null;
+  if (!Number.isFinite(date.getTime()) || !Number.isFinite(birthDate.getTime())) {
+    return null;
+  }
+  let age = date.getFullYear() - birthDate.getFullYear();
+  const beforeBirthday =
+    date.getMonth() < birthDate.getMonth() ||
+    (date.getMonth() === birthDate.getMonth() &&
+      date.getDate() < birthDate.getDate());
+  if (beforeBirthday) age -= 1;
+  return age >= 0 ? age : null;
 }
 
-export function evaluate(answers: Answers): Result {
-  const reasons: string[] = [];
-  const notes: string[] = [];
-  const hours = elapsedHours(answers.lastSexDate);
-  const bmiValue = calculateBMI(answers.heightCm, answers.weight);
-  const hasUnknownContra = answers.contraindications.includes("わからない");
-  const hasSupplementRisk =
-    answers.interactionRisk && answers.interactionRisk !== "特に飲んでいない";
+const ST_JOHNS_WORT = "セイヨウオトギリソウ（セントジョーンズワート）";
 
-  // 緊急症状チェック
+export function evaluate(answers: Answers, now = new Date()): Result {
+  const hours = elapsedHours(answers.lastSexDate, now);
+  const completedHours = hours === null ? null : Math.floor(hours);
+  const age = ageOn(now, answers.birthDate);
+  const hasUnknownCondition = answers.contraindications.includes("わからない");
+  const hasLiverDisease = answers.contraindications.includes("肝臓病");
+  const hasConditionToDiscuss = answers.contraindications.some(
+    (condition) =>
+      !["わからない", "特にない", "肝臓病"].includes(condition)
+  );
+  const hasStJohnsWort =
+    answers.interactionRisk === ST_JOHNS_WORT ||
+    answers.supplementTags.includes("セイヨウオトギリソウ");
+
   if (answers.dangerSymptoms === true) {
     return {
       route: "emergency",
-      headline: "急いで医療機関へ連絡してください",
-      detail: "強い症状があるため、自己判断は避けて受診を優先してください。",
-      reasons: ["強い症状があり、まず安全確認が必要です。"],
-      notes: ["救急相談や夜間対応の医療機関も検討してください。"],
-      elapsedHours: hours,
+      headline: "生命に関わる症状なら119番へ",
+      detail:
+        "突然または持続する激しい腹痛、意識障害、呼吸困難などがある場合は119番へ。判断に迷う場合は、対応地域の#7119または医療機関へ相談してください。",
+      reasons: ["強い症状について、緊急性の確認を優先する必要があります。"],
+      notes: [
+        "下腹部痛や通常と異なる出血がある場合も、自己判断せず速やかに医療機関へ相談してください。",
+      ],
+      elapsedHours: completedHours,
     };
   }
 
-  // 非同意チェック
   if (answers.nonConsensual === "yes") {
     return {
       route: "medical",
-      headline: "医療機関での相談をおすすめします",
-      detail: "安心のため、医療機関でのサポートを優先してください。",
-      reasons: ["同意がない、または同意を確認しづらい状況の可能性があります。"],
-      notes: ["一人で抱えず、医療機関や相談窓口（#8891・#8008）も利用できます。"],
-      elapsedHours: hours,
+      headline: "医療機関と支援窓口へ、できるだけ早く相談を",
+      detail:
+        "緊急避妊だけでなく、けが・性感染症・心身のケアを含む支援を受けられます。警察への届出は支援を受ける条件ではありません。",
+      reasons: ["同意のない、または同意を確認しづらい状況が示されています。"],
+      notes: [
+        "性犯罪・性暴力被害者のためのワンストップ支援センターは #8891 です。今まさに危険がある場合は110番へ連絡してください。",
+      ],
+      elapsedHours: completedHours,
     };
   }
 
-  // 妊娠陽性チェック
   if (answers.pregnancyTest === "yes") {
     return {
       route: "medical",
-      headline: "医療機関での相談をおすすめします",
-      detail: "妊娠検査が陽性の場合、医療機関での確認が必要です。",
-      reasons: ["妊娠検査で陽性の結果が出ています。"],
+      headline: "医療機関へ、できるだけ早く相談を",
+      detail:
+        "緊急避妊薬は、すでに成立した妊娠を中断する薬ではありません。妊娠検査が陽性の場合は医療機関で確認してください。",
+      reasons: ["妊娠検査で陽性の結果が示されています。"],
       notes: [],
-      elapsedHours: hours,
+      elapsedHours: completedHours,
     };
   }
 
-  // 禁忌チェック
-  const contraindications = answers.contraindications.filter(
-    (c) => c !== "わからない" && c !== "特にない"
-  );
-  if (contraindications.length > 0) {
+  if (hasLiverDisease) {
     return {
       route: "medical",
-      headline: "医療機関での相談をおすすめします",
-      detail: "持病や禁忌の可能性があるため、医療機関での確認が安心です。",
-      reasons: ["持病や体質により、薬の選択を医師が確認する必要があります。"],
+      headline: "医療機関へ、できるだけ早く相談を",
+      detail:
+        "一般用の緊急避妊薬は、肝臓病がある方は服用しないこととされています。自己判断せず、医師または薬剤師に相談してください。",
+      reasons: ["肝臓病に関する回答があります。"],
       notes: [],
-      elapsedHours: hours,
+      elapsedHours: completedHours,
     };
   }
 
-  // 時間不明
+  const commonNotes: string[] = [
+    "緊急避妊薬は100%妊娠を防ぐものではなく、性感染症も防ぎません。",
+    "服用した場合は約3週間後に妊娠検査薬または産婦人科で妊娠の有無を確認してください。",
+    "医師の治療を受けている方や、使用中の薬・サプリメント・アレルギー歴がある方は、購入前に薬剤師へ伝えてください。",
+  ];
+  if (answers.breastfeeding === "yes") {
+    commonNotes.push(
+      "授乳中は、服用後少なくとも24時間は授乳を避ける必要があります。薬剤師または医師に相談してください。"
+    );
+  }
+  if (age !== null && age < 16) {
+    commonNotes.push(
+      "購入に一律の年齢制限や保護者同意の要件はありませんが、16歳未満の方には産婦人科・小児科等への相談を勧める運用です。年齢を薬剤師に伝えてください。"
+    );
+  }
+  if (hasUnknownCondition) {
+    commonNotes.push(
+      "持病についてわからない点がある場合は、そのことを薬剤師または医師に伝えてください。"
+    );
+  }
+  if (hasConditionToDiscuss) {
+    commonNotes.push(
+      "心臓病・腎臓病・重い消化器疾患・アレルギー歴などがある場合は、購入前に薬剤師へ伝えてください。"
+    );
+  }
+  if (hasStJohnsWort) {
+    commonNotes.push(
+      "セイヨウオトギリソウは薬の作用に影響することがあります。自己判断で中止せず、使用中であることを薬剤師または医師へ必ず伝えてください。"
+    );
+  }
+
   if (hours === null) {
     return {
       route: "pharmacy",
-      headline: "まずは薬局で相談し、必要に応じて医療機関へ",
+      headline: "薬局または医療機関へ、今すぐ相談を",
       detail:
-        "性行為の日時により薬局で対応できる場合と、医療機関での対応が必要な場合があります。",
-      reasons: [
-        "性行為の日時が不明のため、薬局対応の可否が事前に確定できない状態です。",
-      ],
-      notes: [
-        ...(hasSupplementRisk
-          ? [
-              "サプリメントは一時中止が必要になる場合があります。薬剤師に服用中の内容を必ず伝えてください。",
-            ]
-          : []),
-        "薬剤師の判断により、医療機関の受診を案内される可能性があります。",
-      ],
+        "性交からの時間が確認できません。時間が重要なため、日時がわかる範囲で伝え、厚生労働省掲載の薬局または医療機関へすぐに相談してください。",
+      reasons: ["性交の日時が不明なため、案内先を一つに確定できません。"],
+      notes: commonNotes,
       elapsedHours: null,
     };
   }
 
-  // 72時間以内
   if (hours <= 72) {
-    reasons.push("性行為から72時間以内です。");
-
-    if (answers.breastfeeding === "yes") {
-      notes.push("授乳中の方は、服用可否を医療者に確認してください。");
-    }
-    if (answers.pregnancyTest === "unknown") {
-      notes.push("未検査の場合は、必要に応じて妊娠検査を検討してください。");
-    }
-    if (hasUnknownContra) {
-      notes.push(
-        "持病や禁忌の情報が不明な場合、薬剤師の判断で医療機関の受診を案内される可能性があります。"
-      );
-    }
-    if (bmiValue && bmiValue >= 30) {
-      notes.push("体格（BMI）によっては、薬の効果が下がる可能性があります。");
-    }
-    if (hasSupplementRisk) {
-      notes.push(
-        "サプリメントは一時中止が必要になる場合があります。薬剤師に服用中の内容を必ず伝えてください。"
-      );
-      notes.push(
-        "薬剤師の判断により、医療機関の受診を案内される可能性があります。"
-      );
-    }
-
     return {
       route: "pharmacy",
-      headline: "薬局での対応が可能な可能性が高いです",
-      detail: "時間内で禁忌が見られないため、薬局で相談できます。",
-      reasons,
-      notes,
-      elapsedHours: hours,
+      headline: "薬局または医療機関へ、できるだけ早く相談を",
+      detail:
+        "厚生労働省の一覧にある店舗では、処方箋なしの対面販売を利用できる場合があります。来店前に在庫・研修修了薬剤師の勤務・営業時間を電話で確認してください。",
+      reasons: ["性交から72時間以内です。服用は早いほど望ましいとされています。"],
+      notes: commonNotes,
+      elapsedHours: completedHours,
     };
-  }
-
-  // 72-120時間
-  if (hours <= 120) {
-    reasons.push("性行為から72時間を超えており、医療機関での相談が適しています（120時間以内）。");
-  } else {
-    reasons.push("性行為から120時間を超えており、医療機関での相談が必要です。");
-  }
-
-  const medicalNotes: string[] = [];
-  if (hasSupplementRisk) {
-    medicalNotes.push(
-      "サプリメントは一時中止が必要になる場合があります。医師・薬剤師に服用中の内容を必ず伝えてください。"
-    );
-  }
-  if (hasUnknownContra) {
-    medicalNotes.push(
-      "薬局での相談は可能ですが、持病や禁忌が不明な場合は薬剤師の判断で医療機関受診を案内される可能性があります。"
-    );
   }
 
   return {
     route: "medical",
-    headline: "医療機関での相談をおすすめします",
-    detail: "時間経過により医療機関での対応が安心です。",
-    reasons,
-    notes: medicalNotes,
-    elapsedHours: hours,
+    headline: "医療機関へ、今すぐ相談を",
+    detail:
+      "薬局で販売される緊急避妊薬の承認された用法は性交後72時間以内です。72時間を過ぎても自己判断であきらめず、利用できる対応について医療機関へ直ちに相談してください。",
+    reasons: ["性交から72時間を超えています。"],
+    notes: commonNotes,
+    elapsedHours: completedHours,
   };
-}
-
-export function getRouteInfo(route: ResultRoute): {
-  badge: string;
-  color: string;
-  guidance: string;
-  detail: string;
-} {
-  switch (route) {
-    case "pharmacy":
-      return {
-        badge: "推奨: 薬局で対応できます",
-        color: "primary",
-        guidance: "薬局での相談が中心になります",
-        detail:
-          "薬局で対応できる可能性が高い状態です。不安が強い場合は医療機関に相談しても問題ありません。",
-      };
-    case "medical":
-      return {
-        badge: "推奨: 医療機関の受診が必要です",
-        color: "warning",
-        guidance: "医療機関での確認がより安全です",
-        detail:
-          "医療機関の受診を推奨します。薬局での相談も可能ですが、可能なら医療機関が安心です。",
-      };
-    case "emergency":
-      return {
-        badge: "緊急: 早急に受診してください",
-        color: "danger",
-        guidance: "早急な受診が必要です",
-        detail:
-          "時間が重要です。できるだけ早く医療機関へ向かってください。",
-      };
-  }
 }

@@ -1,19 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap');
-
 @import "tailwindcss";
 @config "../../tailwind.config.ts";
 
 :root {
-  --color-primary: #E8A0BF;
-  --color-secondary: #BA90C6;
+  --color-primary: #9B355D;
+  --color-secondary: #664270;
   --color-accent: #C0DBEA;
   --color-background: #FFF8F8;
   --color-text-primary: #4A3B52;
-  --color-text-secondary: #7D6B8A;
+  --color-text-secondary: #5C4E65;
 }
 
 body {
-  font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", sans-serif;
+  font-family: "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
   background-color: var(--color-background);
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
@@ -22,6 +20,16 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Keep pale surfaces while giving form and card boundaries 3:1 contrast. */
+.border-primary-light {
+  border-color: #C07898;
 }
 
 /* Custom scrollbar */
@@ -69,4 +77,18 @@ html {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

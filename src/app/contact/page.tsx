@@ -71,7 +71,7 @@ export default function ContactPage() {
       } else {
         throw new Error("Failed");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
       setErrorMessage(t("contact.errorMessage"));
     }
@@ -87,7 +87,7 @@ export default function ContactPage() {
       <header className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-primary-light z-50">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/" className="p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
+            <Link href="/" aria-label={t("common.back")} className="min-w-11 min-h-11 flex items-center justify-center p-2 -ml-2 hover:bg-primary-light rounded-xl transition-colors">
               <ArrowLeft className="w-5 h-5 text-text-primary" />
             </Link>
             <div className="flex items-center gap-2">
@@ -116,6 +116,20 @@ export default function ContactPage() {
           </p>
         </motion.div>
 
+        <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
+            <div>
+              <h2 className="text-sm font-bold text-amber-900">
+                {t("contact.safetyTitle")}
+              </h2>
+              <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+                {t("contact.safetyBody")}
+              </p>
+            </div>
+          </div>
+        </div>
+
         {status === "success" ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -131,10 +145,11 @@ export default function ContactPage() {
             <p className="text-text-secondary mb-6">
               {t("contact.successMessage")}
             </p>
-            <Link href="/">
-              <Button variant="outline">
-                {t("contact.backToTop")}
-              </Button>
+            <Link
+              href="/"
+              className="inline-flex min-h-11 items-center justify-center rounded-2xl border-2 border-primary-light bg-transparent px-6 py-3.5 font-medium text-primary transition-colors hover:border-primary hover:bg-primary-light/20"
+            >
+              {t("contact.backToTop")}
             </Link>
           </motion.div>
         ) : (
