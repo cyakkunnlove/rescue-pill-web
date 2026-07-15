@@ -250,7 +250,12 @@ export default function PharmaciesPage() {
                     : locale === "vi"
                       ? "vi-VN"
                       : "en-US",
-              { year: "numeric", month: "long", day: "numeric" }
+              {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                timeZone: "Asia/Tokyo",
+              }
             ).format(new Date(`${metadata.sourceUpdatedAt}T00:00:00+09:00`))}
           </p>
         </motion.div>
