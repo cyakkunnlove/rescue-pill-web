@@ -2,15 +2,21 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n";
+import {
+  ADSENSE_PUBLISHER_ID,
+  EDITORIAL_AUTHOR,
+  SITE_IDENTITY,
+} from "@/lib/siteIdentity";
 
 // Structured Data for SEO
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Rescue Pill",
+  "@id": `${SITE_IDENTITY.url}/#application`,
+  "name": SITE_IDENTITY.name,
   "alternateName": "レスキューピル",
   "description": "緊急避妊に関するセルフチェック、一般的な行動案内、厚生労働省の公開情報に基づく薬局・医療機関検索を提供します。",
-  "url": "https://rescue-pill.com",
+  "url": SITE_IDENTITY.url,
   "applicationCategory": "HealthApplication",
   "operatingSystem": "Any",
   "offers": {
@@ -20,6 +26,9 @@ const structuredData = {
   },
   "inLanguage": "ja",
   "isAccessibleForFree": true,
+  "author": {
+    "@id": EDITORIAL_AUTHOR.id,
+  },
   "audience": {
     "@type": "PeopleAudience",
     "suggestedGender": "female"
@@ -29,10 +38,20 @@ const structuredData = {
 const organizationData = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Rescue Pill",
-  "url": "https://rescue-pill.com",
-  "logo": "https://rescue-pill.com/icon-512.png",
+  "@id": SITE_IDENTITY.id,
+  "name": SITE_IDENTITY.name,
+  "url": SITE_IDENTITY.url,
+  "logo": SITE_IDENTITY.logo,
   "description": "緊急避妊支援アプリ - もしもの時も、あわてず、次の一歩へ"
+};
+
+const authorData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": EDITORIAL_AUTHOR.id,
+  "name": EDITORIAL_AUTHOR.name,
+  "url": EDITORIAL_AUTHOR.url,
+  "jobTitle": EDITORIAL_AUTHOR.role,
 };
 
 export const metadata: Metadata = {
@@ -57,9 +76,12 @@ export const metadata: Metadata = {
     "セルフチェック",
     "処方箋なし"
   ],
-  authors: [{ name: "Rescue Pill" }],
-  creator: "Rescue Pill",
-  publisher: "Rescue Pill",
+  authors: [{ name: EDITORIAL_AUTHOR.name, url: EDITORIAL_AUTHOR.url }],
+  creator: EDITORIAL_AUTHOR.name,
+  publisher: SITE_IDENTITY.name,
+  other: {
+    "google-adsense-account": ADSENSE_PUBLISHER_ID,
+  },
   formatDetection: {
     telephone: true,
     email: false,
@@ -144,9 +166,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(authorData) }}
+        />
         
-        {/* Google AdSense - Removed from global layout to comply with policy */}
-        {/* AdSense is now loaded only on pages with substantial content */}
+        {/* Do not load the AdSense script globally. Add consent-gated article ads only after approval. */}
         
         {/* Google Analytics (optional) */}
         {process.env.NEXT_PUBLIC_GA_ID && (

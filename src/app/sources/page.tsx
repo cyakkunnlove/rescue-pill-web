@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Heart, ShieldCheck } from "lucide-react";
+import {
+  ArrowLeft,
+  BookOpenCheck,
+  ExternalLink,
+  Heart,
+  Mail,
+  RefreshCcw,
+  ShieldCheck,
+  UserRound,
+} from "lucide-react";
+import { EDITORIAL_AUTHOR } from "@/lib/siteIdentity";
 
 export const metadata: Metadata = {
   title: "情報源・更新方針",
@@ -23,13 +33,13 @@ const sources = [
     href: "https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00005.html",
   },
   {
-    title: "厚生労働省｜対面・オンライン診療に関する情報",
-    description: "緊急避妊に対応する医療機関とオンライン診療の運用",
+    title: "厚生労働省｜緊急避妊の対面・オンライン診療と調剤対応一覧",
+    description: "対面診療可能な医療機関、オンライン診療、調剤対応薬局の各一覧",
     href: "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000186912_00002.html",
   },
   {
-    title: "厚生労働省｜オンライン診療を希望する方へ",
-    description: "利用条件、薬の受け取り、服用後の確認に関する患者向け案内",
+    title: "厚生労働省｜オンライン診療一般の利用上の注意",
+    description: "オンライン診療の一般的な制限、受診の流れ、対面診療への切替",
     href: "https://www.mhlw.go.jp/stf/newpage_38226.html",
   },
   {
@@ -83,7 +93,7 @@ export default function SourcesPage() {
               情報源・更新方針
             </h1>
             <p className="text-sm text-text-muted mt-1">
-              最終確認日: 2026年7月13日
+              最終確認日: 2026年7月16日
             </p>
           </div>
         </div>
@@ -129,6 +139,82 @@ export default function SourcesPage() {
                 </div>
               </a>
             ))}
+          </div>
+        </section>
+
+        <section
+          id="editorial-policy"
+          className="mt-10 scroll-mt-24 rounded-2xl border border-primary-light bg-white p-5"
+        >
+          <div className="flex items-start gap-3">
+            <UserRound className="mt-1 h-6 w-6 flex-shrink-0 text-primary" />
+            <div>
+              <h2 className="text-lg font-bold text-text-primary">
+                運営者・編集方針
+              </h2>
+              <p className="mt-1 text-sm text-text-muted">
+                誰が、どの情報をもとに、どのように更新するかを公開します。
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 space-y-6 text-sm leading-relaxed text-text-secondary">
+            <div>
+              <h3 className="flex items-center gap-2 font-bold text-text-primary">
+                <UserRound className="h-4 w-4 text-primary" />
+                執筆・編集責任
+              </h3>
+              <p className="mt-2">
+                <strong className="text-text-primary">
+                  {EDITORIAL_AUTHOR.name}
+                </strong>
+                （薬剤師・Rescue Pill運営責任者）が、一般向け情報として執筆・編集・内容確認を行います。薬剤師資格は、情報の整理と安全上の注意の確認に生かしていますが、本サイト上で診断、個別の服用可否判断、診療、服薬指導は行いません。
+              </p>
+            </div>
+
+            <div>
+              <h3 className="flex items-center gap-2 font-bold text-text-primary">
+                <BookOpenCheck className="h-4 w-4 text-primary" />
+                情報源の優先順位
+              </h3>
+              <p className="mt-2">
+                日本の販売制度と承認用法は、厚生労働省の通知・公開一覧、PMDAの一般用医薬品説明文書を優先します。WHO等の情報は、国内の承認用法と混同しない範囲で補足に限って使用します。記事ごとに主要な一次情報と、その出典が裏付ける内容を表示します。
+              </p>
+            </div>
+
+            <div>
+              <h3 className="flex items-center gap-2 font-bold text-text-primary">
+                <RefreshCcw className="h-4 w-4 text-primary" />
+                更新・訂正
+              </h3>
+              <p className="mt-2">
+                制度、承認文書、薬局一覧の更新を確認した際は、影響する記事とデータを見直し、最終確認日を更新します。重要な誤りを訂正した場合は、対象記事の更新日と訂正内容が分かる形で反映します。
+              </p>
+            </div>
+
+            <div>
+              <h3 className="flex items-center gap-2 font-bold text-text-primary">
+                <ShieldCheck className="h-4 w-4 text-primary" />
+                医学監修・独立性
+              </h3>
+              <p className="mt-2">
+                現時点で、外部の医師・医療機関による医学監修は受けていません。厚生労働省、PMDA、掲載薬局・医療機関による承認・推奨・提携を示すものでもありません。広告や協賛の有無によって、医療情報の選定や結論を変更しない方針です。
+              </p>
+            </div>
+
+            <div>
+              <h3 className="flex items-center gap-2 font-bold text-text-primary">
+                <Mail className="h-4 w-4 text-primary" />
+                訂正の連絡
+              </h3>
+              <p className="mt-2">
+                誤りやリンク切れは
+                <Link href="/contact" className="mx-1 font-medium text-primary hover:underline">
+                  お問い合わせフォーム
+                </Link>
+                からお知らせください。症状、服薬状況、妊娠の可能性などの健康情報は入力しないでください。個別相談には回答せず、緊急時は医療機関や公的相談窓口をご利用ください。
+              </p>
+            </div>
           </div>
         </section>
 

@@ -65,16 +65,21 @@ cp .env.example .env.local
 ### Google AdSense 設定
 
 1. [Google AdSense](https://www.google.com/adsense/) でアカウント作成
-2. サイト審査を通過
-3. パブリッシャーIDと広告ユニットIDを取得
-4. 環境変数を設定：
+2. `src/lib/siteIdentity.ts` の所有権確認IDと `public/ads.txt` のIDを一致させる
+3. サイト審査を通過
+4. 同意管理と記事ページの広告枠を確認してから、広告配信を有効化する：
 
 ```env
 NEXT_PUBLIC_ADSENSE_PUBLISHER_ID=ca-pub-XXXXXXXXXXXXXXXXX
+NEXT_PUBLIC_ADSENSE_ENABLED=false
 NEXT_PUBLIC_ADSENSE_SLOT_BANNER=1234567890
 NEXT_PUBLIC_ADSENSE_SLOT_RECTANGLE=1234567891
 NEXT_PUBLIC_ADSENSE_SLOT_INLINE=1234567892
 ```
+
+`NEXT_PUBLIC_ADSENSE_ENABLED` は、承認前は必ず `false` のままにします。所有権確認は
+`google-adsense-account` metaタグで行い、広告スクリプトは読み込みません。承認後も、
+セルフチェック・結果・薬局/医療機関検索・緊急CTA周辺には広告を配置しません。
 
 5. `public/ads.txt` を更新：
 

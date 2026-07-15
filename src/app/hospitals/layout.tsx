@@ -20,6 +20,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://rescue-pill.com/hospitals",
   },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
 };
 
 export default function HospitalsLayout({

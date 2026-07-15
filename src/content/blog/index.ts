@@ -14,7 +14,7 @@ export interface BlogContent {
 
 export type Locale = 'ja' | 'en' | 'zh' | 'vi' | 'ko';
 
-export const CONTENT_REVIEWED_AT = '2026-07-13';
+export const CONTENT_REVIEWED_AT = '2026-07-16';
 
 export const blogContentsByLocale: Record<Locale, Record<string, BlogContent>> = {
   ja: blogContentsJA,

@@ -12,7 +12,6 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
-import { AdBanner } from "@/components/AdBanner";
 import { useTranslation } from "@/lib/i18n";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
@@ -269,11 +268,6 @@ export default function HospitalsPage() {
             </li>
           </ul>
         </motion.div>
-
-        {/* Ad Banner */}
-        <div className="my-8">
-          <AdBanner format="rectangle" />
-        </div>
 
         {/* Back to Pharmacy Option */}
         <motion.div

@@ -20,6 +20,7 @@ import { Card } from "@/components/ui/Card";
 
 import { useTranslation } from "@/lib/i18n";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import pharmacyMetadata from "../../../public/data/otc_pharmacies.meta.json";
 
 interface PharmacyMin {
   i: string;
@@ -57,6 +58,8 @@ interface Pharmacy {
   preContactRequired: boolean;
   website: string;
 }
+
+const INITIAL_METADATA = pharmacyMetadata as PharmacyMetadata;
 
 const PREFECTURES = [
   ["北海道", "Hokkaido"], ["青森県", "Aomori"], ["岩手県", "Iwate"],
@@ -109,7 +112,7 @@ function phoneFieldsDiffer(left: string, right: string): boolean {
 export default function PharmaciesPage() {
   const { t, locale } = useTranslation();
   const [pharmacies, setPharmacies] = useState<Pharmacy[]>([]);
-  const [metadata, setMetadata] = useState<PharmacyMetadata | null>(null);
+  const [metadata, setMetadata] = useState<PharmacyMetadata>(INITIAL_METADATA);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
@@ -231,27 +234,25 @@ export default function PharmaciesPage() {
         >
           <p className="text-sm text-text-secondary">
             <strong className="text-primary">{t("pharmacies.officialList")}</strong> - {t("pharmacies.canBuyWithout")}
-            （{pharmacies.length.toLocaleString()}{t("common.results")}）
+            （{metadata.total.toLocaleString()}{t("common.results")}）
           </p>
           <p className="text-xs text-text-muted mt-2">
             {t("pharmacies.trialNote")}
           </p>
-          {metadata && (
-            <p className="text-xs text-text-muted mt-1">
-              {new Intl.DateTimeFormat(
-                locale === "ja"
-                  ? "ja-JP"
-                  : locale === "zh"
-                    ? "zh-CN"
-                    : locale === "ko"
-                      ? "ko-KR"
-                      : locale === "vi"
-                        ? "vi-VN"
-                        : "en-US",
-                { year: "numeric", month: "long", day: "numeric" }
-              ).format(new Date(`${metadata.sourceUpdatedAt}T00:00:00+09:00`))}
-            </p>
-          )}
+          <p className="text-xs text-text-muted mt-1">
+            {new Intl.DateTimeFormat(
+              locale === "ja"
+                ? "ja-JP"
+                : locale === "zh"
+                  ? "zh-CN"
+                  : locale === "ko"
+                    ? "ko-KR"
+                    : locale === "vi"
+                      ? "vi-VN"
+                      : "en-US",
+              { year: "numeric", month: "long", day: "numeric" }
+            ).format(new Date(`${metadata.sourceUpdatedAt}T00:00:00+09:00`))}
+          </p>
         </motion.div>
 
         {/* Search & Filters */}
@@ -312,8 +313,12 @@ export default function PharmaciesPage() {
 
         {/* Results */}
         {loading ? (
-          <div className="flex items-center justify-center py-12">
+          <div
+            role="status"
+            className="flex items-center justify-center gap-3 py-12 text-sm text-text-muted"
+          >
             <Loader2 className="w-8 h-8 text-primary animate-spin" />
+            <span>{t("common.loading")}</span>
           </div>
         ) : error ? (
           <div className="flex items-center justify-center py-12 text-danger">

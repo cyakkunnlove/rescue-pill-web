@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { AdBanner } from "@/components/AdBanner";
 import {
   Heart,
   Shield,
@@ -138,7 +137,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
               <span className="text-sm font-medium text-text-primary">
                 {t("common.supervised")}
               </span>
-              <span className="text-xs text-text-muted whitespace-nowrap">2026-07-13</span>
+              <span className="text-xs text-text-muted whitespace-nowrap">2026-07-16</span>
             </Link>
           </motion.div>
         </div>
@@ -275,11 +274,6 @@ export function LandingPage({ onStart }: LandingPageProps) {
           </div>
         </motion.div>
       </section>
-
-      {/* Ad Banner */}
-      <div className="px-4 py-4">
-        <AdBanner />
-      </div>
 
       {/* FAQ Section */}
       <section className="px-4 py-12">

@@ -19,7 +19,7 @@ Emergency contraception (also called the morning-after pill or Plan B) is a medi
 
 ## Main Ingredients and Types
 
-The main active ingredient in emergency contraception used in Japan is **levonorgestrel**. This compound is listed on the WHO (World Health Organization) Essential Medicines List and has a well-established safety profile.
+The main active ingredient in emergency contraception used in Japan is **levonorgestrel**. For safety precautions and what to do after taking it, follow the current leaflet for your product and the pharmacist's instructions.
 
 ### Common Products
 - NorLevo (pharmacist-guided and prescription versions)
@@ -64,7 +64,7 @@ If you have any concerns, we recommend consulting a pharmacist or doctor.
     content: `
 ## Ways to Obtain Emergency Contraception
 
-In Japan, there are two main ways to obtain emergency contraception.
+In Japan, there are three distinct access routes: purchase without a prescription at an eligible OTC pharmacy, a face-to-face consultation at an OB-GYN or other medical institution, and an eligible online consultation followed by dispensing at a participating pharmacy. The official lists for these routes are separate and are not interchangeable.
 
 ## 1. Purchase at an OTC Pharmacy
 
@@ -107,10 +107,10 @@ Consultation and medication charges vary by medical institution. Before visiting
 
 ## Online Telemedicine Option
 
-Some healthcare providers offer telemedicine. Under the current guidance, after the consultation you visit a designated pharmacy, receive an explanation from a trained pharmacist, and take the medicine in front of that pharmacist.
+Some healthcare providers offer telemedicine, but the clinician may decide that an in-person consultation is necessary. When emergency contraception is prescribed through the current online pathway, you must visit an eligible dispensing pharmacy, receive an explanation from a trained pharmacist, and take the tablet in front of that pharmacist.
 
 ### Notes
-- Do not assume home delivery; confirm the participating medical institution and designated pharmacy
+- This pathway is completed by dispensing and supervised intake at an eligible pharmacy, not by home delivery
 - Confirm the designated pharmacy's stock, trained-pharmacist coverage, and reception hours
 
 ## Which Should You Choose?
@@ -119,11 +119,11 @@ Some healthcare providers offer telemedicine. Under the current guidance, after 
 |-----------|---------------|
 | Need it immediately | OTC pharmacy or nearby OB-GYN |
 | Have medical conditions or concerns | OB-GYN clinic |
-| Nighttime/weekend | Emergency medical facility |
+| Nighttime/weekend | Check the current lists and call an OTC pharmacy or medical institution to confirm availability |
 
 ## Summary
 
-Emergency contraception is time-sensitive. Regardless of which method you choose, acting quickly is essential.
+The approved Japanese OTC directions call for one dose within 72 hours after intercourse and as soon as possible. Whichever route you consider, check the current information and contact the pharmacy or medical institution promptly.
 
 This app makes it easy to find nearby OTC pharmacies and healthcare facilities. Please use it when needed.
     `,
@@ -152,7 +152,7 @@ Before visiting, call to confirm stock, that a trained pharmacist is on duty, an
 ## Points to Consider When Choosing a Pharmacy
 
 - **Operating hours** - Open evenings or weekends?
-- **Private consultation room** - Is your privacy protected?
+- **Privacy-conscious setting** - Can the consultation take place away from other customers?
 - **Accessibility** - Can you get there quickly?
 - **Stock and pharmacist coverage** - Always confirm by phone before visiting
 
@@ -161,8 +161,8 @@ Before visiting, call to confirm stock, that a trained pharmacist is on duty, an
 ### Step 1: Arrival
 At the pharmacy counter, say "I would like to purchase emergency contraception."
 
-### Step 2: Private Consultation
-You'll have a consultation with the pharmacist in a private room (or partitioned space).
+### Step 2: Consultation with Privacy Consideration
+You'll speak with the pharmacist in a setting that provides sufficient privacy. This may be a private room, a partitioned area, or another arrangement; a private room is not guaranteed.
 
 Information they will ask about:
 - Date of last menstrual period
@@ -211,31 +211,22 @@ OTC pharmacies are an important option for quickly obtaining emergency contracep
     content: `
 ## Safety of Emergency Contraception
 
-Emergency contraception (levonorgestrel) is listed on the WHO (World Health Organization) Essential Medicines List and is widely used around the world with a well-established safety profile.
+Levonorgestrel emergency contraception is widely used worldwide. When using a Japanese OTC product, follow its current medicine leaflet and the trained pharmacist's instructions.
 
-Serious side effects are very rare, and most people can use it safely.
+Symptoms vary from person to person. Before taking it, tell the pharmacist if you are under medical care, have a diagnosed condition, or have previously had an allergic reaction to a medicine.
 
 ## Possible Side Effects
 
-The following symptoms may occur after taking the medication, but they are usually temporary and resolve within a few days.
+The following symptoms may occur after taking the medicine. Current Japanese OTC leaflets instruct anyone who develops these symptoms to take the leaflet and consult a doctor or pharmacist; they do not give a single timeframe in which symptoms will resolve.
 
 ### Symptoms That May Occur After Taking It
-- **Withdrawal bleeding/spotting** - Bleeding separate from your period
-- **Headache**
-- **Nausea**
-- **Fatigue**
-- Dizziness
-- Lower abdominal pain
-- Breast tenderness
-- Delayed period
-- Heavy period
-- Diarrhea
-- Vomiting
+- Nausea, vomiting, lower abdominal pain, diarrhea, or abdominal pain
+- Headache, drowsiness, dizziness, or anxiety
+- Irregular genital bleeding or menstrual changes such as heavy or delayed periods
+- Anemia, malaise or fatigue, a floating sensation, dry mouth, a feeling of heat, swelling of the hands or feet, or breast tenderness
 
-### Symptoms Requiring Prompt Consultation
-- Rash
-- Hives
-- Facial swelling
+### If a Symptom Occurs
+Do not assume that it will resolve without advice. Tell the doctor or pharmacist the product name and when you took it, and bring the leaflet when you consult them.
 
 ## What to Do If You Vomit After Taking It
 
@@ -243,15 +234,15 @@ If you vomit within 2 hours of taking the medication, it may not have been fully
 
 **What to do**: Contact a healthcare facility or pharmacy to discuss whether you need to take another dose.
 
-## Effects on Your Period
+## Period Changes and Pregnancy Follow-up
 
-Taking emergency contraception may affect your next period.
+Your period timing or bleeding amount may change after taking the medicine. Current Japanese OTC leaflets instruct you to take the leaflet and promptly consult a doctor or pharmacist if any of the following occurs:
 
-- **Earlier period**: May come a few days to a week early
-- **Delayed period**: May be delayed by a few days to a week
-- **Changes in flow**: May be heavier or lighter than usual
+- Your period has not started for seven days or more after the expected date
+- Your period starts earlier than expected or the bleeding amount differs from usual
+- Bleeding, headache, nausea, fatigue or sleepiness that can occur around a period or in early pregnancy continues for seven days or more
 
-Regardless of whether bleeding occurs, three weeks after taking it use a pregnancy test or visit a medical institution to confirm that you are not pregnant.
+Even if none of these occurs, do not rely on bleeding alone. Use a pregnancy test or visit a medical institution three weeks after taking the tablet.
 
 ## Usage Precautions
 
@@ -259,6 +250,9 @@ Regardless of whether bleeding occurs, three weeks after taking it use a pregnan
 - Those allergic to any ingredients in this medication
 - Those diagnosed with liver disease
 - Those with an established pregnancy, such as a positive pregnancy test
+
+### If You Are Breastfeeding
+Current Japanese OTC leaflets instruct breastfeeding users not to take the medicine or to avoid breastfeeding for at least 24 hours after taking it. Tell the pharmacist that you are breastfeeding before use and confirm when to resume breastfeeding.
 
 ### Consult a Pharmacist Before Use
 - Those under a doctor's care
@@ -281,60 +275,55 @@ If you are taking any of these medications, be sure to inform your pharmacist or
 
 ## Are There Long-term Effects?
 
-Taking emergency contraception will not affect future pregnancies. Repeated use is also not known to cause infertility.
+WHO states that emergency contraception does not harm future fertility or delay its return after use.
 
-However, emergency contraception is meant for "emergencies" only. It is not recommended for regular, ongoing contraception.
+Repeated use is not categorically prohibited, but emergency contraception is not a regular contraceptive method. If you need it repeatedly, ask a pharmacist or doctor about ongoing contraception.
 
 ## Summary
 
-Emergency contraception is a safe medication, but side effects can occur. If you have any concerning symptoms, don't hesitate to consult a pharmacist or doctor.
+Side effects can occur even when the medicine is taken as directed. If a symptom occurs, take the leaflet and consult a pharmacist or doctor.
 
 Having accurate knowledge allows you to use emergency contraception with confidence.
     `,
   },
   'timing-and-effectiveness': {
-    title: 'Timing and Effectiveness: Why Taking It Within 72 Hours Matters',
-    description: 'Emergency contraception effectiveness decreases over time. Learn why taking it early is so important.',
+    title: 'Timing and Follow-up: Japan\'s 72-Hour OTC Directions',
+    description: 'Learn the approved Japanese OTC timing, why prompt action matters, and when follow-up is needed.',
     date: '2025-01-15',
     category: 'Basic Knowledge',
     content: `
-## A Race Against Time
+## Approved Timing in Japan
 
-Emergency contraception is most effective when **taken as soon as possible after intercourse**.
+Japanese OTC levonorgestrel emergency contraception is approved as **one tablet taken within 72 hours after intercourse and as soon as possible**.
 
-Effectiveness decreases with time, which is why the "within 72 hours" guideline exists, but in reality, **the sooner the better**.
+Taking it before intercourse does not prevent pregnancy from later intercourse.
 
 ## Timing and Follow-up
 
-Levonorgestrel emergency contraception should be taken as soon as possible within 72 hours after intercourse. It does not prevent pregnancy 100% of the time, so three weeks after taking it use a pregnancy test or visit a medical institution to confirm that you are not pregnant.
+The medication does not prevent pregnancy 100% of the time. Three weeks after taking it, use a pregnancy test or visit a medical institution to confirm whether you are pregnant.
 
 ## Why Does Effectiveness Change Over Time?
 
 The main mechanism of emergency contraception is **inhibition or delay of ovulation**.
 
 ### If Taken Before Ovulation
-It can suppress or delay ovulation, preventing the egg and sperm from meeting. In this case, high contraceptive effectiveness is expected.
+It can suppress or delay ovulation. This is why the approved directions emphasize taking it promptly after intercourse.
 
 ### If Taken After Ovulation
-If ovulation has already occurred, the ovulation-suppressing effect cannot be achieved. In this case, contraceptive effectiveness is limited.
-
-The longer you wait, the more likely ovulation has already occurred, which is why effectiveness decreases.
+If ovulation has already occurred, the medication cannot delay that ovulation. Do not try to determine eligibility from a calendar alone; discuss the timing and your circumstances with a pharmacist or doctor.
 
 ## What If More Than 72 Hours Have Passed?
 
-If more than 72 hours have passed, do not give up or wait on your own. Contact a medical institution immediately; available options depend on the elapsed time and your situation.
+If more than 72 hours have passed, contact a medical institution promptly. Available options depend on the elapsed time and your situation.
 
-## Waiting is NOT an Option
+## Arranging Care at Night or on Weekends
 
-"It's the weekend, I'll go to the doctor on Monday"
-"Tomorrow would be more convenient"
-
-Delaying for these reasons significantly reduces your chances of preventing pregnancy.
+Do not rely on a directory entry alone. Opening hours, stock, and trained-pharmacist coverage can change, so call before traveling.
 
 Even at night or on weekends:
-- Some **OTC pharmacies** are open at night
-- **Emergency hospitals** may provide prescriptions
-- With **telemedicine**, current practice may require taking the medicine at a designated pharmacy in front of a trained pharmacist
+- Some **eligible OTC pharmacies** list evening or weekend contact information, but availability must be confirmed
+- **Medical institutions** vary in whether and when they provide emergency contraception; contact them first
+- With **telemedicine**, the clinician may switch to an in-person consultation. If prescribed online, dispensing and supervised intake still take place at an eligible pharmacy
 
 ## Be Prepared in Advance
 
@@ -346,9 +335,7 @@ To avoid panic in an emergency, we recommend checking the following in advance:
 
 ## Summary
 
-Emergency contraception is more effective the sooner you take it.
-
-Rather than waiting to see "if everything will be okay," taking action immediately when you're concerned is crucial.
+Japanese OTC products are approved for one dose within 72 hours after intercourse and should be taken as soon as possible. If more than 72 hours have passed, or you are unsure about the timing, contact a medical institution promptly for advice on the available options.
 
 This app lets you quickly search for nearby OTC pharmacies and healthcare facilities. Please bookmark it for emergencies.
     `,
@@ -375,17 +362,17 @@ It does not prevent pregnancy 100% of the time. Regardless of whether bleeding o
 
 ### Q2: Will I gain weight from the side effects?
 
-**A: Emergency contraception will not cause weight gain.**
+**A: A categorical conclusion about weight change cannot be made.**
 
-You may temporarily feel bloated, but weight gain is not a reported side effect.
+Current Japanese OTC instructions list swelling of the hands or feet among symptoms for which a doctor or pharmacist should be consulted. If swelling occurs, take the leaflet and consult a doctor or pharmacist regardless of its severity or duration. Do not make a decision based on weight change alone; seek advice if you are concerned.
 
 ---
 
 ### Q3: Is it safe to use multiple times?
 
-**A: There are no known health problems, but it's not recommended for regular use.**
+**A: Repeat use is not automatically prohibited, but this is not a regular contraceptive method.**
 
-Emergency contraception is for "emergencies." If you find yourself needing it repeatedly, consider regular contraception methods (such as birth control pills or IUDs).
+WHO reports no known health risks from repeated use, while noting that frequent use can increase side effects such as menstrual irregularities. Japanese sales guidance uses two or more purchases within three months as a prompt to recommend OB-GYN or pediatric consultation. This is counseling and referral guidance, not a purchase ban.
 
 ---
 
@@ -393,35 +380,35 @@ Emergency contraception is for "emergencies." If you find yourself needing it re
 
 **A: Your period timing and flow may change.**
 
-- May come a few days to a week early or late
-- Flow may be different from usual
-- Spotting may occur
+- Your period has not started for seven days or more after the expected date
+- Your period starts earlier than expected or the bleeding amount differs from usual
+- Bleeding, headache, nausea, fatigue or sleepiness that can occur around a period or in early pregnancy continues for seven days or more
 
-These are temporary and your cycle usually returns to normal by the next period.
+If any of these occurs, promptly consult a doctor or pharmacist and take the leaflet with you. Even if none occurs, use a pregnancy test or visit a medical institution three weeks after taking the tablet.
 
 ---
 
 ### Q5: Can I take it while breastfeeding?
 
-**A: Yes, you can take it while breastfeeding.**
+**A: Tell the pharmacist that you are breastfeeding before taking it.**
 
-Tell the pharmacist or doctor before taking it if you are breastfeeding. The consumer-drug instructions advise avoiding breastfeeding for 24 hours after taking it.
+Current Japanese OTC instructions say either not to use the medicine while breastfeeding or to avoid breastfeeding for at least 24 hours after taking it. Do not decide on your own; confirm when to resume breastfeeding with a pharmacist or doctor.
 
 ---
 
 ### Q6: I'm on birth control pills but missed doses. Can I use emergency contraception?
 
-**A: It depends on the situation.**
+**A: The number of missed tablets alone is not enough to decide.**
 
-If you missed birth control pills for 2 or more consecutive days and had intercourse during that time, emergency contraception may be considered. Consult a doctor or pharmacist for details.
+The response depends on the product, where you are in the pack or cycle, how many doses were missed and when intercourse occurred. Check the leaflet for your own product and contact the prescriber or a pharmacist promptly rather than changing the dosing schedule yourself.
 
 ---
 
 ### Q7: Will it cause infertility in the future?
 
-**A: No, it will not affect future fertility.**
+**A: WHO states that emergency-contraceptive pills do not harm future fertility or delay its return.**
 
-Emergency contraception does not cause infertility. After taking it, pregnancy is possible from the next ovulation as usual.
+However, the tablet does not protect against pregnancy from intercourse after it is taken. If you do not want to become pregnant, ask a pharmacist or doctor when and how to start or resume regular contraception.
 
 ---
 
@@ -429,23 +416,23 @@ Emergency contraception does not cause infertility. After taking it, pregnancy i
 
 **A: No, it does not.**
 
-Emergency contraception is for preventing pregnancy and does not protect against HIV, chlamydia, gonorrhea, or other STIs. Condoms are necessary for STI prevention.
+Emergency contraception does not protect against HIV, chlamydia, gonorrhea or other STIs. Correct condom use reduces infection risk but does not eliminate it. Contact a medical institution if you are concerned about possible exposure.
 
 ---
 
 ### Q9: Can I take it if I've been drinking alcohol?
 
-**A: Yes, you can take it.**
+**A: Tell the pharmacist before taking it that you have been drinking.**
 
-Alcohol does not affect the effectiveness of emergency contraception. However, if you're very intoxicated, there's a risk of vomiting, so be careful.
+The current Japanese OTC leaflet alone does not support a blanket statement that alcohol has no effect. If you vomit after taking the tablet, do not take an additional dose on your own; take the leaflet and promptly contact a doctor or pharmacist.
 
 ---
 
 ### Q10: When should I resume regular contraception after taking it?
 
-**A: Resume immediately.**
+**A: Ask a pharmacist or doctor because instructions vary by method and product.**
 
-Emergency contraception only provides protection for one instance of intercourse. If you have sex again after taking it, use another method of contraception such as condoms.
+Levonorgestrel emergency contraception does not prevent pregnancy from intercourse after the dose. Follow the leaflet and professional instructions for starting or resuming regular contraception, and confirm what to use until that method becomes effective.
 
 ---
 
@@ -471,13 +458,15 @@ Emergency-contraception costs vary by product, pharmacy, medical institution, an
 | Designated pharmacy | Product price, stock, payment method, and trained-pharmacist coverage |
 | OB-GYN/gynecology | Consultation charge, medicine price, reception hours, and payment method |
 | Telemedicine | Consultation charge, designated pharmacy, medicine price, and how it is received and taken |
-| Emergency medical institution | Availability, consultation charge, after-hours fees, and medicine price |
+| Medical institution that says it can see you after hours | Same-day emergency-contraception availability, consultation charge, after-hours fees, and medicine price |
 
 ## Purchasing at OTC Pharmacies
 
+As checked on 16 July 2026, the manufacturers' suggested retail prices (including tax) are **¥7,480 for one [NorLevo](https://www.daiichisankyo-hc.co.jp/site_norlevo/product/) tablet** and **¥6,930 for one [Resoel 72](https://alinamin-kenko.jp/lesoeru72/column/price/index.html) tablet**. These are suggested retail prices and do not guarantee the price charged by a pharmacy. Actual prices, stock, and accepted payment methods vary by pharmacy, so confirm them before visiting.
+
 ### Benefits
-- No consultation fee
-- No prescription needed, saves time
+- No medical consultation charge (the product price still applies)
+- No need to obtain a prescription
 - Price and payment method can be confirmed before visiting
 
 ### Confirming the Cost
@@ -487,7 +476,7 @@ Prices vary by product and pharmacy. Call to confirm stock, trained-pharmacist c
 
 ### Benefits
 - Can consult with a doctor
-- Address health concerns
+- Discuss health concerns
 - Discuss future contraception options
 
 ### Confirming the Cost
@@ -502,9 +491,9 @@ How consultation and medication charges are calculated varies by medical institu
 ### Confirming Cost and the Medication Process
 Consultation and medicine charges vary by service. Under current guidance, after the consultation you visit a designated pharmacy, receive an explanation from a trained pharmacist, and take the medicine in front of that pharmacist. Do not assume home delivery; confirm the designated pharmacy and costs in advance.
 
-## Emergency Hospitals
+## Looking for Medical Care at Night or on Weekends
 
-An option when needed at night or on weekends.
+Not every medical institution, including every emergency department, can provide emergency contraception. Call before traveling to confirm whether consultation and prescribing are available at that time.
 
 ### Confirming the Cost
 Consultation, after-hours, and medicine charges vary by institution. Confirm them if possible, but do not delay care when symptoms are urgent.
@@ -578,24 +567,21 @@ This article clearly explains the differences between them.
 
 ### Features
 - Daily use to maintain contraceptive effect
-- Highly effective when taken correctly and consistently
-- Also helps with menstrual cramps and PMS
+- Taken consistently according to the directions for the specific product
 - Requires prescription
 
 ### Main Ingredients
 **Estrogen** and **progestin** in low doses
 
 ### Advantages
-- High contraceptive effectiveness
-- Stabilizes menstrual cycle
-- Improves menstrual cramps and PMS
-- Can improve skin
+- Can be discussed with a doctor as an ongoing contraceptive method
+- Provides ongoing contraception when the specific product is taken correctly as directed
 
 ### Disadvantages
 - Must take daily
 - Missed pills reduce effectiveness
-- Rare risk of blood clots
-- Caution needed for smokers
+- Suitability and precautions vary by product, medical history, other medicines, and smoking status
+- Requires a medical consultation and prescription
 
 ## Which Should You Choose?
 
@@ -606,18 +592,13 @@ This article clearly explains the differences between them.
 - Need contraception now
 
 ### Birth Control Pills are Appropriate When:
-- Want ongoing contraception
-- Have painful periods
-- Want to stabilize menstrual cycle
-- Want planned contraception
+- You want ongoing, planned contraception and to discuss the appropriate product and directions with a doctor
 
 ## About Using Both
 
-Even while on birth control pills, you may need emergency contraception if you miss doses.
+What to do after missed birth-control pills depends on the product, where you are in the pack or cycle, how many doses were missed, the length of the delay and when intercourse occurred.
 
-If you **miss birth control pills for 2 or more consecutive days** and have intercourse during that time, consider using emergency contraception.
-
-Consult a doctor or pharmacist for details.
+Check the leaflet for your own product and contact the prescriber or a pharmacist promptly rather than changing the dosing schedule yourself.
 
 ## Common Misconceptions
 
@@ -651,11 +632,9 @@ This article clears up common misconceptions from a medical perspective.
 
 ## Myth 1: Emergency Contraception Makes You Gain Weight
 
-### Fact: It Does Not Cause Weight Gain
+### Fact: There Is No Basis for a Blanket Claim of Lasting Weight Gain
 
-There is no medical evidence that emergency contraception causes weight gain.
-
-You may experience temporary bloating due to hormonal water retention, but this resolves within a few days. It does not cause fat gain.
+Current Japanese OTC medicine leaflets do not list weight gain as a common side effect. However, swelling of the hands or feet is one of the symptoms for which the leaflets direct you to consult a doctor or pharmacist after taking the medicine. Do not assume that swelling will resolve on its own. If you notice swelling, or if any symptom persists or worsens, take the leaflet and consult a doctor or pharmacist.
 
 ## Myth 2: It Will Cause Infertility
 
@@ -683,19 +662,17 @@ Its main mechanism is inhibiting or delaying ovulation; it does not end an estab
 
 ## Myth 5: Side Effects Are Severe
 
-### Fact: Most People Have Only Mild Symptoms
+### Fact: The Type and Course of Symptoms Vary by Person
 
-Nausea and headaches are reported side effects, but they are usually mild and resolve within 24-48 hours.
+Nausea and headache are among the side effects listed in current Japanese OTC leaflets. The leaflets do not give a single timeframe in which symptoms will resolve.
 
-Serious side effects are very rare. The WHO (World Health Organization) recognizes it as a safe medication.
-
-### Common Side Effects
+### Examples of Symptoms Listed in the Leaflet
 - Nausea
 - Headache
 - Fatigue
 - Spotting
 
-If symptoms are severe, persist, or concern you, consult a pharmacist or doctor.
+If any of these symptoms occurs, take the leaflet and consult a doctor or pharmacist.
 
 ## Myth 6: Young People Can't Use It
 

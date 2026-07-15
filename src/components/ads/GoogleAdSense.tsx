@@ -5,6 +5,7 @@ import Script from "next/script";
 
 // AdSense Publisher ID - Replace with actual ID after approval
 const ADSENSE_PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "";
+const ADSENSE_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true";
 
 interface AdSenseProps {
   adSlot: string;
@@ -24,7 +25,12 @@ export function GoogleAdSense({
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
   useEffect(() => {
-    if (scriptLoaded && typeof window !== "undefined" && ADSENSE_PUBLISHER_ID) {
+    if (
+      ADSENSE_ENABLED &&
+      scriptLoaded &&
+      typeof window !== "undefined" &&
+      ADSENSE_PUBLISHER_ID
+    ) {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (error) {
@@ -33,16 +39,9 @@ export function GoogleAdSense({
     }
   }, [scriptLoaded]);
 
-  // Show placeholder if no publisher ID is set
-  if (!ADSENSE_PUBLISHER_ID) {
-    return (
-      <div
-        className={`bg-gradient-to-r from-primary-light to-accent-light rounded-2xl p-4 text-center ${className}`}
-        style={style}
-      >
-        <p className="text-xs text-text-muted">広告スペース</p>
-      </div>
-    );
+  // Never expose an unfinished ad placeholder or load a slotless request.
+  if (!ADSENSE_ENABLED || !ADSENSE_PUBLISHER_ID || !adSlot) {
+    return null;
   }
 
   return (
