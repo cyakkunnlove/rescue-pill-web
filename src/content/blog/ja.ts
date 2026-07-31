@@ -1,3 +1,6 @@
+import { newArticlesBatch1 } from './_new_batch1';
+import { newArticlesBatch2 } from './_new_batch2';
+
 interface BlogContent {
   title: string;
   description: string;
@@ -6,7 +9,7 @@ interface BlogContent {
   content: string;
 }
 
-export const blogContentsJA: Record<string, BlogContent> = {
+const _baseBlogContentsJA: Record<string, BlogContent> = {
   'what-is-emergency-contraception': {
     title: '緊急避妊薬（アフターピル）とは？基本的な知識と仕組み',
     description: '緊急避妊薬の効果、服用タイミング、副作用について医学的な観点からわかりやすく解説します。',
@@ -720,4 +723,10 @@ SNSやネット掲示板の情報は、必ずしも正確ではありません�
 不安がある場合は、薬剤師や医師に相談しましょう。本アプリでは、相談できる医療機関も検索できます。
     `,
   },
+};
+
+export const blogContentsJA: Record<string, BlogContent> = {
+  ..._baseBlogContentsJA,
+  ...newArticlesBatch1,
+  ...newArticlesBatch2,
 };

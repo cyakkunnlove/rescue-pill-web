@@ -14,7 +14,7 @@ export interface BlogContent {
 
 export type Locale = 'ja' | 'en' | 'zh' | 'vi' | 'ko';
 
-export const CONTENT_REVIEWED_AT = '2026-07-16';
+export const CONTENT_REVIEWED_AT = '2026-08-01';
 
 export const blogContentsByLocale: Record<Locale, Record<string, BlogContent>> = {
   ja: blogContentsJA,
@@ -30,7 +30,7 @@ export function getBlogContents(locale: Locale): Record<string, BlogContent> {
 
 export function getBlogPost(slug: string, locale: Locale): BlogContent | undefined {
   const contents = getBlogContents(locale);
-  return contents[slug];
+  return contents[slug] || blogContentsByLocale.ja[slug];
 }
 
 // Get all slugs (same across all locales)
