@@ -5,8 +5,6 @@ import {
   Heart,
   Clock,
   Pill,
-  Building2,
-  Smartphone,
   Banknote,
   CheckCircle,
   HelpCircle,
@@ -36,7 +34,7 @@ const guideJsonLd = {
     "緊急避妊薬（アフターピル）の入手方法、費用、服用タイミング、効果、よくある質問を網羅した完全ガイド。",
   url: "https://rescue-pill.com/guide",
   datePublished: "2026-07-24",
-  dateModified: "2026-07-24",
+  dateModified: "2026-08-03",
   author: {
     "@id": EDITORIAL_AUTHOR.id,
   },
@@ -60,7 +58,7 @@ const faqJsonLd = {
       name: "緊急避妊薬は薬局で買えますか？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "はい。2026年2月2日から、厚生労働省が指定する薬局で処方箋なしで購入できます。研修を修了した薬剤師の説明を受け、本人がその場で服用します。すべての薬局で販売しているわけではないため、事前に対応薬局を確認してください。",
+        text: "はい。2026年2月2日から、販売要件を満たし厚生労働省の一覧に掲載された薬局・店舗で処方箋なしに購入できます。研修を修了した薬剤師の説明を受け、購入する本人がその場で服用します。来店前に在庫と販売可能な薬剤師の勤務を電話で確認してください。",
       },
     },
     {
@@ -68,7 +66,7 @@ const faqJsonLd = {
       name: "緊急避妊薬の費用はいくらですか？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "薬局でのOTC購入は7,000〜9,000円程度、医療機関での処方は6,000〜20,000円程度（診察料込み）、オンライン診療は8,000〜15,000円程度（配送料込み）です。保険適用外のため全額自費となります。",
+        text: "厚生労働省の試験販売では7,000〜9,000円が中心でしたが、これは試験期間中の実績です。現在の価格は製品・薬局・医療機関により異なるため、利用先へ事前に確認してください。通常は保険適用外で全額自費です。",
       },
     },
     {
@@ -151,6 +149,7 @@ export default function GuidePage() {
             <li><a href="#how-to-get" className="hover:underline">入手方法（3つの選択肢）</a></li>
             <li><a href="#timing" className="hover:underline">服用タイミングと効果</a></li>
             <li><a href="#cost" className="hover:underline">費用について</a></li>
+            <li><a href="#before-visit" className="hover:underline">来店前に準備すること</a></li>
             <li><a href="#after" className="hover:underline">服用後の確認事項</a></li>
             <li><a href="#faq" className="hover:underline">よくある質問</a></li>
             <li><a href="#support" className="hover:underline">相談先・参考リンク</a></li>
@@ -202,7 +201,7 @@ export default function GuidePage() {
             </div>
             <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
               <p>
-                2026年2月2日から、厚生労働省が指定する薬局で処方箋なしで緊急避妊薬を購入できるようになりました。
+                2026年2月2日から、販売要件を満たし厚生労働省の一覧に掲載された薬局・店舗で、処方箋なしに緊急避妊薬を購入できるようになりました。
                 これが最も迅速な入手方法です。
               </p>
               <div className="rounded-xl bg-primary-light/50 p-3">
@@ -220,7 +219,8 @@ export default function GuidePage() {
                 </h4>
                 <ul className="list-disc pl-5 space-y-1 text-amber-800">
                   <li>すべての薬局で販売しているわけではありません</li>
-                  <li>本人確認書類が必要です</li>
+                  <li>来店前に在庫・販売可能な薬剤師の勤務・営業時間を電話で確認してください</li>
+                  <li>年齢確認などのため、本人確認書類の提示を求められる場合があります</li>
                   <li>代理購入はできません（本人がその場で服用する必要があります）</li>
                   <li>薬局の営業時間外は利用できません</li>
                 </ul>
@@ -264,8 +264,8 @@ export default function GuidePage() {
             </div>
             <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
               <p>
-                スマートフォンやパソコンを使って医師のオンライン診療を受け、処方された薬を配送で受け取る方法です。
-                薬局や医療機関に行けない場合の選択肢になります。
+                スマートフォンやパソコンを使って医師のオンライン診療を受ける方法です。
+                現行の厚生労働省案内では、診療後に処方箋が対応薬局へ送られ、本人がその薬局で研修修了薬剤師の説明を受け、面前で服用します。自宅配送で完結する経路ではありません。
               </p>
               <div className="rounded-xl bg-amber-50 p-3">
                 <h4 className="font-bold text-amber-900 mb-1 flex items-center gap-1">
@@ -273,7 +273,8 @@ export default function GuidePage() {
                   オンライン診療の注意点
                 </h4>
                 <ul className="list-disc pl-5 space-y-1 text-amber-800">
-                  <li>配送に時間がかかるため、72時間の制限に注意が必要です</li>
+                  <li>オンライン診療に対応する医療機関と、処方箋を受ける対応薬局の両方を確認してください</li>
+                  <li>薬局まで移動して面前で服用する時間を含め、72時間以内のできるだけ早い服用が必要です</li>
                   <li>初診でのオンライン処方に対応していない医療機関もあります</li>
                   <li>対面での受診が必要と判断される場合があります</li>
                 </ul>
@@ -345,7 +346,7 @@ export default function GuidePage() {
           <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
             <p>
               緊急避妊薬は<strong className="text-text-primary">保険適用外</strong>のため、全額自費となります。
-              入手方法によって費用は異なります。
+              入手方法、製品、施設によって費用は異なります。
             </p>
 
             <div className="overflow-x-auto">
@@ -359,27 +360,49 @@ export default function GuidePage() {
                 <tbody className="divide-y divide-primary-light">
                   <tr>
                     <td className="py-2.5 pr-3">薬局OTC購入</td>
-                    <td className="py-2.5 font-medium text-text-primary">7,000〜9,000円程度</td>
+                    <td className="py-2.5 font-medium text-text-primary">店舗・製品により異なる</td>
                   </tr>
                   <tr>
                     <td className="py-2.5 pr-3">医療機関（対面）</td>
-                    <td className="py-2.5 font-medium text-text-primary">6,000〜20,000円程度</td>
+                    <td className="py-2.5 font-medium text-text-primary">医療機関へ要確認</td>
                   </tr>
                   <tr>
                     <td className="py-2.5 pr-3">オンライン診療</td>
-                    <td className="py-2.5 font-medium text-text-primary">8,000〜15,000円程度</td>
+                    <td className="py-2.5 font-medium text-text-primary">診療先・薬局へ要確認</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
             <p className="text-xs text-text-muted">
-              ※ 医療機関の費用は診察料込みの目安です。オンライン診療は配送料を含む場合があります。
-              施設によって異なるため、事前にご確認ください。
+              ※ 厚生労働省の最終報告書では、試験販売時の価格は7,000〜9,000円が中心でした。これは2026年2月1日までの試験販売実績であり、現在の販売価格を保証するものではありません。事前に利用先へご確認ください。
             </p>
             <p>
               性暴力被害の場合、公費負担制度により費用が補填される場合があります。
               最寄りの<strong className="text-text-primary">ワンストップ支援センター（#8891）</strong>にご相談ください。
+            </p>
+          </div>
+        </section>
+
+        {/* Before visiting a pharmacy */}
+        <section id="before-visit" className="scroll-mt-24 rounded-2xl border border-primary-light bg-white p-5 mb-6">
+          <h2 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+            <Phone className="w-5 h-5 text-primary" />
+            来店前に準備すること
+          </h2>
+          <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
+            <p>
+              厚生労働省の試験販売最終報告書では、研修修了薬剤師の不在や日本語での意思疎通が難しいことが、販売できなかった主な理由として報告されています。移動前に電話し、次の点を確認・整理してください。
+            </p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>在庫、販売可能な薬剤師の勤務、受付できる時間</li>
+              <li>性交の日時、最終月経、妊娠検査の結果、出産・中絶後の場合はその時期</li>
+              <li>服用中の薬やサプリメント、治療中の病気</li>
+              <li>緊急避妊薬を以前に服用したことがある場合は、その時期と回数</li>
+              <li>日本語での相談が難しい場合に、希望する言語で対応できるか</li>
+            </ul>
+            <p className="text-xs text-text-muted">
+              妊娠の可能性や服用可否をこのサイトだけで判断することはできません。薬剤師または医師に、分かる範囲で正確に伝えてください。
             </p>
           </div>
         </section>
@@ -448,7 +471,7 @@ export default function GuidePage() {
               </summary>
               <div className="p-4 pt-0 text-sm text-text-secondary leading-relaxed">
                 <p>
-                  はい。2026年2月2日から、厚生労働省が指定する薬局で処方箋なしで購入できます。
+                  はい。2026年2月2日から、販売要件を満たし厚生労働省の一覧に掲載された薬局・店舗で処方箋なしに購入できます。
                   研修を修了した薬剤師の説明を受け、本人がその場で服用します。
                   すべての薬局で販売しているわけではないため、事前に
                   <Link href="/pharmacies" className="text-primary font-medium hover:underline">対応薬局を確認</Link>
@@ -464,9 +487,9 @@ export default function GuidePage() {
               </summary>
               <div className="p-4 pt-0 text-sm text-text-secondary leading-relaxed">
                 <p>
-                  薬局でのOTC購入は7,000〜9,000円程度、医療機関での処方は6,000〜20,000円程度（診察料込み）、
-                  オンライン診療は8,000〜15,000円程度（配送料込み）です。
-                  保険適用外のため全額自費となります。性暴力被害の場合は公費負担制度がある場合があります。
+                  厚生労働省の試験販売では7,000〜9,000円が中心でしたが、これは2026年2月1日までの実績です。
+                  現在の価格は製品・薬局・医療機関により異なるため、利用先へ事前に確認してください。
+                  通常は保険適用外で全額自費です。性暴力被害の場合は公費負担制度がある場合があります。
                 </p>
               </div>
             </details>

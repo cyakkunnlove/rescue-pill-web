@@ -23,6 +23,11 @@ export const metadata: Metadata = {
 
 const sources = [
   {
+    title: "厚生労働省｜緊急避妊薬の試験販売に係る調査研究 最終報告書",
+    description: "2023年11月〜2026年2月の試験販売12,268件と、薬局で生じた課題・対応事例の最終集計",
+    href: "https://www.mhlw.go.jp/stf/newpage_40123.html",
+  },
+  {
     title: "厚生労働省｜緊急避妊薬に関する総合案内",
     description: "制度、販売方法、関連する公式情報の入口",
     href: "https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku.html",
@@ -93,7 +98,7 @@ export default function SourcesPage() {
               情報源・更新方針
             </h1>
             <p className="text-sm text-text-muted mt-1">
-              最終確認日: 2026年7月16日
+              最終確認日: 2026年8月3日
             </p>
           </div>
         </div>
@@ -109,6 +114,9 @@ export default function SourcesPage() {
             </li>
             <li>
               100%妊娠を防ぐ薬ではありません。服用約3週間後に妊娠検査薬または産婦人科で妊娠の有無を確認してください。
+            </li>
+            <li>
+              厚生労働省が2026年7月31日に掲載した最終報告書では、試験販売12,268件を解析し、来店前の在庫・研修修了薬剤師の勤務確認、プライバシー、多言語対応などの課題が整理されています。
             </li>
           </ul>
         </section>
