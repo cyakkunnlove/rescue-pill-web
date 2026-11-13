@@ -68,7 +68,7 @@ In Japan, there are three distinct access routes: purchase without a prescriptio
 
 ## 1. Purchase at an OTC Pharmacy
 
-Since February 2, 2026, designated pharmacies may sell emergency contraception without a prescription as a pharmacist-guided drug. The MHLW pharmacy list was updated July 1, 2026.
+Since February 2, 2026, designated pharmacies may sell emergency contraception without a prescription as a pharmacist-guided drug. The MHLW pharmacy list was updated November 5, 2026.
 
 ### Purchase Process
 
@@ -144,7 +144,7 @@ Designated pharmacies meet the requirements to sell emergency contraception with
 Rescue Pill lets you search OTC pharmacies by prefecture, pharmacy name, or address.
 
 ### 2. Check the Ministry of Health List
-The Ministry of Health, Labour and Welfare publishes a nationwide list of designated pharmacies. The list was updated July 1, 2026; because locations can be added or removed, always check the latest version.
+The Ministry of Health, Labour and Welfare publishes a nationwide list of designated pharmacies. The list was updated November 5, 2026; because locations can be added or removed, always check the latest version.
 
 ### 3. Call to Confirm
 Before visiting, call to confirm stock, that a trained pharmacist is on duty, and reception hours.

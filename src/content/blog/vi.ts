@@ -71,7 +71,7 @@ Tại Nhật Bản, có ba lộ trình riêng: mua không cần đơn tại nhà
 
 ## 1. Mua tại nhà thuốc OTC
 
-Từ ngày 2/2/2026, nhà thuốc được chỉ định có thể bán thuốc tránh thai khẩn cấp không cần đơn dưới dạng thuốc cần dược sĩ hướng dẫn. Danh sách nhà thuốc MHLW được cập nhật ngày 1/7/2026.
+Từ ngày 2/2/2026, nhà thuốc được chỉ định có thể bán thuốc tránh thai khẩn cấp không cần đơn dưới dạng thuốc cần dược sĩ hướng dẫn. Danh sách nhà thuốc MHLW được cập nhật ngày 5/11/2026.
 
 ### Quy trình mua
 
@@ -147,7 +147,7 @@ Nhà thuốc được chỉ định đáp ứng các điều kiện bán thuốc
 Rescue Pill cho phép tìm nhà thuốc OTC theo tỉnh/thành, tên nhà thuốc hoặc địa chỉ.
 
 ### 2. Kiểm tra danh sách của Bộ Y tế
-Danh sách nhà thuốc được chỉ định trên toàn quốc được công bố trên trang web MHLW. Danh sách được cập nhật ngày 1/7/2026; vì có thể thêm hoặc xóa, hãy luôn kiểm tra bản mới nhất.
+Danh sách nhà thuốc được chỉ định trên toàn quốc được công bố trên trang web MHLW. Danh sách được cập nhật ngày 5/11/2026; vì có thể thêm hoặc xóa, hãy luôn kiểm tra bản mới nhất.
 
 ### 3. Gọi điện xác nhận
 Trước khi đến, hãy gọi xác nhận còn hàng, có dược sĩ đã hoàn thành đào tạo đang làm việc và giờ tiếp nhận.

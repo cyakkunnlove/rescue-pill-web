@@ -34,7 +34,7 @@ const sources = [
   },
   {
     title: "厚生労働省｜緊急避妊薬を販売する薬局・店舗",
-    description: "2026年7月1日更新の公式一覧。掲載内容は随時変更されます",
+    description: "2026年11月5日更新の公式一覧。掲載内容は随時変更されます",
     href: "https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00005.html",
   },
   {
@@ -98,7 +98,7 @@ export default function SourcesPage() {
               情報源・更新方針
             </h1>
             <p className="text-sm text-text-muted mt-1">
-              最終確認日: 2026年8月3日
+              薬局一覧: 2026年11月5日版
             </p>
           </div>
         </div>

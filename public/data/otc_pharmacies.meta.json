@@ -1,12 +1,12 @@
 {
   "sourcePage": "https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00005.html",
-  "sourceFile": "https://www.mhlw.go.jp/content/11120000/001717498.xlsx",
-  "sourceUpdatedAt": "2026-07-01",
-  "importedAt": "2026-07-13T14:38:48.677183+00:00",
-  "sheetName": "★20260701公表（一般用） (都道府県順)",
-  "total": 15304,
-  "deletedRowsExcluded": 411,
-  "coordinateCount": 6791,
-  "sourceSha256": "a2587579283c33482801639645ece5239abc4bb1b0186633e7ad601615d77a0f",
-  "dataSha256": "4025162d9935910ec5937cf876ab08ec718224f25134dd5fde57ee6f865759a6"
+  "sourceFile": "https://www.mhlw.go.jp/content/11120000/001766131.xlsx",
+  "sourceUpdatedAt": "2026-11-05",
+  "importedAt": "2026-11-13T23:54:59.230104+00:00",
+  "sheetName": "★20261105公表（一般用） (都道府県順)",
+  "total": 18403,
+  "deletedRowsExcluded": 573,
+  "coordinateCount": 6678,
+  "sourceSha256": "c3c2848b9b19b2037abf7384d51c8da2511c4be8f7f0ef53e25f45759b23a781",
+  "dataSha256": "8f7bb027217e4a575b91c1c4edc6655b74b14ce697f455240703ea031d68d9ab"
 }

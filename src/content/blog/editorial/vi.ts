@@ -14,12 +14,12 @@ Khi khám trực tuyến, bác sĩ có thể yêu cầu chuyển sang khám tr�
 
 ## Ý nghĩa của số lượng trên Rescue Pill
 
-Rescue Pill đã tổng hợp **15.304 địa điểm OTC** từ các dòng dữ liệu trong tệp Excel của MHLW cập nhật ngày 2026-07-01; trong số đó, **2.660 mục có số điện thoại liên hệ ngoài giờ**. Đây không phải số liệu bảo đảm theo thời gian thực của MHLW; việc có số điện thoại ngoài giờ cũng không bảo đảm địa điểm đang mở cửa, còn hàng hoặc có thể tiếp nhận ngay. Danh sách có thể được thêm hoặc xóa, vì vậy hãy gọi trước để xác nhận tồn kho, giờ tiếp nhận và dược sĩ phụ trách có mặt.
+Rescue Pill đã tổng hợp **18.403 địa điểm OTC** từ các dòng dữ liệu trong tệp Excel của MHLW cập nhật ngày 2026-11-05; trong số đó, **9.682 mục có số điện thoại liên hệ ngoài giờ**. Đây không phải số liệu bảo đảm theo thời gian thực của MHLW; việc có số điện thoại ngoài giờ cũng không bảo đảm địa điểm đang mở cửa, còn hàng hoặc có thể tiếp nhận ngay. Danh sách có thể được thêm hoặc xóa, vì vậy hãy gọi trước để xác nhận tồn kho, giờ tiếp nhận và dược sĩ phụ trách có mặt.
   `,
   "otc-pharmacies-guide": `
 ## Những điều cần xác nhận trước khi đi
 
-Việc một địa điểm có tên trong danh sách chỉ cho biết địa điểm đó đã được đăng ký là nơi có thể bán thuốc. Danh sách không bảo đảm tình trạng mở cửa, tồn kho hay dược sĩ đã hoàn thành đào tạo đang làm việc tại thời điểm bạn đến. Rescue Pill tổng hợp **15.304 địa điểm OTC** từ các dòng trong tệp Excel MHLW cập nhật ngày 2026-07-01; đây là số liệu tổng hợp của Rescue Pill, không phải cam kết về khả năng mua ngay. Hãy gọi trước và hỏi rõ giờ tiếp nhận, tồn kho, giá, cách thanh toán và dược sĩ phụ trách.
+Việc một địa điểm có tên trong danh sách chỉ cho biết địa điểm đó đã được đăng ký là nơi có thể bán thuốc. Danh sách không bảo đảm tình trạng mở cửa, tồn kho hay dược sĩ đã hoàn thành đào tạo đang làm việc tại thời điểm bạn đến. Rescue Pill tổng hợp **18.403 địa điểm OTC** từ các dòng trong tệp Excel MHLW cập nhật ngày 2026-11-05; đây là số liệu tổng hợp của Rescue Pill, không phải cam kết về khả năng mua ngay. Hãy gọi trước và hỏi rõ giờ tiếp nhận, tồn kho, giá, cách thanh toán và dược sĩ phụ trách.
 
 ## Quyền riêng tư và hồ sơ tại nhà thuốc
 

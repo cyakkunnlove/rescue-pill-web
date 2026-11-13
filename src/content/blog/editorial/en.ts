@@ -19,7 +19,7 @@ MHLW recommends calling before visiting an OTC location because stock and the tr
   'otc-pharmacies-guide': `
 ## What Rescue Pill's Pharmacy Data Does — and Does Not — Show
 
-Rescue Pill created **15,304 searchable records** from its aggregation of the MHLW Excel file updated July 1, 2026. In that processed dataset, **2,660 records contain an after-hours contact field**. These are Rescue Pill's aggregation counts, not MHLW figures for real-time availability.
+Rescue Pill created **18,403 searchable records** from its aggregation of the MHLW Excel file updated November 5, 2026. In that processed dataset, **9,682 records contain an after-hours contact field**. These are Rescue Pill's aggregation counts, not MHLW figures for real-time availability.
 
 A record or after-hours contact field does **not** guarantee that the pharmacy is open, has the medicine in stock, or has a sales-trained pharmacist on duty. MHLW notes that entries can be added or removed and recommends [calling the pharmacy before visiting](https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00005.html).
 

@@ -19,7 +19,7 @@ export const articleEnhancementsZh: ArticleEnhancements = {
   'otc-pharmacies-guide': `
 ## Rescue Pill的药店数据能说明什么、不能说明什么
 
-Rescue Pill汇总厚生劳动省2026年7月1日更新的Excel文件，生成了**15,304条可搜索记录**。在这份处理后的数据中，**2,660条记录含有非营业时间联系方式字段**。这些数字是Rescue Pill的汇总结果，并不是厚生劳动省公布的实时可用数量。
+Rescue Pill汇总厚生劳动省2026年11月5日更新的Excel文件，生成了**18,403条可搜索记录**。在这份处理后的数据中，**9,682条记录含有非营业时间联系方式字段**。这些数字是Rescue Pill的汇总结果，并不是厚生劳动省公布的实时可用数量。
 
 名单记录或非营业时间联系方式字段并不保证药店当时正在营业、一定有库存，或销售培训合格药剂师正在值班。厚生劳动省说明名单可能增删，并建议[到店前先打电话确认](https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00005.html)。
 

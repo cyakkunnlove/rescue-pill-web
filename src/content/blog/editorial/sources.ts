@@ -35,7 +35,7 @@ const sources = {
   otcList: {
     href: "https://www.mhlw.go.jp/stf/kinnkyuuhininnyaku_00005.html",
     title: {
-      ja: "厚生労働省｜販売可能な薬局・店舗一覧（2026年7月1日更新）",
+      ja: "厚生労働省｜販売可能な薬局・店舗一覧（2026年11月5日更新）",
       en: "MHLW | Pharmacies and stores permitted to sell OTC emergency contraception",
       zh: "日本厚生劳动省｜可销售OTC紧急避孕药的药店与店铺名单",
       vi: "MHLW Nhật Bản | Danh sách nhà thuốc/cửa hàng được phép bán OTC",
